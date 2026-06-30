@@ -1,11 +1,11 @@
-# 🛍️ Veste Shop
+# Veste Shop
 
 A modern full-stack e-commerce application built with React on the frontend and Node.js + Express on the backend.  
 The project uses PostgreSQL as the database and focuses on clean architecture, reusable components, and scalable backend structure.
 
 ---
 
-## 🚀 Features
+## Features
 
 - Responsive mobile-first UI
 - Fixed header with mobile navigation drawer
@@ -17,7 +17,7 @@ The project uses PostgreSQL as the database and focuses on clean architecture, r
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
 ### Frontend
 - React
