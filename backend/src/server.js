@@ -39,7 +39,7 @@ app.listen(PORT, () => {
 });
 
 process.on('SIGINT', async () => {
-    console.log('Shutting down...');
+    console.log('Exiting...');
     await pool.end();
     process.exit(0);
 });

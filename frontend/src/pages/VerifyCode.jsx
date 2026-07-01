@@ -64,10 +64,8 @@ const VerifyCode = () => {
         )}
 
         {/* INFO */}
-        <div className='bg-blue-50 border border-blue-200 p-4 rounded mb-6 text-sm text-blue-900'>
-          <p className='font-medium mb-1'>For Testing:</p>
-          <p className='text-xs'>Check your backend console. You'll see: <strong>Verification code for {email}: XXXXXX</strong></p>
-          <p className='text-xs mt-2'>In production, this code would be sent to your email.</p>
+        <div className='bg-green-300 border border-green-300 p-4 rounded mb-6 text-sm text-black'>
+          <p className='text-sm'>Please check your email account for the verification code we just sent to your email <strong>{email} </strong>and enter that code in the box below.</p>
         </div>
 
         {/* FORM */}

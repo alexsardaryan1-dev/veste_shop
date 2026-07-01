@@ -2,39 +2,93 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 items-center">
-      <div>
+    <section className="flex flex-col">
+
+      <div className="flex flex-col lg:hidden">
+
         <img
-          className="w-full h-full object-cover object-bottom md:h-[600px]"
           src="/images/homePage/hero-img1.avif"
-          alt="Picture of a man wearing the clothes of the store"
+          alt=""
+          className="w-full h-[300px] object-cover"
         />
-      </div>
-      <div className="w-full h-[300px] flex flex-col gap-2 items-center tracking-wider bg-[#FFE9E3] justify-center">
-        <h2 className="font-normal text-2xl">SULTRY & SMART</h2>
-        <p className="font-light text-lg ">HOT SPRING LOOKS</p>
-        <p className="w-[50px] bg-[#313131] h-[3px]"></p>
-        <Link to="/shop/women" className="text-[#313131] text-lg font-light">
-          Shop Women
-        </Link>{" "}
-      </div>
-      <div>
+
+        <div className="h-[250px] flex flex-col items-center justify-center gap-3 bg-[#FFE9E3]">
+          <h2 className="text-3xl">SULTRY & SMART</h2>
+          <p className="text-xl font-light">HOT SPRING LOOKS</p>
+          <div className="w-[50px] h-[3px] bg-[#313131]" />
+          <Link to="/shop/women" className="text-lg font-light">
+            Shop Women
+          </Link>
+        </div>
+
         <img
-          className="w-full h-full object-cover object-bottom mt-5 md:h-[600px]"
           src="/images/homePage/hero-img2.avif"
-          alt="Picture of a woman wearing the clothes of the store"
+          alt=""
+          className="w-full h-[300px] object-cover"
         />
+
+        <div className="h-[250px] flex flex-col items-center justify-center gap-3 bg-[#A3C7BE]">
+          <h2 className="text-3xl text-white">ELEGANT & SLICK</h2>
+          <p className="text-xl font-light text-white">
+            GET READY FOR SUMMER
+          </p>
+          <div className="w-[50px] h-[3px] bg-white" />
+          <Link to="/shop/men" className="text-lg font-light text-white">
+            Shop Men
+          </Link>
+        </div>
+
       </div>
-      <div className="w-full h-[300px] flex flex-col gap-2 items-center tracking-wider bg-[#A3C7BE] justify-center">
-        <h2 className="font-normal text-2xl text-[#FDFDFD]">ELEGANT & SLICK</h2>
-        <p className="font-light text-lg text-[#FDFDFD]">
-          GET READY FOR SUMMER
-        </p>
-        <p className="w-[50px] bg-[#FDFDFD] h-[3px]"></p>
-        <Link to="/shop/men" className=" text-[#FDFDFD] text-lg font-light">
-          Shop Men
-        </Link>{" "}
+
+      <div className="hidden lg:flex lg:flex-col">
+
+        {/* ROW 1 */}
+        <div className="grid grid-cols-2 bg-[#FFE9E3]">
+          <img
+            src="/images/homePage/hero-img1.avif"
+            alt=""
+            className="w-full h-[600px] object-cover"
+          />
+
+          <div className="flex flex-col items-center justify-center gap-4">
+            <h2 className="text-6xl">SULTRY & SMART</h2>
+            <p className="text-3xl font-light">HOT SPRING LOOKS</p>
+            <div className="w-[50px] h-[3px] bg-[#313131]" />
+            <Link
+              to="/shop/women"
+              className="text-2xl font-light hover:text-green-500 transition-colors"
+            >
+              Shop Women
+            </Link>
+          </div>
+        </div>
+
+        {/* ROW 2 */}
+        <div className="grid grid-cols-2 bg-[#A3C7BE]">
+
+          <div className="flex flex-col items-center justify-center gap-4">
+            <h2 className="text-6xl text-white">ELEGANT & SLICK</h2>
+            <p className="text-3xl font-light text-white">
+              GET READY FOR SUMMER
+            </p>
+            <div className="w-[50px] h-[3px] bg-white" />
+            <Link
+              to="/shop/men"
+              className="text-2xl font-light text-white hover:text-red-500 transition-colors"
+            >
+              Shop Men
+            </Link>
+          </div>
+
+          <img
+            src="/images/homePage/hero-img2.avif"
+            alt=""
+            className="w-full h-[600px] object-cover"
+          />
+        </div>
+
       </div>
+
     </section>
   );
 };

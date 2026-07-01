@@ -1,8 +1,23 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../../services/api";
+import { AuthContext } from "../../context/AuthContext";
 
-const Navbar = ({ open, onClose }) => {
+const MobileNavbar = ({ open, onClose }) => {
+  const { user, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [shopOpen, setShopOpen] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await api.post("/api/auth/logout");
+      setUser(null);
+      onClose();
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   return (
     <>
@@ -33,15 +48,35 @@ const Navbar = ({ open, onClose }) => {
             <i className="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
 
-          {/* LOGIN */}
-          <Link
-            to="/login"
-            className="flex items-center gap-2 text-xl"
-            onClick={onClose}
-          >
-            <i className="fa-solid fa-user" aria-hidden="true"></i>
-            <span>Log in</span>
-          </Link>
+          {/* LOGIN / PROFILE SECTION */}
+          {!user ? (
+            <Link
+              to="/login"
+              className="flex items-center gap-2 text-xl"
+              onClick={onClose}
+            >
+              <i className="fa-solid fa-user" aria-hidden="true"></i>
+              <span>Log in</span>
+            </Link>
+          ) : (
+            <div className="flex justify-between items-center">
+              <Link
+                to="/dashboard"
+                className="flex items-center gap-2 text-xl"
+                onClick={onClose}
+              >
+                <i className="fa-solid fa-user" aria-hidden="true"></i>
+                <span>My Profile</span>
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-2 text-xl text-red-600 hover:text-red-700"
+              >
+                <i className="fa-solid fa-sign-out-alt" aria-hidden="true"></i>
+                <span>Log out</span>
+              </button>
+            </div>
+          )}
 
           {/* MENU */}
           <ul className="flex flex-col gap-6 text-xl uppercase">
@@ -137,4 +172,4 @@ const Navbar = ({ open, onClose }) => {
   );
 };
 
-export default Navbar;
+export default MobileNavbar;
