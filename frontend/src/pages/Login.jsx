@@ -32,11 +32,11 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white p-6">
-      <div className="w-full">
+      <div className="w-full lg:max-w-md lg:mx-auto lg:bg-white lg:border lg:border-[#E5E5E5] lg:shadow-sm lg:p-8">
         {/* HEADER */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-light tracking-[.25em] mb-3">VESTE</h1>
-          <p className="text-gray-600 text-xs tracking-wider uppercase">
+          <h1 className="text-3xl font-light tracking-[.25em] mb-3 lg:text-4xl">VESTE</h1>
+          <p className="text-gray-600 text-xs tracking-wider uppercase lg:text-lg">
             Log In to Your Account
           </p>
         </div>
@@ -54,7 +54,7 @@ const Login = () => {
           <div className="flex flex-col gap-2">
             <label
               htmlFor="email"
-              className="text-xs uppercase tracking-wider font-light"
+              className="text-xs uppercase tracking-wider font-light lg:text-base"
             >
               Email
             </label>
@@ -64,7 +64,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition"
+              className="border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition lg:text-base"
               required
             />
           </div>
@@ -73,7 +73,7 @@ const Login = () => {
           <div className="flex flex-col gap-2">
             <label
               htmlFor="password"
-              className="text-xs uppercase tracking-wider font-light"
+              className="text-xs uppercase tracking-wider font-light lg:text-base"
             >
               Password
             </label>
@@ -83,7 +83,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition"
+              className="border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition lg:text-base"
               required
             />
           </div>
@@ -92,17 +92,17 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="bg-[#313131] text-white p-3 uppercase tracking-wider text-sm font-light hover:bg-[#1a1a1a] disabled:opacity-50 disabled:cursor-not-allowed transition"
+            className="bg-black text-white p-3 uppercase tracking-wider text-sm font-light border border-black hover:bg-white hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition lg:text-base transition-colors duration-300 "
           >
             {loading ? "Logging in..." : "Log In"}
           </button>
         </form>
 
         {/* FORGOT PASSWORD */}
-        <div className="text-center mb-5">
+        <div className="text-center my-3">
           <Link
             to="/forgot-password"
-            className="text-[#313131] text-xs font-medium hover:underline"
+            className="text-[#313131] text-xs font-medium hover:underline lg:text-base"
           >
             Forgot password?
           </Link>
@@ -113,7 +113,7 @@ const Login = () => {
 
         {/* REGISTER LINK */}
         <div className="text-center">
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-gray-600 lg:text-base">
             Don't have an account?{" "}
             <Link
               to="/register"

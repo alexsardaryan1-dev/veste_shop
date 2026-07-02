@@ -45,11 +45,36 @@ const DesktopHeader = () => {
 
         {/* MENU */}
         <nav className="flex items-center gap-8 text-base uppercase tracking-wider text-white">
-          <Link to="/">Home</Link>
-          <Link to="/shop">Shop</Link>
-          <Link to="/lookbook">Lookbook</Link>
-          <Link to="/customer-care">Customer Care</Link>
-          <Link to="/visit-us">Visit Us</Link>
+          <Link
+            to="/"
+            className="relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-full after:bg-white after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+          >
+            Home
+          </Link>
+          <Link
+            to="/shop"
+            className="relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-full after:bg-white after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+          >
+            Shop
+          </Link>
+          <Link
+            to="/lookbook"
+            className="relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-full after:bg-white after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+          >
+            Lookbook
+          </Link>
+          <Link
+            to="/customer-care"
+            className="relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-full after:bg-white after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+          >
+            Customer Care
+          </Link>
+          <Link
+            to="/visit-us"
+            className="relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-full after:bg-white after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+          >
+            Visit Us
+          </Link>
         </nav>
       </div>
     </header>

@@ -4,10 +4,31 @@ export const validateEmail = (email) => {
 };
 
 export const validatePassword = (password) => {
-    if (password.length < 6) return false;
-    if (!/[A-Z]/.test(password)) return false;
-    if (!/[0-9]/.test(password)) return false;
-    return true;
+    if (password.length < 8) {
+        return { valid: false, message: "Minimum 8 characters required" };
+    }
+
+    if (password.length > 64) {
+        return { valid: false, message: 'Maximum 64 characters possible' }
+    }
+
+    if (!/[A-Z]/.test(password)) {
+        return { valid: false, message: "Add at least 1 uppercase letter" };
+    }
+
+    if (!/[a-z]/.test(password)) {
+        return { valid: false, message: "Add at least 1 lowercase letter" };
+    }
+
+    if (!/[0-9]/.test(password)) {
+        return { valid: false, message: "Add at least 1 number" };
+    }
+
+    if (!/[!@#$%^&*(),.?\":{}|<>]/.test(password)) {
+        return { valid: false, message: "Add at least 1 special character" };
+    }
+
+    return { valid: true };
 };
 
 export const validateRegister = (name, email, password) => {
