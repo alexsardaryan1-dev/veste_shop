@@ -21,7 +21,7 @@ const Login = () => {
       const res = await api.post("/api/auth/login", { email, password });
       setUser(res.data.user);
       console.log("Login success:", res.data.user);
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
       console.log("Login error:", err.response?.data);

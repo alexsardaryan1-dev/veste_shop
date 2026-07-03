@@ -1,23 +1,22 @@
 import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import api from "../../services/api";
+import { Link } from "react-router-dom";
+import {
+  User,
+  Home,
+  ShoppingBag,
+  Image,
+  MessageCircle,
+  MapPin,
+  Search,
+  X,
+  ChevronDown,
+} from "lucide-react";
+
 import { AuthContext } from "../../context/AuthContext";
 
 const MobileNavbar = ({ open, onClose }) => {
-  const { user, setUser } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
   const [shopOpen, setShopOpen] = useState(false);
-
-  const handleLogout = async () => {
-    try {
-      await api.post("/api/auth/logout");
-      setUser(null);
-      onClose();
-      navigate("/login");
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
-  };
 
   return (
     <>
@@ -39,133 +38,109 @@ const MobileNavbar = ({ open, onClose }) => {
         }`}
       >
         <div className="px-6 py-6 flex flex-col gap-8 text-[#313131] font-light tracking-wider">
-          {/* CLOSE BUTTON */}
+
+          {/* CLOSE */}
           <button
-            aria-label="Close menu"
             onClick={onClose}
             className="self-end text-2xl bg-[#313131] text-white p-3"
           >
-            <i className="fa-solid fa-xmark" aria-hidden="true"></i>
+            <X size={22} />
           </button>
 
-          {/* LOGIN / PROFILE SECTION */}
+          {/* AUTH */}
           {!user ? (
             <Link
               to="/login"
-              className="flex items-center gap-2 text-xl"
               onClick={onClose}
+              className="flex items-center gap-2 text-lg"
             >
-              <i className="fa-solid fa-user" aria-hidden="true"></i>
+              <User size={18} />
               <span>Log in</span>
             </Link>
           ) : (
-            <div className="flex justify-between items-center">
-              <Link
-                to="/dashboard"
-                className="flex items-center gap-2 text-xl"
-                onClick={onClose}
-              >
-                <i className="fa-solid fa-user" aria-hidden="true"></i>
-                <span>My Profile</span>
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="flex items-center gap-2 text-xl text-red-600 hover:text-red-700"
-              >
-                <i className="fa-solid fa-sign-out-alt" aria-hidden="true"></i>
-                <span>Log out</span>
-              </button>
-            </div>
+            <Link
+              to="/dashboard"
+              onClick={onClose}
+              className="flex items-center gap-2 text-lg"
+            >
+              <User size={18} />
+              <span>My Profile</span>
+            </Link>
           )}
 
           {/* MENU */}
-          <ul className="flex flex-col gap-6 text-xl uppercase">
+          <ul className="flex flex-col gap-6 text-base uppercase">
+
             <li>
-              <Link to="/" onClick={onClose}>
+              <Link to="/" onClick={onClose} className="flex items-center gap-2">
+                <Home size={16} />
                 Home
               </Link>
             </li>
 
-            {/* SHOP DROPDOWN */}
-            <li className="relative">
+            {/* SHOP */}
+            <li>
               <div className="flex items-center justify-between">
-                <Link to="/shop" onClick={onClose}>
+                <Link to="/shop" onClick={onClose} className="flex items-center gap-2">
+                  <ShoppingBag size={16} />
                   Shop
                 </Link>
 
                 <button
                   onClick={() => setShopOpen((prev) => !prev)}
-                  aria-label="Toggle shop submenu"
                 >
-                  <i
-                    className={`fa-solid fa-angle-down transition-transform ${
-                      shopOpen ? "rotate-180" : "rotate-0"
+                  <ChevronDown
+                    size={16}
+                    className={`transition-transform ${
+                      shopOpen ? "rotate-180" : ""
                     }`}
-                    aria-hidden="true"
-                  ></i>
+                  />
                 </button>
               </div>
 
-              {/* DROPDOWN */}
               {shopOpen && (
-                <ul className="mt-3 ml-4 flex flex-col gap-3 text-base">
-                  <li>
-                    <Link to="/shop/women" onClick={onClose}>
-                      WOMEN'S
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link to="/shop/men" onClick={onClose}>
-                      MEN'S
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link to="/shop/accessories" onClick={onClose}>
-                      ACCESSORIES
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link to="/shop/sale" onClick={onClose}>
-                      SALE
-                    </Link>
-                  </li>
+                <ul className="mt-3 ml-6 flex flex-col gap-3 text-base">
+                  <li><Link to="/shop/women" onClick={onClose}>WOMEN'S</Link></li>
+                  <li><Link to="/shop/men" onClick={onClose}>MEN'S</Link></li>
+                  <li><Link to="/shop/accessories" onClick={onClose}>ACCESSORIES</Link></li>
+                  <li><Link to="/shop/sale" onClick={onClose}>SALE</Link></li>
                 </ul>
               )}
             </li>
 
             <li>
-              <Link to="/lookbook" onClick={onClose}>
+              <Link to="/lookbook" onClick={onClose} className="flex items-center gap-2">
+                <Image size={16} />
                 Lookbook
               </Link>
             </li>
 
             <li>
-              <Link to="/customer-care" onClick={onClose}>
+              <Link to="/customer-care" onClick={onClose} className="flex items-center gap-2">
+                <MessageCircle size={16} />
                 Customer Care
               </Link>
             </li>
 
             <li>
-              <Link to="/visit-us" onClick={onClose}>
+              <Link to="/visit-us" onClick={onClose} className="flex items-center gap-2">
+                <MapPin size={18} />
                 Visit Us
               </Link>
             </li>
+
           </ul>
 
           {/* SEARCH */}
-          <div className="flex items-center gap-3 text-xl font-light border-b pb-2">
-            <i className="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-
+          <div className="flex items-center gap-3 text-base font-light border-b pb-2">
+            <Search size={16} />
             <input
-              id="search"
               type="search"
               placeholder="Search"
               className="w-full outline-none"
             />
           </div>
+
         </div>
       </nav>
     </>
