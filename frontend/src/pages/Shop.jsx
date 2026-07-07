@@ -64,7 +64,7 @@ const Shop = () => {
       </div>
 
       <div className='border border-gray-200 rounded-md p-4'>
-        <h2 className='text-3xl text-center tracking-wider font-normal mb-4'>
+        <h2 className='text-3xl text-center tracking-wider font-light mb-4'>
           {categoryLabel}
         </h2>
         <ProductGrid products={visibleProducts} />

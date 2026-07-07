@@ -37,7 +37,6 @@ const Newsletter = () => {
               />
               <span className="text-xl text-gray-600 leading-relaxed">
                 Yes, subscribe me to
-                <br />
                 your newsletter. *
               </span>
             </label>

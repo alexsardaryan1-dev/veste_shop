@@ -5,7 +5,7 @@ export const validateEmail = (email) => {
 
 export const validatePassword = (password) => {
     if (password.length < 8) {
-        return { valid: false, message: "Minimum 8 characters required" };
+        return { valid: false, message: 'Minimum 8 characters required' };
     }
 
     if (password.length > 64) {
@@ -13,19 +13,19 @@ export const validatePassword = (password) => {
     }
 
     if (!/[A-Z]/.test(password)) {
-        return { valid: false, message: "Add at least 1 uppercase letter" };
+        return { valid: false, message: 'Add at least 1 uppercase letter' };
     }
 
     if (!/[a-z]/.test(password)) {
-        return { valid: false, message: "Add at least 1 lowercase letter" };
+        return { valid: false, message: 'Add at least 1 lowercase letter' };
     }
 
     if (!/[0-9]/.test(password)) {
-        return { valid: false, message: "Add at least 1 number" };
+        return { valid: false, message: 'Add at least 1 number' };
     }
 
-    if (!/[!@#$%^&*(),.?\":{}|<>]/.test(password)) {
-        return { valid: false, message: "Add at least 1 special character" };
+    if (!/[!@#$%^&*(),.?\':{}|<>]/.test(password)) {
+        return { valid: false, message: 'Add at least 1 special character' };
     }
 
     return { valid: true };

@@ -7,7 +7,7 @@ const PromoSection = () => {
         {/* Left Card */}
         <div className="relative overflow-hidden group">
           <img
-            src="/images/homePage/PromoSection-img1.avif"
+            src="/homePage/PromoSection-img1.avif"
             alt="Accessories"
             className="w-full h-[600px] object-cover transition-transform duration-500 group-hover:scale-105"
           />
@@ -28,7 +28,7 @@ const PromoSection = () => {
         {/* Right Card */}
         <div className="relative overflow-hidden group">
           <img
-            src="/images/homePage/PromoSection-img2.avif"
+            src="/homePage/PromoSection-img2.avif"
             alt="Sale"
             className="w-full h-[600px] object-cover transition-transform duration-500 group-hover:scale-105"
           />

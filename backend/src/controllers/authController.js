@@ -3,6 +3,7 @@ import { validateRegister, validateLogin, validatePassword } from '../middleware
 import {
     findUserByEmail,
     findUserById,
+    findUserByIdWithPassword,
     createUser,
     hashPassword,
     comparePassword,
@@ -264,7 +265,7 @@ export const changePassword = async (req, res) => {
             });
         }
 
-        const user = await findUserById(userId);
+        const user = await findUserByIdWithPassword(userId);
         const userData = user.rows[0];
 
         const isMatch = await comparePassword(currentPassword, userData.password);

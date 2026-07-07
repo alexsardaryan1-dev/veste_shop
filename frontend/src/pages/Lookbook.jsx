@@ -63,7 +63,7 @@ export default function LookbookSection() {
     <section className="w-full overflow-hidden bg-white">
 
       <div className="text-center pt-16 pb-10 space-y-4">
-        <p className="text-sm tracking-[0.3em] text-gray-500">
+        <p className="text-sm lg:text-lg tracking-[0.3em] text-gray-500">
           LOOKBOOK
         </p>
 
@@ -74,7 +74,7 @@ export default function LookbookSection() {
 
       <Carousel images={imagesRow1} />
 
-      <div className="flex justify-center gap-6 py-14">
+      <div className="flex justify-center gap-6 py-14 lg:text-xl">
         <Link
           to="/shop?category=men"
           className="px-6 py-3 border border-black hover:bg-black hover:text-white transition"

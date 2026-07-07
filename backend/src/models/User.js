@@ -24,7 +24,7 @@ export const updatePassword = async (userId, hashedPassword) => {
 };
 
 export const setResetCode = async (email, resetCode) => {
-    const expiresAt = new Date(Date.now() + 1 * 60 * 60 * 1000); 
+    const expiresAt = new Date(Date.now() + 1 * 60 * 60 * 1000);
     return pool.query(
         'UPDATE users SET reset_code = $1, reset_code_expires = $2 WHERE email = $3',
         [resetCode, expiresAt, email]
@@ -44,4 +44,8 @@ export const hashPassword = async (password) => {
 
 export const comparePassword = async (password, hashedPassword) => {
     return bcrypt.compare(password, hashedPassword);
+};
+
+export const findUserByIdWithPassword = async (id) => {
+    return pool.query('SELECT id, name, email, password FROM users WHERE id = $1', [id]);
 };

@@ -1,7 +1,7 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import api from '../../services/api';
-import { AuthContext } from '../../context/AuthContext';
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import api from "../../services/api";
+import { AuthContext } from "../../context/AuthContext";
 
 import {
   User,
@@ -11,74 +11,125 @@ import {
   Settings as SettingsIcon,
   ArrowLeft,
   LogOut,
-} from 'lucide-react';
+} from "lucide-react";
 
 const navItems = [
-  { to: '/', label: 'Back', icon: ArrowLeft },
-  { to: '/dashboard/profile', label: 'Profile', icon: User },
-  { to: '/dashboard/orders', label: 'Orders', icon: Package },
-  { to: '/dashboard/cart', label: 'Cart', icon: ShoppingCart },
-  { to: '/dashboard/favorites', label: 'Favorites', icon: Heart },
-  { to: '/dashboard/settings', label: 'Settings', icon: SettingsIcon },
+  { to: "/dashboard/profile", label: "Profile", icon: User },
+  { to: "/dashboard/orders", label: "Orders", icon: Package },
+  { to: "/dashboard/cart", label: "Cart", icon: ShoppingCart },
+  { to: "/dashboard/favorites", label: "Favorites", icon: Heart },
+  { to: "/dashboard/settings", label: "Settings", icon: SettingsIcon },
 ];
 
 const DashboardLayout = () => {
   const navigate = useNavigate();
-  const { setUser } = useContext(AuthContext);
+  const location = useLocation();
+
+  const { user, setUser } = useContext(AuthContext);
+
+  const pageTitle =
+    navItems.find((item) => item.to === location.pathname)?.label ||
+    "Dashboard";
 
   const handleLogout = async () => {
     try {
-      await api.post('/api/auth/logout');
+      await api.post("/api/auth/logout");
       setUser(null);
-      navigate('/login');
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
+      navigate("/login");
+    } catch (error) {}
   };
 
   return (
-    <div className='flex flex-col lg:flex-row min-h-screen'>
-
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50">
       {/* SIDEBAR */}
-      <aside className='border-b lg:border-b-0 lg:border-r border-gray-200 lg:w-64'>
 
-        <nav className='flex overflow-x-auto gap-2 p-3 lg:flex-col lg:overflow-visible lg:p-6'>
+      <aside className="bg-white border-b lg:border-b-0 lg:border-r border-gray-200 lg:w-64 lg:min-h-screen lg:sticky lg:top-0">
+        {/* MOBILE HEADER */}
 
-          {/* NAV ITEMS */}
+        <div className="lg:hidden p-4 border-b border-gray-200">
+          <div className="flex items-center gap-3 mb-4">
+            <button
+              onClick={() => navigate("/shop")}
+              className="p-2 -ml-2 rounded-full hover:bg-gray-100"
+              aria-label="Back to home"
+            >
+              <ArrowLeft size={20} />
+            </button>
+
+            <h1 className="text-lg font-semibold">{pageTitle}</h1>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center text-sm font-medium shrink-0">
+              {user?.firstName?.[0]}
+              {user?.lastName?.[0]}
+            </div>
+            <div>
+              <p className="font-semibold text-sm">
+                {user?.firstName} {user?.lastName}
+              </p>
+              <p className="text-xs text-gray-500">{user?.email}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* DESKTOP HEADER */}
+        <div className="hidden lg:flex flex-col gap-4 p-6 border-b border-gray-200">
+          <button
+            onClick={() => navigate("/shop")}
+            className="flex items-center gap-2 text-sm text-gray-500 hover:text-black w-fit"
+          >
+            <ArrowLeft size={16} />
+            Back to Shop
+          </button>
+
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-full bg-black text-white flex items-center justify-center text-sm font-medium shrink-0">
+              {user?.firstName?.[0]}
+              {user?.lastName?.[0]}
+            </div>
+            <div className="min-w-0">
+              <p className="font-semibold text-sm truncate">
+                {user?.firstName} {user?.lastName}
+              </p>
+              <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* NAVIGATION */}
+        <nav className="flex lg:flex-col gap-2 p-3 lg:p-4 overflow-x-auto lg:overflow-visible">
           {navItems.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 rounded-lg text-sm whitespace-nowrap lg:whitespace-normal transition-colors ${
+                `flex items-center gap-3 px-4 py-3 rounded-lg text-sm whitespace-nowrap transition-colors ${
                   isActive
-                    ? 'bg-black text-white'
-                    : 'text-gray-600 hover:bg-gray-100'
+                    ? "bg-black text-white"
+                    : "text-gray-600 hover:bg-gray-100"
                 }`
               }
             >
               <Icon size={18} />
-              {label}
+              <span className="hidden sm:inline lg:inline">{label}</span>
             </NavLink>
           ))}
 
-          {/* LOGOUT ACTION */}
           <button
             onClick={handleLogout}
-            className='flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-red-600 hover:bg-red-50 lg:mt-4'
+            className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-red-600 hover:bg-red-50 lg:mt-4 whitespace-nowrap"
           >
             <LogOut size={18} />
-            Log out
+            <span className="hidden sm:inline lg:inline">Log out</span>
           </button>
-
         </nav>
       </aside>
 
       {/* MAIN CONTENT */}
-      <main className='flex-1 bg-gray-50 p-4 lg:p-10'>
+      <main className="flex-1 p-4 lg:p-10">
         <Outlet />
       </main>
-
     </div>
   );
 };

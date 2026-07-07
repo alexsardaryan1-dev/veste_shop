@@ -25,9 +25,10 @@ const Settings = () => {
 
     setLoading(true);
     try {
-      await api.put('/api/auth/change-password', {
+      await api.post('/api/auth/change-password', {
         currentPassword,
         newPassword,
+        confirmPassword,
       });
       setSuccess('Password updated successfully');
       setCurrentPassword('');

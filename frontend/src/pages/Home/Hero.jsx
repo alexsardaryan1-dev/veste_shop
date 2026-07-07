@@ -8,7 +8,7 @@ const Hero = () => {
       {/* ROW 1 */}
       <div className='flex flex-col lg:hidden'>
         <img
-          src='/images/homePage/hero-img1.avif'
+          src='/homePage/hero-img1.avif'
           alt=''
           className='w-full h-[300px] object-cover'
         />
@@ -28,7 +28,7 @@ const Hero = () => {
         {/* ROW 2 */}
 
         <img
-          src='/images/homePage/hero-img2.avif'
+          src='/homePage/hero-img2.avif'
           alt=''
           className='w-full h-[300px] object-cover'
         />
@@ -52,7 +52,7 @@ const Hero = () => {
         {/* ROW 1 */}
         <div className='grid grid-cols-2 bg-pink-200'>
           <img
-            src='/images/homePage/hero-img1.avif'
+            src='/homePage/hero-img1.avif'
             alt=''
             className='w-full h-[600px] object-cover'
           />
@@ -87,7 +87,7 @@ const Hero = () => {
           </div>
 
           <img
-            src='/images/homePage/hero-img2.avif'
+            src='/homePage/hero-img2.avif'
             alt=''
             className='w-full h-[600px] object-cover'
           />

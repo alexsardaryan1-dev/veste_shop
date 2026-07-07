@@ -1,13 +1,18 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Heart } from "lucide-react";
 import { CartContext } from "../../context/CartContext";
+import { WishlistContext } from "../../context/WishlistContext";
 import { AuthContext } from "../../context/AuthContext";
 
 const ProductCard = ({ product }) => {
   const { id, name, price, sale_price, images } = product;
   const { addToCart } = useContext(CartContext);
+  const { toggleWishlist, isInWishlist } = useContext(WishlistContext);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const inWishlist = isInWishlist(id);
 
   const handleAddToCart = () => {
     if (!user) {
@@ -15,6 +20,15 @@ const ProductCard = ({ product }) => {
       return;
     }
     addToCart(product);
+  };
+
+  const handleToggleWishlist = (e) => {
+    e.preventDefault();
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    toggleWishlist(product);
   };
 
   return (
@@ -28,6 +42,16 @@ const ProductCard = ({ product }) => {
             Sale
           </span>
         )}
+
+        <button
+          onClick={handleToggleWishlist}
+          aria-label="Toggle wishlist"
+          className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-300 ${
+            inWishlist ? "bg-red-500 text-white" : "bg-white/80 text-gray-700 hover:bg-white"
+          }`}
+        >
+          <Heart size={16} fill={inWishlist ? "currentColor" : "none"} />
+        </button>
 
         <img
           src={images?.[0]}

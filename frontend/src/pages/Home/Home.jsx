@@ -1,7 +1,7 @@
-import Hero from './sections/Hero.jsx'
-import Newsletter from './sections/Newsletter.jsx'
-import PromoSection from './sections/PromoSection.jsx'
-import NewArrivals from './sections/NewArrivals.jsx'
+import Hero from './Hero.jsx'
+import Newsletter from './Newsletter.jsx'
+import PromoSection from './PromoSection.jsx'
+import NewArrivals from './NewArrivals.jsx'
 
 export default function Home() {
   return (
