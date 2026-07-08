@@ -39,13 +39,13 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="flex flex-col border border-gray-300 h-[420px]">
+    <div className="flex flex-col border border-gray-500 h-[420px]">
       <Link
         to={`/product/${id}`}
         className="relative w-full aspect-[3/4] bg-gray-100 overflow-hidden block"
       >
         {sale_price && (
-          <span className="absolute top-3 left-3 bg-green-600 text-white text-xs px-2 py-1">
+          <span className="absolute top-3 left-3 bg-green-600 text-white text-base px-2 py-1">
             Sale
           </span>
         )}
@@ -56,10 +56,10 @@ const ProductCard = ({ product }) => {
           className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-300 ${
             heartPop ? "animate-pop" : ""
           } ${
-            inWishlist ? "bg-red-500 text-white" : "bg-white/80 text-gray-700 hover:bg-white"
+            inWishlist ? "bg-red-500 text-white" : "bg-white/80 text-red-500 hover:bg-white"
           }`}
         >
-          <Heart size={16} fill={inWishlist ? "currentColor" : "none"} />
+          <Heart size={20} fill={inWishlist ? "currentColor" : "none"} />
         </button>
 
         <img
@@ -70,25 +70,25 @@ const ProductCard = ({ product }) => {
       </Link>
 
       <div className="flex flex-col flex-1 p-4 justify-between">
-        <h3 className="text-sm font-bold uppercase tracking-wider">{name}</h3>
+        <h3 className="text-lg font-medium uppercase tracking-wider">{name}</h3>
 
-        <div className="flex justify-between items-center text-sm">
+        <div className="flex justify-between items-center text-lg">
           <div>
             {sale_price ? (
               <>
-                <span className="text-gray-400 line-through mr-2">
+                <span className="text-gray-500 line-through mr-2">
                   ${price}
                 </span>
-                <span className="text-gray-900">${sale_price}</span>
+                <span className="text-gray-500">${sale_price}</span>
               </>
             ) : (
-              <span className="text-gray-900">${price}</span>
+              <span className="text-gray-500">${price}</span>
             )}
           </div>
 
           <button
             onClick={handleAddToCart}
-            className={`flex items-center justify-center w-8 h-8 bg-gray-300 text-black border border-gray-300 hover:bg-white hover:text-black transition-colors duration-300 rounded-xl ${
+            className={`flex items-center text-2xl justify-center w-8 h-8 bg-gray-400 text-white border border-gray-400 hover:bg-white hover:text-black transition-colors duration-300 rounded-xl ${
               cartPop ? "animate-pop" : ""
             }`}
             aria-label="Add to cart"

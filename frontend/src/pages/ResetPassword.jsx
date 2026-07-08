@@ -19,12 +19,12 @@ const ResetPassword = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white p-6">
         <div className="text-center">
-          <p className="text-gray-600 mb-4 lg:text-base">
+          <p className="text-gray-500 mb-4 lg:text-base">
             No email found. Use forgot password link.
           </p>
           <Link
             to="/forgot-password"
-            className="text-black font-medium hover:underline lg:text-base"
+            className="text-black font-light hover:underline lg:text-base"
           >
             Go to Forgot Password
           </Link>
@@ -60,12 +60,12 @@ const ResetPassword = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white p-6 relative">
-      <div className="w-full max-w-md lg:max-w-lg mx-auto lg:bg-white lg:border lg:border-gray-300 lg:shadow-sm lg:p-10 lg:rounded-xl">
+      <div className="w-full max-w-md lg:max-w-lg mx-auto lg:bg-white lg:border lg:border-gray-500 lg:shadow-sm lg:p-10 lg:rounded-xl">
         <Link
           to="/"
           className="border border-black p-2 rounded-xl absolute top-5 left-5 flex items-center gap-1 text-xs uppercase tracking-wider text-black hover:text-white hover:bg-black transition lg:text-sm"
         >
-          <ArrowLeft size={16} />
+          <ArrowLeft size={20} />
           Home
         </Link>
 
@@ -74,7 +74,7 @@ const ResetPassword = () => {
           <h1 className="text-3xl font-light tracking-[.25em] mb-3 lg:text-4xl">
             VESTE
           </h1>
-          <p className="text-gray-600 text-xs tracking-wider uppercase lg:text-lg">
+          <p className="text-gray-500 text-xs tracking-wider uppercase lg:text-lg">
             Enter New Password
           </p>
         </div>
@@ -82,10 +82,10 @@ const ResetPassword = () => {
         {/* SUCCESS MESSAGE */}
         {success && (
           <div className="bg-green-50 border border-green-200 text-green-700 p-3 rounded-xl mb-6 text-xs lg:text-base">
-            <p className="font-medium mb-2">Password reset successfully!</p>
+            <p className="font-light mb-2">Password reset successfully!</p>
             <button
               onClick={() => navigate("/login")}
-              className="text-green-700 font-medium hover:underline mt-2"
+              className="text-green-700 font-light hover:underline mt-2"
             >
               Go to login
             </button>
@@ -101,7 +101,7 @@ const ResetPassword = () => {
 
         {/* INFO */}
         <div className="bg-blue-50 border border-blue-200 p-3 rounded-xl mb-6 text-xs lg:text-base text-blue-900">
-          <p className="font-medium mb-1">For Testing:</p>
+          <p className="font-light mb-1">For Testing:</p>
           <p>Check backend console for reset code</p>
         </div>
 
@@ -122,7 +122,7 @@ const ResetPassword = () => {
                 onChange={(e) => setResetCode(e.target.value.toUpperCase())}
                 placeholder="ABC123"
                 maxLength="6"
-                className="border border-gray-300 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base text-center text-lg tracking-widest"
+                className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base text-center text-lg tracking-wider"
                 required
               />
             </div>
@@ -140,7 +140,7 @@ const ResetPassword = () => {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="••••••••"
-                className="border border-gray-300 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
+                className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
                 required
               />
               <p className="text-xs text-gray-500 lg:text-sm">
@@ -162,7 +162,7 @@ const ResetPassword = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
-                className="border border-gray-300 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
+                className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
                 required
               />
             </div>
@@ -178,13 +178,13 @@ const ResetPassword = () => {
         )}
 
         {/* DIVIDER */}
-        <div className="w-full h-px bg-gray-300 my-5" />
+        <div className="w-full h-px bg-gray-500 my-5" />
 
         {/* BACK LINK */}
         <div className="text-center">
           <Link
             to="/login"
-            className="text-black font-medium hover:underline text-xs lg:text-base"
+            className="text-black font-light hover:underline text-xs lg:text-base"
           >
             Back to login
           </Link>

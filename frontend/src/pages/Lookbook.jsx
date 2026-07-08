@@ -61,20 +61,19 @@ const Carousel = ({ images }) => {
 export default function LookbookSection() {
   return (
     <section className="w-full overflow-hidden bg-white">
-
       <div className="text-center pt-16 pb-10 space-y-4">
-        <p className="text-sm lg:text-lg tracking-[0.3em] text-gray-500">
+        <p className="text-xl lg:text-lg tracking-[0.3em] text-gray-500">
           LOOKBOOK
         </p>
 
-        <h1 className="text-5xl font-light uppercase tracking-widest">
+        <h1 className="text-3xl font-light uppercase tracking-wider">
           Spring / Summer 2026
         </h1>
       </div>
 
       <Carousel images={imagesRow1} />
 
-      <div className="flex justify-center gap-6 py-14 lg:text-xl">
+      <div className="flex justify-center gap-2 py-14 text-base lg:text-xl">
         <Link
           to="/shop?category=men"
           className="px-6 py-3 border border-black hover:bg-black hover:text-white transition"
@@ -98,7 +97,6 @@ export default function LookbookSection() {
       </div>
 
       <Carousel images={imagesRow2} />
-
     </section>
   );
 }

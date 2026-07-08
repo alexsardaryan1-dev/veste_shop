@@ -65,21 +65,21 @@ const Register = () => {
 
   const CheckItem = ({ passed, label }) => (
     <li
-      className={`flex items-center gap-1.5 ${passed ? "text-green-600" : "text-gray-400"}`}
+      className={`flex items-center gap-1.5 ${passed ? "text-green-600" : "text-gray-500"}`}
     >
-      {passed ? <Check size={12} /> : <X size={12} />}
+      {passed ? <Check size={20} /> : <X size={20} />}
       {label}
     </li>
   );
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white p-6 relative">
-      <div className="w-full max-w-md lg:max-w-lg mx-auto lg:bg-white lg:border lg:border-gray-300 lg:shadow-sm lg:p-10 lg:rounded-xl">
+      <div className="w-full max-w-md lg:max-w-lg mx-auto lg:bg-white lg:border lg:border-gray-500 lg:shadow-sm lg:p-10 lg:rounded-xl">
         <Link
           to="/"
           className="border border-black p-2 rounded-xl absolute top-5 left-5 flex items-center gap-1 text-xs uppercase tracking-wider text-black hover:text-white hover:bg-black transition lg:text-sm"
         >
-          <ArrowLeft size={16} />
+          <ArrowLeft size={20} />
           Home
         </Link>
 
@@ -88,7 +88,7 @@ const Register = () => {
           <h1 className="text-3xl font-light tracking-[.25em] mb-3 lg:text-4xl">
             VESTE
           </h1>
-          <p className="text-gray-600 text-xs tracking-wider uppercase lg:text-lg">
+          <p className="text-gray-500 text-xs tracking-wider uppercase lg:text-lg">
             Create Your Account
           </p>
         </div>
@@ -116,7 +116,7 @@ const Register = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="John Doe"
-              className="border border-gray-300 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
+              className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
               required
             />
           </div>
@@ -139,7 +139,7 @@ const Register = () => {
               className={`border p-3 text-sm outline-none transition rounded-xl lg:text-base ${
                 emailTouched && !isEmailValid
                   ? "border-red-400 focus:border-red-500"
-                  : "border-gray-300 focus:border-black"
+                  : "border-gray-500 focus:border-black"
               }`}
               required
             />
@@ -165,7 +165,7 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
               onFocus={() => setPasswordTouched(true)}
               placeholder="••••••••"
-              className="border border-gray-300 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
+              className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
               required
             />
             {passwordTouched && (
@@ -208,7 +208,7 @@ const Register = () => {
               className={`border rounded-xl p-3 text-sm outline-none transition lg:text-base ${
                 confirmPassword !== "" && !doPasswordsMatch
                   ? "border-red-400 focus:border-red-500"
-                  : "border-gray-300 focus:border-black"
+                  : "border-gray-500 focus:border-black"
               }`}
               required
             />
@@ -223,7 +223,7 @@ const Register = () => {
             disabled={loading || !isValidForm}
             className={`rounded-xl p-3 uppercase tracking-wider text-sm lg:text-base font-light border transition-colors duration-300 ${
               loading || !isValidForm
-                ? "bg-gray-300 border-gray-300 text-gray-500 cursor-not-allowed"
+                ? "bg-gray-500 border-gray-500 text-gray-500 cursor-not-allowed"
                 : "bg-black border-black text-white hover:bg-white hover:text-black"
             }`}
           >
@@ -232,15 +232,15 @@ const Register = () => {
         </form>
 
         {/* DIVIDER */}
-        <div className="w-full h-px bg-gray-300 my-5" />
+        <div className="w-full h-px bg-gray-500 my-5" />
 
         {/* LOGIN LINK */}
         <div className="text-center">
-          <p className="text-xs text-gray-600 lg:text-base">
+          <p className="text-xs text-gray-500 lg:text-base">
             Already have an account?{" "}
             <Link
               to="/login"
-              className="text-black font-medium hover:underline lg:text-base"
+              className="text-black font-light hover:underline lg:text-base"
             >
               Log in here
             </Link>

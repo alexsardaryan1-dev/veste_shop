@@ -45,68 +45,54 @@ const DashboardLayout = () => {
     <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50">
 
       {/* SIDEBAR */}
-      <aside className="bg-white border-b lg:border-b-0 lg:border-r border-gray-200 lg:w-64 lg:min-h-screen lg:sticky lg:top-0 lg:flex lg:flex-col">
+      <aside className="bg-white border-b lg:border-b-0 lg:border-r border-gray-500 lg:w-64 lg:min-h-screen lg:sticky lg:top-0 lg:flex lg:flex-col">
 
         {/* MOBILE HEADER */}
-        <div className="lg:hidden p-4 border-b border-gray-200">
+        <div className="lg:hidden p-4 border-b border-gray-500 tracking-wider">
           <div className="flex items-center gap-3 mb-4">
             <button
               onClick={() => navigate("/shop")}
               className="p-2 -ml-2 rounded-full hover:bg-gray-100"
               aria-label="Back to home"
             >
-              <ArrowLeft size={20} />
+              <ArrowLeft size={24} />
             </button>
 
-            <h1 className="text-lg font-semibold">
+            <h1 className="text-xl font-medium">
               {pageTitle}
             </h1>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center text-sm font-medium shrink-0">
-              {user?.firstName?.[0]}
-              {user?.lastName?.[0]}
-            </div>
+          <div>
+            <p className="font-normal text-base">
+              {user?.name}
+            </p>
 
-            <div>
-              <p className="font-semibold text-sm">
-                {user?.firstName} {user?.lastName}
-              </p>
-
-              <p className="text-xs text-gray-500">
-                {user?.email}
-              </p>
-            </div>
+            <p className="text-base font-normal text-gray-500">
+              {user?.email}
+            </p>
           </div>
         </div>
 
 
         {/* DESKTOP HEADER */}
-        <div className="hidden lg:flex flex-col gap-4 p-6 border-b border-gray-200">
+        <div className="hidden lg:flex flex-col gap-4 p-6 border-b border-gray-500">
           <button
             onClick={() => navigate("/shop")}
             className="flex items-center gap-2 text-sm text-gray-500 hover:text-black w-fit"
           >
-            <ArrowLeft size={16} />
+            <ArrowLeft size={22} />
             Back to Shop
           </button>
 
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-full bg-black text-white flex items-center justify-center text-sm font-medium shrink-0">
-              {user?.firstName?.[0]}
-              {user?.lastName?.[0]}
-            </div>
+          <div>
+            <p className="font-light text-sm truncate">
+              {user?.name}
+            </p>
 
-            <div className="min-w-0">
-              <p className="font-semibold text-sm truncate">
-                {user?.firstName} {user?.lastName}
-              </p>
-
-              <p className="text-xs text-gray-500 truncate">
-                {user?.email}
-              </p>
-            </div>
+            <p className="text-xs text-gray-500 truncate">
+              {user?.email}
+            </p>
           </div>
         </div>
 
@@ -122,11 +108,11 @@ const DashboardLayout = () => {
                 `flex items-center gap-3 px-4 py-3 rounded-lg text-sm whitespace-nowrap transition-colors ${
                   isActive
                     ? "bg-black text-white"
-                    : "text-gray-600 hover:bg-gray-100"
+                    : "text-gray-500 hover:bg-gray-100"
                 }`
               }
             >
-              <Icon size={18} />
+              <Icon size={22} />
 
               <span className="hidden sm:inline lg:inline">
                 {label}
@@ -144,7 +130,7 @@ const DashboardLayout = () => {
             onClick={handleLogout}
             className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-red-600 hover:bg-red-50 whitespace-nowrap"
           >
-            <LogOut size={18} />
+            <LogOut size={20} />
 
             <span className="hidden sm:inline lg:inline">
               Log out

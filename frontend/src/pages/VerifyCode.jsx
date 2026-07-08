@@ -17,12 +17,12 @@ const VerifyCode = () => {
     return (
       <div className='min-h-screen flex items-center justify-center bg-white p-6'>
         <div className='text-center'>
-          <p className='text-gray-600 mb-4'>
+          <p className='text-gray-500 mb-4'>
             No email found. Please register first.
           </p>
           <button
             onClick={() => navigate('/register')}
-            className='text-black font-medium hover:underline'
+            className='text-black font-light hover:underline'
           >
             Go to Register
           </button>
@@ -52,13 +52,13 @@ const VerifyCode = () => {
 
   return (
     <div className='min-h-screen flex items-center justify-center bg-white p-6'>
-      <div className='w-full rounded-xl lg:max-w-md lg:mx-auto lg:bg-white lg:border lg:border-gray-300 lg:shadow-sm lg:p-8'>
+      <div className='w-full rounded-xl lg:max-w-md lg:mx-auto lg:bg-white lg:border lg:border-gray-500 lg:shadow-sm lg:p-8'>
         {/* HEADER */}
         <div className='text-center mb-8'>
           <h1 className='text-3xl font-light tracking-[.25em] mb-3 lg:text-4xl'>
             VESTE
           </h1>
-          <p className='text-gray-600 text-xs tracking-wider uppercase lg:text-lg'>
+          <p className='text-gray-500 text-xs tracking-wider uppercase lg:text-lg'>
             Verify Your Email
           </p>
         </div>
@@ -95,7 +95,7 @@ const VerifyCode = () => {
               onChange={(e) => setCode(e.target.value.toUpperCase())}
               placeholder='ABC123'
               maxLength='6'
-              className='border border-gray-300 rounded-xl p-3 text-sm outline-none focus:border-black transition text-center text-lg tracking-widest lg:text-base'
+              className='border border-gray-500 rounded-xl p-3 text-sm outline-none focus:border-black transition text-center text-lg tracking-wider lg:text-base'
               required
             />
           </div>
@@ -110,14 +110,14 @@ const VerifyCode = () => {
         </form>
 
         {/* DIVIDER */}
-        <div className='w-full h-px bg-gray-300 my-5' />
+        <div className='w-full h-px bg-gray-500 my-5' />
 
         {/* BACK LINK */}
         <div className='text-center'>
-          <p className='text-xs text-gray-600'>
+          <p className='text-xs text-gray-500'>
             <button
               onClick={() => navigate('/register')}
-              className='text-black font-medium hover:underline lg:text-base'
+              className='text-black font-light hover:underline lg:text-base'
             >
               Back to register
             </button>

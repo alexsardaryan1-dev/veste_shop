@@ -18,10 +18,10 @@ const ChangePassword = () => {
     return (
       <div className='min-h-screen flex items-center justify-center bg-white p-6'>
         <div className='text-center'>
-          <p className='text-gray-600 mb-4'>You must be logged in</p>
+          <p className='text-gray-500 mb-4'>You must be logged in</p>
           <button 
             onClick={() => navigate('/login')}
-            className='text-[#313131] font-medium hover:underline'
+            className='text-[#313131] font-light hover:underline'
           >
             Go to login
           </button>
@@ -66,13 +66,13 @@ const ChangePassword = () => {
         {/* HEADER */}
         <div className='text-center mb-8'>
           <h1 className='text-3xl font-light tracking-[.25em] mb-3'>VESTE</h1>
-          <p className='text-gray-600 text-xs tracking-wider uppercase'>Change Your Password</p>
+          <p className='text-gray-500 text-xs tracking-wider uppercase'>Change Your Password</p>
         </div>
 
         {/* SUCCESS MESSAGE */}
         {success && (
           <div className='bg-green-50 border border-green-200 text-green-700 p-4 rounded mb-6 text-sm'>
-            <p className='font-medium'>Password changed successfully!</p>
+            <p className='font-light'>Password changed successfully!</p>
           </div>
         )}
 
@@ -153,7 +153,7 @@ const ChangePassword = () => {
         <div className='text-center'>
           <button 
             onClick={() => navigate('/')}
-            className='text-[#313131] text-xs font-medium hover:underline'
+            className='text-[#313131] text-xs font-light hover:underline'
           >
             Back to home
           </button>

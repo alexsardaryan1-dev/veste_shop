@@ -80,12 +80,12 @@ const ProductInfo = ({ product }) => {
           <Link to="/" className="hover:underline">
             Home
           </Link>
-          <ChevronRight size={14} />
+          <ChevronRight size={20} />
           <Link to="/shop" className="hover:underline">
             All Products
           </Link>
-          <ChevronRight size={14} />
-          <span className="text-gray-900">{name}</span>
+          <ChevronRight size={20} />
+          <span className="text-gray-500">{name}</span>
         </div>
         <div className="flex items-center gap-4">
           <button
@@ -95,7 +95,7 @@ const ProductInfo = ({ product }) => {
             disabled={!prevProduct}
             className={`flex items-center gap-1 ${prevProduct ? "hover:underline" : "opacity-30 cursor-not-allowed"}`}
           >
-            <ChevronLeft size={16} /> Prev
+            <ChevronLeft size={20} /> Prev
           </button>
           <button
             onClick={() =>
@@ -104,7 +104,7 @@ const ProductInfo = ({ product }) => {
             disabled={!nextProduct}
             className={`flex items-center gap-1 ${nextProduct ? "hover:underline" : "opacity-30 cursor-not-allowed"}`}
           >
-            Next <ChevronRight size={16} />
+            Next <ChevronRight size={20} />
           </button>
         </div>
       </div>
@@ -124,7 +124,7 @@ const ProductInfo = ({ product }) => {
                 key={img.id}
                 onClick={() => setSelectedImage(i)}
                 className={`w-16 h-16 bg-gray-100 border ${
-                  i === selectedImage ? "border-gray-900" : "border-transparent"
+                  i === selectedImage ? "border-gray-500" : "border-transparent"
                 }`}
               >
                 <img
@@ -137,15 +137,15 @@ const ProductInfo = ({ product }) => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4">
-          <h1 className="text-3xl tracking-wider">{name}</h1>
+        <div className="flex flex-col gap-4 tracking-wider">
+          <h1 className="text-3xl font-medium">{name}</h1>
           {sku && <p className="text-sm text-gray-500">SKU: {sku}</p>}
 
           <div className="flex flex-col gap-1 mt-2">
-            <div className="text-xl">
+            <div className="text-xl font-normal">
               {sale_price ? (
                 <>
-                  <span className="text-gray-400 line-through mr-2">
+                  <span className="text-gray-500 line-through mr-2">
                     ${price}
                   </span>
                   <span>${sale_price}</span>
@@ -163,13 +163,13 @@ const ProductInfo = ({ product }) => {
 
           {!isAccessory && sizes.length > 0 && (
             <div>
-              <label className="block mb-1">Size *</label>
+              <label className="block mb-4 text-lg font-light tracking-wider">Size *</label>
 
               <div className="relative">
                 <select
                   value={size}
                   onChange={(e) => setSize(e.target.value)}
-                  className="w-full border border-gray-300 px-4 py-3 pr-12 appearance-none"
+                  className="w-full border border-gray-500 px-4 py-3 pr-12 appearance-none"
                 >
                   <option value="">Select</option>
 
@@ -181,7 +181,7 @@ const ProductInfo = ({ product }) => {
                 </select>
 
                 <ChevronDown
-                  size={22}
+                  size={20}
                   strokeWidth={1.5}
                   className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"
                 />
@@ -190,20 +190,20 @@ const ProductInfo = ({ product }) => {
           )}
 
           <div>
-            <label className="block mb-1">Quantity *</label>
-            <div className="flex items-center border border-gray-300 w-fit">
+            <label className="block mb-4 text-lg font-light tracking-wider">Quantity *</label>
+            <div className="flex items-center border border-gray-500 w-fit">
               <button
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                className="px-4 py-2"
+                className="p-2"
               >
-                <Minus size={16} />
+                <Minus size={20} />
               </button>
               <span className="px-4">{quantity}</span>
               <button
                 onClick={() => setQuantity((q) => q + 1)}
-                className="px-4 py-2"
+                className="p-2"
               >
-                <Plus size={16} />
+                <Plus size={20} />
               </button>
             </div>
           </div>
@@ -211,7 +211,7 @@ const ProductInfo = ({ product }) => {
           <div className="flex gap-3 mt-2">
             <button
               onClick={handleAddToCart}
-              className="flex-1 bg-white py-3 uppercase text-sm border border-black hover hover:bg-black hover:text-white transition-colors duration-300"
+              className="flex-1 bg-white py-3 uppercase text-base border border-black hover hover:bg-black hover:text-white transition-colors duration-300"
             >
               Add to Cart
             </button>
@@ -220,38 +220,38 @@ const ProductInfo = ({ product }) => {
               className={`border px-4 transition-colors duration-300 ${
                 inWishlist
                   ? "bg-red-500 border-red-500 text-white"
-                  : "border-gray-300 text-red-500 hover:bg-red-500 hover:text-white"
+                  : "border-gray-500 text-red-500 hover:bg-red-500 hover:text-white"
               }`}
             >
               <Heart size={20} fill={inWishlist ? "currentColor" : "none"} />
             </button>
           </div>
 
-          <div className="mt-4 border-t border-gray-200">
+          <div className="mt-4 border-t border-gray-500">
             <button
               onClick={() => setOpenInfo((prev) => !prev)}
-              className="w-full flex justify-between items-center py-4 uppercase lg:text-lg"
+              className="w-full flex justify-between items-center py-4 uppercase text-base lg:text-lg"
             >
               Product Info
               <span>{openInfo ? "−" : "+"}</span>
             </button>
             {openInfo && (
-              <p className="pb-4 text-sm lg:text-lg text-gray-600">
+              <p className="pb-4 text-base lg:text-lg text-gray-500">
                 {product.description || "No description available."}
               </p>
             )}
           </div>
 
-          <div className="border-t border-gray-200">
+          <div className="border-t border-gray-500">
             <button
               onClick={() => setOpenReturns((prev) => !prev)}
-              className="w-full flex justify-between items-center py-4 uppercase lg:text-lg"
+              className="w-full flex justify-between items-center py-4 uppercase text-base lg:text-lg"
             >
               Return and Refund Policy
               <span>{openReturns ? "−" : "+"}</span>
             </button>
             {openReturns && (
-              <p className="pb-4 text-sm text-gray-600">
+              <p className="pb-4 text-base text-gray-500">
                 Standard return policy applies. Contact customer care for
                 details.
               </p>

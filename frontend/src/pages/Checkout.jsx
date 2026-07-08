@@ -1,158 +1,122 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { CartContext } from "../context/CartContext";
+import { useContext, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { CartContext } from '../context/CartContext';
+import api from '../services/api';
 
 const Checkout = () => {
-  const { cartItems, clearCart } = useContext(CartContext);
-  const navigate = useNavigate();
+    const { cartItems, clearCart } = useContext(CartContext);
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-  });
+    const getImage = (item) => item.images?.[0]?.image_url || item.images?.[0];
+    const getPrice = (item) => Number(item.sale_price || item.price);
 
-  const getPrice = (item) => Number(item.sale_price || item.price);
+    const total = cartItems.reduce(
+        (sum, item) => sum + getPrice(item) * item.quantity,
+        0
+    );
 
-  const total = cartItems.reduce(
-    (acc, item) => acc + getPrice(item) * item.quantity,
-    0,
-  );
+    const handleApprove = async () => {
+        setError('');
+        setLoading(true);
+        try {
+            const items = cartItems.map((item) => ({
+                productId: item.id,
+                quantity: item.quantity,
+                price: getPrice(item),
+            }));
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+            await api.post('/api/orders', { items, total });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const order = {
-      customer: formData,
-      products: cartItems,
-      total,
-      orderId: Date.now(),
+            clearCart();
+            navigate('/dashboard/orders');
+        } catch (err) {
+            setError(err.response?.data?.message || 'Failed to place order');
+        } finally {
+            setLoading(false);
+        }
     };
 
-    console.log(order);
+    const handleCancel = () => {
+        navigate('/cart');
+    };
 
-    clearCart();
+    if (cartItems.length === 0) {
+        return (
+            <div className="max-w-4xl mx-auto px-6 py-16 text-center flex flex-col gap-4">
+                <h1 className="text-2xl">Your cart is empty.</h1>
+                <Link to="/shop" className="underline">
+                    Continue shopping
+                </Link>
+            </div>
+        );
+    }
 
-    navigate("/order-success");
-  };
-
-  if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h2 className="text-2xl">Your cart is empty</h2>
-      </div>
-    );
-  }
+        <section className="max-w-5xl mx-auto px-6 py-10 flex flex-col gap-8">
+            <h1 className="text-2xl font-light tracking-wider">Checkout</h1>
 
-  return (
-    <section className="max-w-6xl mx-auto px-6 py-12">
-      <h1 className="text-4xl font-semibold mb-10">Checkout</h1>
+            {error && (
+                <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-xl text-sm">
+                    {error}
+                </div>
+            )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Customer Information */}
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <h2 className="text-2xl mb-5">Shipping Information</h2>
+            <div className="flex flex-col gap-4">
+                {cartItems.map((item) => (
+                    <div
+                        key={`${item.id}-${item.size || 'nosize'}`}
+                        className="rounded-xl border border-gray-500 p-4 flex items-center gap-4"
+                    >
+                        <img
+                            src={getImage(item)}
+                            alt={item.name}
+                            className="w-20 h-20 object-cover bg-gray-100 rounded-lg shrink-0"
+                        />
 
-          <input
-            type="text"
-            name="name"
-            placeholder="Full name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full border p-3 rounded"
-            required
-          />
+                        <div className="flex-1 min-w-0">
+                            <p className="font-light truncate">{item.name}</p>
+                            {item.size && (
+                                <p className="text-sm text-gray-500">Size: {item.size}</p>
+                            )}
+                            <p className="text-sm text-gray-500">
+                                ${getPrice(item).toFixed(2)} × {item.quantity}
+                            </p>
+                        </div>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full border p-3 rounded"
-            required
-          />
+                        <p className="w-24 text-right font-light">
+                            ${(getPrice(item) * item.quantity).toFixed(2)}
+                        </p>
+                    </div>
+                ))}
+            </div>
 
-          <input
-            type="text"
-            name="phone"
-            placeholder="Phone number"
-            value={formData.phone}
-            onChange={handleChange}
-            className="w-full border p-3 rounded"
-            required
-          />
-
-          <input
-            type="text"
-            name="address"
-            placeholder="Address"
-            value={formData.address}
-            onChange={handleChange}
-            className="w-full border p-3 rounded"
-            required
-          />
-
-          <input
-            type="text"
-            name="city"
-            placeholder="City"
-            value={formData.city}
-            onChange={handleChange}
-            className="w-full border p-3 rounded"
-            required
-          />
-
-          <button
-            type="submit"
-            className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
-          >
-            Place Order
-          </button>
-        </form>
-
-        {/* Order Summary */}
-        <div>
-          <h2 className="text-2xl mb-5">Order Summary</h2>
-
-          <div className="space-y-4">
-            {cartItems.map((item) => (
-              <div
-                key={`${item.id}-${item.size || "nosize"}`}
-                className="flex justify-between border-b pb-3"
-              >
-                <div>
-                  <p className="font-medium">{item.name}</p>
-                  {item.size && (
-                    <p className="text-sm text-gray-500">Size: {item.size}</p>
-                  )}
-                  <p className="text-sm text-gray-500">
-                    Quantity: {item.quantity}
-                  </p>
+            <div className="rounded-xl border border-gray-500 p-5 flex flex-col gap-4 max-w-sm ml-auto w-full">
+                <div className="flex justify-between text-lg font-light">
+                    <span>Total</span>
+                    <span>${total.toFixed(2)}</span>
                 </div>
 
-                <p>${(getPrice(item) * item.quantity).toFixed(2)}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex justify-between mt-8 text-xl font-semibold">
-            <span>Total</span>
-            <span>${total.toFixed(2)}</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+                <div className="flex gap-3">
+                    <button
+                        onClick={handleCancel}
+                        disabled={loading}
+                        className="flex-1 border border-gray-500 text-gray-500 py-3 uppercase text-sm hover:bg-gray-100 transition-colors duration-300 disabled:opacity-50"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={handleApprove}
+                        disabled={loading}
+                        className="flex-1 bg-black text-white py-3 uppercase text-sm hover:bg-gray-500 transition-colors duration-300 disabled:opacity-50"
+                    >
+                        {loading ? 'Placing...' : 'Approve'}
+                    </button>
+                </div>
+            </div>
+        </section>
+    );
 };
 
 export default Checkout;

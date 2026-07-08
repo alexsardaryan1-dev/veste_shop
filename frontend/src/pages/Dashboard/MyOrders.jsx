@@ -34,10 +34,10 @@ const MyOrders = () => {
 
   return (
     <div className='space-y-6'>
-      <h1 className='text-2xl font-semibold'>My Orders</h1>
+      <h1 className='text-2xl font-light'>My Orders</h1>
 
       {orders.length === 0 ? (
-        <div className='rounded-xl border border-gray-200 p-10 flex flex-col items-center gap-3 text-gray-400'>
+        <div className='rounded-xl border border-gray-500 p-10 flex flex-col items-center gap-3 text-gray-500'>
           <Package size={32} />
           <p>You haven't placed any orders yet.</p>
         </div>
@@ -46,25 +46,47 @@ const MyOrders = () => {
           {orders.map((order) => (
             <div
               key={order.id}
-              className='rounded-xl border border-gray-200 p-5 flex flex-col gap-3'
+              className='rounded-xl border border-gray-500 p-5 flex flex-col gap-4'
             >
               <div className='flex items-center justify-between'>
-                <p className='font-medium'>Order #{order.id}</p>
+                <p className='font-light'>Order #{order.id}</p>
                 <span
-                  className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    statusStyles[order.status] || 'bg-gray-50 text-gray-600'
+                  className={`px-2 py-1 rounded-full text-xs font-light ${
+                    statusStyles[order.status] || 'bg-gray-50 text-gray-500'
                   }`}
                 >
                   {order.status}
                 </span>
               </div>
 
-              <div className='flex items-center justify-between text-sm text-gray-500'>
-                <span>{new Date(order.createdAt).toLocaleDateString()}</span>
-                <span>{order.itemsCount} item(s)</span>
-                <span className='font-medium text-black'>
-                  ${order.total.toFixed(2)}
-                </span>
+              <p className='text-sm text-gray-500'>
+                {new Date(order.createdAt).toLocaleDateString()}
+              </p>
+
+              <div className='flex flex-col divide-y divide-gray-100'>
+                {order.items.map((item, i) => (
+                  <div key={i} className='flex items-center gap-3 py-3'>
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className='w-14 h-14 object-cover bg-gray-100 rounded-lg shrink-0'
+                    />
+                    <div className='flex-1 min-w-0'>
+                      <p className='text-sm truncate'>{item.name}</p>
+                      <p className='text-xs text-gray-500'>
+                        Quantity {item.quantity} * ${Number(item.price).toFixed(2)}
+                      </p>
+                    </div>
+                    <p className='text-sm font-light'>
+                      ${(Number(item.price) * item.quantity).toFixed(2)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className='flex justify-between text-sm font-light border-t border-gray-100 pt-3'>
+                <span>Total</span>
+                <span>${order.total.toFixed(2)}</span>
               </div>
             </div>
           ))}

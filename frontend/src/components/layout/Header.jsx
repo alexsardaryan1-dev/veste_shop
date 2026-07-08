@@ -8,6 +8,7 @@ import {
   Menu,
   X,
   ChevronDown,
+  ArrowRight,
 } from "lucide-react";
 import { AuthContext } from "../../context/AuthContext";
 import { CartContext } from "../../context/CartContext";
@@ -105,29 +106,36 @@ const Header = () => {
           aria-label="Search"
           onClick={() => setMobileSearchOpen((prev) => !prev)}
         >
-          <Search size={22} />
+          <Search size={20} />
         </button>
 
-        <span className="hidden md:block text-xl tracking-widest font-light uppercase">
+        <span className="text-xl tracking-wider font-light uppercase">
           Free Shipping
         </span>
 
         <div className="flex items-center gap-4 lg:gap-6 text-base lg:text-xl">
-          <Link to="/dashboard/favorites" className="relative flex items-center justify-center">
-            <Heart size={22} />
+          <Link
+            to="/dashboard/favorites"
+            className="relative flex items-center justify-center"
+          >
+            <Heart size={20} />
             {wishlistItems.length > 0 && (
-              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-medium text-white">
+              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-light text-white">
                 {wishlistItems.length}
               </span>
             )}
           </Link>
 
           <div className="relative" ref={miniCartRef}>
-            <Link to="/cart" className="relative flex items-center justify-center" aria-label="Open cart">
-              <ShoppingBag size={22} />
+            <Link
+              to="/cart"
+              className="relative flex items-center justify-center"
+              aria-label="Open cart"
+            >
+              <ShoppingBag size={20} />
 
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-medium text-white">
+                <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-light text-white">
                   {cartCount}
                 </span>
               )}
@@ -135,13 +143,17 @@ const Header = () => {
 
             {isMiniCartOpen && (
               <div className="fixed inset-0 z-50 flex items-start justify-end sm:items-start sm:absolute sm:inset-auto sm:top-full sm:right-0 sm:mt-4">
-                <div className="bg-white text-black shadow-lg border border-gray-200 w-full h-full sm:h-auto sm:w-80 flex flex-col">
-                  <div className="flex items-center justify-between p-4 border-b border-gray-200">
-                    <span className="text-sm font-medium">
+                <div className="bg-white text-black shadow-lg border border-gray-500 w-full h-full sm:h-auto sm:w-80 flex flex-col">
+                  <div className="flex items-center justify-between p-4 border-b border-gray-500">
+                    <span className="text-sm font-light">
                       Cart ({cartCount})
                     </span>
-                    <button type="button" onClick={closeMiniCart} aria-label="Close">
-                      <X size={18} />
+                    <button
+                      type="button"
+                      onClick={closeMiniCart}
+                      aria-label="Close"
+                    >
+                      <X size={20} />
                     </button>
                   </div>
 
@@ -157,7 +169,7 @@ const Header = () => {
 
                   <div className="flex-1 overflow-y-auto flex flex-col divide-y divide-gray-100">
                     {cartItems.length === 0 ? (
-                      <p className="p-4 text-sm text-gray-400">
+                      <p className="p-4 text-sm text-gray-500">
                         Your cart is empty.
                       </p>
                     ) : (
@@ -174,14 +186,20 @@ const Header = () => {
                           <div className="flex-1 min-w-0">
                             <p className="text-sm truncate">{item.name}</p>
                             {item.size && (
-                              <span className="text-xs text-gray-400">Size: {item.size}</span>
+                              <span className="text-xs text-gray-500">
+                                Size: {item.size}
+                              </span>
                             )}
                             <div className="flex items-center gap-2 mt-1">
-                              <div className="flex items-center border border-gray-300">
+                              <div className="flex items-center border border-gray-500">
                                 <button
                                   type="button"
                                   onClick={() =>
-                                    updateQuantity(item.id, item.size, item.quantity - 1)
+                                    updateQuantity(
+                                      item.id,
+                                      item.size,
+                                      item.quantity - 1,
+                                    )
                                   }
                                   className="px-2 text-xs"
                                 >
@@ -193,7 +211,11 @@ const Header = () => {
                                 <button
                                   type="button"
                                   onClick={() =>
-                                    updateQuantity(item.id, item.size, item.quantity + 1)
+                                    updateQuantity(
+                                      item.id,
+                                      item.size,
+                                      item.quantity + 1,
+                                    )
                                   }
                                   className="px-2 text-xs"
                                 >
@@ -209,9 +231,9 @@ const Header = () => {
                             type="button"
                             onClick={() => removeFromCart(item.id, item.size)}
                             aria-label="Remove"
-                            className="text-gray-400"
+                            className="text-gray-500"
                           >
-                            <X size={14} />
+                            <X size={20} />
                           </button>
                         </div>
                       ))
@@ -219,8 +241,8 @@ const Header = () => {
                   </div>
 
                   {cartItems.length > 0 && (
-                    <div className="p-4 border-t border-gray-200 flex flex-col gap-3">
-                      <div className="flex justify-between text-sm font-medium">
+                    <div className="p-4 border-t border-gray-500 flex flex-col gap-3">
+                      <div className="flex justify-between text-sm font-light">
                         <span>Subtotal</span>
                         <span>${subtotal.toFixed(2)}</span>
                       </div>
@@ -253,8 +275,8 @@ const Header = () => {
 
       {/* MOBILE SEARCH BAR */}
       {mobileSearchOpen && (
-        <div className="md:hidden px-4 py-3 bg-white border-t border-gray-200 flex items-center gap-2">
-          <Search size={18} />
+        <div className="md:hidden px-4 py-3 bg-white border-t border-gray-500 flex items-center gap-2">
+          <Search size={20} />
           <input
             type="text"
             placeholder="Search products..."
@@ -264,8 +286,13 @@ const Header = () => {
             autoFocus
             className="flex-1 outline-none text-base"
           />
-          <button type="button" onClick={runSearch} className="text-sm font-medium">
-            Go
+          <button
+            type="button"
+            onClick={runSearch}
+            className="flex items-center justify-center"
+            aria-label="Search"
+          >
+            <ArrowRight size={20} />
           </button>
         </div>
       )}
@@ -350,9 +377,9 @@ const Header = () => {
             <Link
               to="/login"
               onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-2 text-lg"
+              className="flex items-center gap-2 text-xl font-medium tracking-wider"
             >
-              <User size={18} />
+              <User size={20} strokeWidth={2.5}/>
               Log in
             </Link>
           ) : (
@@ -361,8 +388,8 @@ const Header = () => {
               onClick={() => setMenuOpen(false)}
               className="flex items-center gap-2 text-xl font-medium tracking-wider"
             >
-              <User size={20} />
-              My Profile
+              <User size={20} strokeWidth={2.5}/>
+              MY PROFILE
             </Link>
           )}
 
@@ -384,18 +411,18 @@ const Header = () => {
                   aria-label="Toggle shop categories"
                 >
                   <ChevronDown
-                    size={16}
+                    size={20}
                     className={`transition-transform ${shopOpen ? "rotate-180" : ""}`}
                   />
                 </button>
               </div>
 
               {shopOpen && (
-                <ul className="mt-3 ml-4 flex flex-col gap-3 text-sm normal-case">
+                <ul className="mt-3 ml-4 flex flex-col gap-3 text-lg normal-case">
                   {shopLinks.map(({ to, label }) => (
                     <li key={to}>
                       <Link to={to} onClick={() => setMenuOpen(false)}>
-                        {label}
+                        #{label}
                       </Link>
                     </li>
                   ))}

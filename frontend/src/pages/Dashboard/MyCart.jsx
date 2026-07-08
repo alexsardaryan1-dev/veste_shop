@@ -19,7 +19,7 @@ const MyCart = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">My Cart</h1>
+        <h1 className="text-2xl font-light">My Cart</h1>
         {cartItems.length > 0 && (
           <button
             onClick={clearCart}
@@ -31,7 +31,7 @@ const MyCart = () => {
       </div>
 
       {cartItems.length === 0 ? (
-        <div className="rounded-xl border border-gray-200 p-10 flex flex-col items-center gap-3 text-gray-400">
+        <div className="rounded-xl border border-gray-500 p-10 flex flex-col items-center gap-3 text-gray-500">
           <ShoppingCart size={32} />
           <p>Your cart is empty.</p>
           <Link to="/shop" className="text-sm text-black underline">
@@ -44,7 +44,7 @@ const MyCart = () => {
             {cartItems.map((item) => (
               <div
                 key={`${item.id}-${item.size || "nosize"}`}
-                className="rounded-xl border border-gray-200 p-4 flex items-center gap-4"
+                className="rounded-xl border border-gray-500 p-4 flex items-center gap-4"
               >
                 <img
                   src={getImage(item)}
@@ -53,7 +53,7 @@ const MyCart = () => {
                 />
 
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium truncate">{item.name}</p>
+                  <p className="font-light truncate">{item.name}</p>
                   {item.size && (
                     <p className="text-sm text-gray-500">Size: {item.size}</p>
                   )}
@@ -62,14 +62,14 @@ const MyCart = () => {
                   </p>
                 </div>
 
-                <div className="flex items-center border border-gray-300 rounded-lg">
+                <div className="flex items-center border border-gray-500 rounded-lg">
                   <button
                     onClick={() =>
                       updateQuantity(item.id, item.size, item.quantity - 1)
                     }
                     className="px-3 py-2"
                   >
-                    <Minus size={14} />
+                    <Minus size={20} />
                   </button>
                   <span className="px-3 text-sm">{item.quantity}</span>
                   <button
@@ -78,27 +78,27 @@ const MyCart = () => {
                     }
                     className="px-3 py-2"
                   >
-                    <Plus size={14} />
+                    <Plus size={20} />
                   </button>
                 </div>
 
-                <p className="w-20 text-right font-medium hidden sm:block">
+                <p className="w-20 text-right font-light hidden sm:block">
                   ${(getPrice(item) * item.quantity).toFixed(2)}
                 </p>
 
                 <button
                   onClick={() => removeFromCart(item.id, item.size)}
                   aria-label="Remove item"
-                  className="p-2 text-gray-400 hover:text-red-500"
+                  className="p-2 text-gray-500 hover:text-red-500"
                 >
-                  <X size={18} />
+                  <X size={20} />
                 </button>
               </div>
             ))}
           </div>
 
-          <div className="rounded-xl border border-gray-200 p-5 flex flex-col gap-4 max-w-sm ml-auto">
-            <div className="flex justify-between text-lg font-medium">
+          <div className="rounded-xl border border-gray-500 p-5 flex flex-col gap-4 max-w-sm ml-auto">
+            <div className="flex justify-between text-lg font-light">
               <span>Subtotal</span>
               <span>${subtotal.toFixed(2)}</span>
             </div>

@@ -27,12 +27,12 @@ const ForgotPassword = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white p-6 relative">
-      <div className="w-full max-w-md lg:max-w-lg mx-auto lg:bg-white lg:border lg:border-gray-300 lg:shadow-sm lg:p-10 lg:rounded-xl">
+      <div className="w-full max-w-md lg:max-w-lg mx-auto lg:bg-white lg:border lg:border-gray-500 lg:shadow-sm lg:p-10 lg:rounded-xl">
         <Link
           to="/"
           className="border border-black p-2 rounded-xl absolute top-5 left-5 flex items-center gap-1 text-xs uppercase tracking-wider text-black hover:text-white hover:bg-black transition lg:text-sm"
         >
-          <ArrowLeft size={16} />
+          <ArrowLeft size={20} />
           Home
         </Link>
 
@@ -41,7 +41,7 @@ const ForgotPassword = () => {
           <h1 className="text-3xl font-light tracking-[.25em] mb-3 lg:text-4xl">
             VESTE
           </h1>
-          <p className="text-gray-600 text-xs tracking-wider uppercase lg:text-lg">
+          <p className="text-gray-500 text-xs tracking-wider uppercase lg:text-lg">
             Reset Your Password
           </p>
         </div>
@@ -49,11 +49,11 @@ const ForgotPassword = () => {
         {/* SUCCESS MESSAGE */}
         {success && (
           <div className="bg-green-50 border border-green-200 text-green-700 p-3 rounded-xl mb-6 text-xs lg:text-base">
-            <p className="font-medium mb-2">Reset code sent!</p>
+            <p className="font-light mb-2">Reset code sent!</p>
             <p>Check backend console for reset code</p>
             <button
               onClick={() => navigate("/reset-password", { state: { email } })}
-              className="text-green-700 font-medium hover:underline mt-2"
+              className="text-green-700 font-light hover:underline mt-2"
             >
               Enter reset code
             </button>
@@ -70,7 +70,7 @@ const ForgotPassword = () => {
         {/* FORM */}
         {!success && (
           <form onSubmit={handleForgot} className="flex flex-col gap-5">
-            <p className="text-xs text-gray-600 lg:text-base -mt-2 mb-2">
+            <p className="text-xs text-gray-500 lg:text-base -mt-2 mb-2">
               Enter your email address and we'll send you a reset code
             </p>
 
@@ -87,7 +87,7 @@ const ForgotPassword = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="border border-gray-300 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
+                className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
                 required
               />
             </div>
@@ -103,15 +103,15 @@ const ForgotPassword = () => {
         )}
 
         {/* DIVIDER */}
-        <div className="w-full h-px bg-gray-300 my-5" />
+        <div className="w-full h-px bg-gray-500 my-5" />
 
         {/* LOGIN LINK */}
         <div className="text-center">
-          <p className="text-xs text-gray-600 lg:text-base">
+          <p className="text-xs text-gray-500 lg:text-base">
             Remember your password?{" "}
             <Link
               to="/login"
-              className="text-black font-medium hover:underline lg:text-base"
+              className="text-black font-light hover:underline lg:text-base"
             >
               Log in here
             </Link>

@@ -13,7 +13,7 @@ const Hero = () => {
           className='w-full h-[300px] object-cover'
         />
 
-        <div className='h-[250px] flex flex-col items-center justify-center gap-3 bg-pink-200'>
+        <div className='h-[250px] flex flex-col items-center justify-center gap-3 bg-pink-200 tracking-wider'>
           <h2 className='text-3xl'>SULTRY & SMART</h2>
           <p className='text-xl font-light'>HOT SPRING LOOKS</p>
           <div className='w-[50px] h-[3px] bg-black' />
@@ -33,7 +33,7 @@ const Hero = () => {
           className='w-full h-[300px] object-cover'
         />
 
-        <div className='h-[250px] flex flex-col items-center justify-center gap-3 bg-blue-200 text-black'>
+        <div className='h-[250px] flex flex-col items-center justify-center gap-3 bg-blue-200 text-black tracking-wider'>
           <h2 className='text-3xl'>ELEGANT & SLICK</h2>
           <p className='text-xl font-light'>GET READY FOR SUMMER</p>
           <div className='w-[50px] h-[3px] bg-black' />
@@ -57,13 +57,13 @@ const Hero = () => {
             className='w-full h-[600px] object-cover'
           />
 
-          <div className='flex flex-col items-center justify-center gap-4'>
+          <div className='flex flex-col items-center justify-center gap-4 tracking-wider'>
             <h2 className='text-6xl'>SULTRY & SMART</h2>
             <p className='text-3xl font-light'>HOT SPRING LOOKS</p>
             <div className='w-[50px] h-[3px] bg-black' />
             <Link
               to='/shop?category=women'
-              className='text-2xl font-light hover:text-white transition-colors border border-black hover:border-white p-2 transition-colors duraiton-300'
+              className='text-2xl font-light hover:bg-black hover:text-white transition-colors border border-black p-2 transition-colors duraiton-300'
             >
               Shop Women
             </Link>
@@ -72,15 +72,15 @@ const Hero = () => {
 
         {/* ROW 2 */}
         <div className='grid grid-cols-2 bg-blue-200'>
-          <div className='flex flex-col items-center justify-center gap-4'>
-            <h2 className='text-6xl text-white'>ELEGANT & SLICK</h2>
-            <p className='text-3xl font-light text-white'>
+          <div className='flex flex-col items-center justify-center gap-4 text-black tracking-wider'>
+            <h2 className='text-6xl'>ELEGANT & SLICK</h2>
+            <p className='text-3xl font-light'>
               GET READY FOR SUMMER
             </p>
-            <div className='w-[50px] h-[3px] bg-white' />
+            <div className='w-[50px] h-[3px] bg-black' />
             <Link
               to='/shop?category=men'
-              className='text-2xl font-light text-white hover:text-black transition-colors border border-white hover:border-black p-2 transition-colors duration-300'
+              className='text-2xl font-light hover:bg-black hover:text-white transition-colors border border-black p-2 transition-colors duraiton-300'
             >
               Shop Men
             </Link>

@@ -40,11 +40,11 @@ export default function CustomerCare() {
         {/* FORM*/}
 
         <div>
-          <h2 className="text-3xl lg:text-4xl font-light uppercase tracking-widest mb-6">
+          <h2 className="text-4xl lg:text-4xl font-medium uppercase tracking-wider mb-6">
             Customer Care
           </h2>
 
-          <p className="text-gray-600 mb-6 leading-relaxed lg:text-xl font-light">
+          <p className="text-gray-500 mb-6 leading-relaxed text-xl lg:text-xl font-light tracking-wider">
             Have any questions or concerns? We’re always ready to help! <br />
             Call us at <span className="font-medium">123-456-7890</span> or send
             us an email at <span className="font-medium">info@mysite.com</span>
@@ -55,36 +55,36 @@ export default function CustomerCare() {
               <input
                 type="text"
                 placeholder="First Name*"
-                className="border p-3 w-full outline-none"
+                className="border text-xl p-3 w-full outline-none"
               />
               <input
                 type="text"
                 placeholder="Last Name*"
-                className="border p-3 w-full outline-none"
+                className="border text-xl p-3 w-full outline-none"
               />
             </div>
 
             <input
               type="email"
               placeholder="Email*"
-              className="border p-3 w-full outline-none"
+              className="border text-xl p-3 w-full outline-none"
             />
 
             <input
               type="text"
               placeholder="Subject"
-              className="border p-3 w-full outline-none"
+              className="border text-xl p-3 w-full outline-none"
             />
 
             <textarea
               placeholder="Message"
               rows="5"
-              className="border p-3 w-full outline-none"
+              className="border text-xl p-3 w-full outline-none"
             />
 
             <button
               type="submit"
-              className="bg-black text-white px-6 py-3 border border-black hover:bg-white hover:text-black transition"
+              className="bg-black text-white px-6 py-3 text-xl border border-black hover:bg-white hover:text-black transition"
             >
               Send
             </button>
@@ -93,7 +93,7 @@ export default function CustomerCare() {
 
         {/* FAQ */}
         <div>
-          <h2 className="text-3xl lg:text-4xl font-light uppercase tracking-widest mb-6">
+          <h2 className="text-4xl lg:text-4xl font-medium uppercase tracking-wider mb-6">
             FAQ
           </h2>
 
@@ -102,14 +102,14 @@ export default function CustomerCare() {
               <div key={index} className="border-b pb-4">
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full text-left flex justify-between items-center py-3 lg:text-xl font-normal"
+                  className="w-full text-left flex justify-between items-center py-3 text-xl lg:text-xl font-light tracking-wider"
                 >
                   {item.q}
                   <span>{openIndex === index ? "-" : "+"}</span>
                 </button>
 
                 {openIndex === index && (
-                  <p className="text-gray-600 text-sm lg:text-xl mt-2 font-light">{item.a}</p>
+                  <p className="text-gray-500 text-base lg:text-xl mt-2 font-light tracking-wider">{item.a}</p>
                 )}
               </div>
             ))}

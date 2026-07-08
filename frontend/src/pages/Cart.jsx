@@ -31,7 +31,7 @@ const Cart = () => {
   return (
     <div className="max-w-5xl mx-auto px-6 py-10 flex flex-col gap-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold tracking-wider">Cart</h1>
+        <h1 className="text-2xl font-light tracking-wider">Cart</h1>
         <button
           onClick={clearCart}
           className="text-sm text-gray-500 hover:text-red-500 underline"
@@ -40,7 +40,7 @@ const Cart = () => {
         </button>
       </div>
 
-      <div className="flex flex-col divide-y divide-gray-200">
+      <div className="flex flex-col divide-y divide-gray-500">
         {cartItems.map((item) => (
           <div
             key={`${item.id}-${item.size || "nosize"}`}
@@ -62,14 +62,14 @@ const Cart = () => {
               </p>
             </div>
 
-            <div className="flex items-center border border-gray-300">
+            <div className="flex items-center border border-gray-500">
               <button
                 onClick={() =>
                   updateQuantity(item.id, item.size, item.quantity - 1)
                 }
                 className="px-3 py-2"
               >
-                <Minus size={14} />
+                <Minus size={20} />
               </button>
               <span className="px-3">{item.quantity}</span>
               <button
@@ -78,7 +78,7 @@ const Cart = () => {
                 }
                 className="px-3 py-2"
               >
-                <Plus size={14} />
+                <Plus size={20} />
               </button>
             </div>
 
@@ -90,7 +90,7 @@ const Cart = () => {
               onClick={() => removeFromCart(item.id, item.size)}
               aria-label="Remove item"
             >
-              <X size={18} />
+              <X size={20} />
             </button>
           </div>
         ))}

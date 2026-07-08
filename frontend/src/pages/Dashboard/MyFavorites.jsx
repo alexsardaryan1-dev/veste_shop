@@ -19,10 +19,10 @@ const MyFavorites = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold">My Favorites</h1>
+      <h1 className="text-2xl font-light">My Favorites</h1>
 
       {wishlistItems.length === 0 ? (
-        <div className="rounded-xl border border-gray-200 p-10 flex flex-col items-center gap-3 text-gray-400">
+        <div className="rounded-xl border border-gray-500 p-10 flex flex-col items-center gap-3 text-gray-500">
           <Heart size={32} />
           <p>You haven't added any favorites yet.</p>
           <Link to="/shop" className="text-sm text-black underline">
@@ -34,7 +34,7 @@ const MyFavorites = () => {
           {wishlistItems.map((item) => (
             <div
               key={item.id}
-              className="rounded-xl border border-gray-200 overflow-hidden flex flex-col"
+              className="rounded-xl border border-gray-500 overflow-hidden flex flex-col"
             >
               <div className="relative aspect-square bg-gray-100">
                 <img
@@ -47,14 +47,14 @@ const MyFavorites = () => {
                   aria-label="Remove from favorites"
                   className="absolute top-2 right-2 bg-white rounded-full p-1.5 shadow"
                 >
-                  <X size={14} />
+                  <X size={20} />
                 </button>
               </div>
 
               <div className="p-3 flex flex-col gap-2">
                 <Link
                   to={`/product/${item.id}`}
-                  className="text-sm font-medium truncate"
+                  className="text-sm font-light truncate"
                 >
                   {item.name}
                 </Link>
@@ -71,7 +71,7 @@ const MyFavorites = () => {
                 >
                   {addedId === item.id ? (
                     <>
-                      <Check size={14} /> Added
+                      <Check size={20} /> Added
                     </>
                   ) : (
                     "Add to Cart"
