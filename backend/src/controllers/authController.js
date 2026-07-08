@@ -305,7 +305,7 @@ export const getMe = async (req, res) => {
 
 export const logout = (req, res) => {
     try {
-        res.clearCookie('token', cookies);
+        res.clearCookie('token', { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'Strict' });
         
         if (process.env.NODE_ENV === 'development') {
             console.log(`User logged out`);

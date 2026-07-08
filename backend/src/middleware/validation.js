@@ -40,8 +40,9 @@ export const validateRegister = (name, email, password) => {
         return { valid: false, message: 'Please enter a valid email address' };
     }
 
-    if (!validatePassword(password)) {
-        return { valid: false, message: 'Password must be at least 6 characters with 1 uppercase letter and 1 number' };
+    const passwordCheck = validatePassword(password);
+    if (!passwordCheck.valid) {
+        return passwordCheck;
     }
 
     return { valid: true };

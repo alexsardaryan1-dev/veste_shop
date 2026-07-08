@@ -36,16 +36,18 @@ const DashboardLayout = () => {
       await api.post("/api/auth/logout");
       setUser(null);
       navigate("/login");
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50">
+
       {/* SIDEBAR */}
+      <aside className="bg-white border-b lg:border-b-0 lg:border-r border-gray-200 lg:w-64 lg:min-h-screen lg:sticky lg:top-0 lg:flex lg:flex-col">
 
-      <aside className="bg-white border-b lg:border-b-0 lg:border-r border-gray-200 lg:w-64 lg:min-h-screen lg:sticky lg:top-0">
         {/* MOBILE HEADER */}
-
         <div className="lg:hidden p-4 border-b border-gray-200">
           <div className="flex items-center gap-3 mb-4">
             <button
@@ -56,7 +58,9 @@ const DashboardLayout = () => {
               <ArrowLeft size={20} />
             </button>
 
-            <h1 className="text-lg font-semibold">{pageTitle}</h1>
+            <h1 className="text-lg font-semibold">
+              {pageTitle}
+            </h1>
           </div>
 
           <div className="flex items-center gap-3">
@@ -64,14 +68,19 @@ const DashboardLayout = () => {
               {user?.firstName?.[0]}
               {user?.lastName?.[0]}
             </div>
+
             <div>
               <p className="font-semibold text-sm">
                 {user?.firstName} {user?.lastName}
               </p>
-              <p className="text-xs text-gray-500">{user?.email}</p>
+
+              <p className="text-xs text-gray-500">
+                {user?.email}
+              </p>
             </div>
           </div>
         </div>
+
 
         {/* DESKTOP HEADER */}
         <div className="hidden lg:flex flex-col gap-4 p-6 border-b border-gray-200">
@@ -88,17 +97,23 @@ const DashboardLayout = () => {
               {user?.firstName?.[0]}
               {user?.lastName?.[0]}
             </div>
+
             <div className="min-w-0">
               <p className="font-semibold text-sm truncate">
                 {user?.firstName} {user?.lastName}
               </p>
-              <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+
+              <p className="text-xs text-gray-500 truncate">
+                {user?.email}
+              </p>
             </div>
           </div>
         </div>
 
+
         {/* NAVIGATION */}
-        <nav className="flex lg:flex-col gap-2 p-3 lg:p-4 overflow-x-auto lg:overflow-visible">
+        <nav className="flex lg:flex-col gap-2 p-3 lg:p-4 overflow-x-auto lg:overflow-visible lg:flex-1">
+
           {navItems.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
@@ -112,24 +127,40 @@ const DashboardLayout = () => {
               }
             >
               <Icon size={18} />
-              <span className="hidden sm:inline lg:inline">{label}</span>
+
+              <span className="hidden sm:inline lg:inline">
+                {label}
+              </span>
             </NavLink>
           ))}
 
+
+          {/* Desktop spacer only */}
+          <div className="hidden lg:block lg:flex-1" />
+
+
+          {/* LOGOUT */}
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-red-600 hover:bg-red-50 lg:mt-4 whitespace-nowrap"
+            className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-red-600 hover:bg-red-50 whitespace-nowrap"
           >
             <LogOut size={18} />
-            <span className="hidden sm:inline lg:inline">Log out</span>
+
+            <span className="hidden sm:inline lg:inline">
+              Log out
+            </span>
           </button>
+
         </nav>
+
       </aside>
+
 
       {/* MAIN CONTENT */}
       <main className="flex-1 p-4 lg:p-10">
         <Outlet />
       </main>
+
     </div>
   );
 };

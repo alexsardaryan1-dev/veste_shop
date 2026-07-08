@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Heart } from "lucide-react";
 import { CartContext } from "../../context/CartContext";
@@ -12,6 +12,9 @@ const ProductCard = ({ product }) => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const [cartPop, setCartPop] = useState(false);
+  const [heartPop, setHeartPop] = useState(false);
+
   const inWishlist = isInWishlist(id);
 
   const handleAddToCart = () => {
@@ -20,6 +23,8 @@ const ProductCard = ({ product }) => {
       return;
     }
     addToCart(product);
+    setCartPop(true);
+    setTimeout(() => setCartPop(false), 300);
   };
 
   const handleToggleWishlist = (e) => {
@@ -29,6 +34,8 @@ const ProductCard = ({ product }) => {
       return;
     }
     toggleWishlist(product);
+    setHeartPop(true);
+    setTimeout(() => setHeartPop(false), 300);
   };
 
   return (
@@ -47,6 +54,8 @@ const ProductCard = ({ product }) => {
           onClick={handleToggleWishlist}
           aria-label="Toggle wishlist"
           className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-300 ${
+            heartPop ? "animate-pop" : ""
+          } ${
             inWishlist ? "bg-red-500 text-white" : "bg-white/80 text-gray-700 hover:bg-white"
           }`}
         >
@@ -79,7 +88,9 @@ const ProductCard = ({ product }) => {
 
           <button
             onClick={handleAddToCart}
-            className="flex items-center justify-center w-8 h-8 bg-gray-300 text-black border border-gray-300 hover:bg-white hover:text-black transition-colors duration-300 rounded-xl"
+            className={`flex items-center justify-center w-8 h-8 bg-gray-300 text-black border border-gray-300 hover:bg-white hover:text-black transition-colors duration-300 rounded-xl ${
+              cartPop ? "animate-pop" : ""
+            }`}
             aria-label="Add to cart"
           >
             +

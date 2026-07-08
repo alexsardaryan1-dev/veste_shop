@@ -17,7 +17,8 @@ const ProductInfo = ({ product }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [size, setSize] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [openSection, setOpenSection] = useState("info");
+  const [openInfo, setOpenInfo] = useState(true);
+  const [openReturns, setOpenReturns] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
 
   const {
@@ -32,10 +33,6 @@ const ProductInfo = ({ product }) => {
   } = product;
   const sizes = [...new Set(variants.map((v) => v.size))];
   const isAccessory = category === "accessories";
-
-  const toggleSection = (section) => {
-    setOpenSection((prev) => (prev === section ? null : section));
-  };
 
   const { addToCart } = useContext(CartContext);
   const { toggleWishlist, isInWishlist } = useContext(WishlistContext);
@@ -144,16 +141,23 @@ const ProductInfo = ({ product }) => {
           <h1 className="text-3xl tracking-wider">{name}</h1>
           {sku && <p className="text-sm text-gray-500">SKU: {sku}</p>}
 
-          <div className="text-xl mt-2">
-            {sale_price ? (
-              <>
-                <span className="text-gray-400 line-through mr-2">
-                  ${price}
-                </span>
-                <span>${sale_price}</span>
-              </>
-            ) : (
-              <span>${price}</span>
+          <div className="flex flex-col gap-1 mt-2">
+            <div className="text-xl">
+              {sale_price ? (
+                <>
+                  <span className="text-gray-400 line-through mr-2">
+                    ${price}
+                  </span>
+                  <span>${sale_price}</span>
+                </>
+              ) : (
+                <span>${price}</span>
+              )}
+            </div>
+            {quantity > 1 && (
+              <p className="text-sm text-gray-500">
+                Total: ${(Number(sale_price || price) * quantity).toFixed(2)}
+              </p>
             )}
           </div>
 
@@ -223,19 +227,15 @@ const ProductInfo = ({ product }) => {
             </button>
           </div>
 
-          <button className="bg-blue-500 hover hover:bg-white hover:text-black border border-blue-500 text-white py-3 uppercase text-sm">
-            Buy Now
-          </button>
-
           <div className="mt-4 border-t border-gray-200">
             <button
-              onClick={() => toggleSection("info")}
+              onClick={() => setOpenInfo((prev) => !prev)}
               className="w-full flex justify-between items-center py-4 uppercase lg:text-lg"
             >
               Product Info
-              <span>{openSection === "info" ? "−" : "+"}</span>
+              <span>{openInfo ? "−" : "+"}</span>
             </button>
-            {openSection === "info" && (
+            {openInfo && (
               <p className="pb-4 text-sm lg:text-lg text-gray-600">
                 {product.description || "No description available."}
               </p>
@@ -244,13 +244,13 @@ const ProductInfo = ({ product }) => {
 
           <div className="border-t border-gray-200">
             <button
-              onClick={() => toggleSection("returns")}
+              onClick={() => setOpenReturns((prev) => !prev)}
               className="w-full flex justify-between items-center py-4 uppercase lg:text-lg"
             >
               Return and Refund Policy
-              <span>{openSection === "returns" ? "−" : "+"}</span>
+              <span>{openReturns ? "−" : "+"}</span>
             </button>
-            {openSection === "returns" && (
+            {openReturns && (
               <p className="pb-4 text-sm text-gray-600">
                 Standard return policy applies. Contact customer care for
                 details.

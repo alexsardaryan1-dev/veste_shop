@@ -18,16 +18,24 @@ const Footer = () => {
 
           <ul className="space-y-2 text-sm lg:text-lg tracking-wider font-light">
             <li className="hover:text-white cursor-pointer">
-              <Link to="/customer-care">Shipping Policy &gt;</Link>
+              <Link onClick={() => window.scrollTo(0, 0)} to="/customer-care">
+                Shipping Policy &gt;
+              </Link>
             </li>
             <li className="hover:text-white cursor-pointer">
-              <Link to="/customer-care">Returns Policy &gt;</Link>
+              <Link onClick={() => window.scrollTo(0, 0)} to="/customer-care">
+                Returns Policy &gt;
+              </Link>
             </li>
             <li className="hover:text-white cursor-pointer">
-              <Link to="/customer-care">Contact Us &gt;</Link>
+              <Link onClick={() => window.scrollTo(0, 0)} to="/customer-care">
+                Contact Us &gt;
+              </Link>
             </li>
             <li className="hover:text-white cursor-pointer">
-              <Link to="/visit-us">About Us &gt;</Link>
+              <Link onClick={() => window.scrollTo(0, 0)} to="/visit-us">
+                Visit Us &gt;
+              </Link>
             </li>
           </ul>
         </div>
@@ -49,15 +57,30 @@ const Footer = () => {
           </h3>
 
           <div className="flex gap-5 text-3xl text-white">
-            <a href="#" className="hover:text-pink-500 transition">
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-pink-500 transition"
+            >
               <FaInstagram />
             </a>
 
-            <a href="#" className="hover:text-blue-500 transition">
+            <a
+              href="https://www.facebook.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-500 transition"
+            >
               <FaFacebookF />
             </a>
 
-            <a href="#" className="hover:text-yellow-300 transition">
+            <a
+              href="https://x.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-yellow-300 transition"
+            >
               <FaXTwitter />
             </a>
           </div>

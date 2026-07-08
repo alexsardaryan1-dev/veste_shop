@@ -9,3 +9,19 @@
     font-family: "Oswald", sans-serif;
   }
 }
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+    40% {
+        transform: scale(1.25);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.animate-pop {
+    animation: pop 300ms ease-out;
+}

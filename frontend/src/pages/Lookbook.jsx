@@ -88,6 +88,13 @@ export default function LookbookSection() {
         >
           Shop Women
         </Link>
+
+        <Link
+          to="/shop?category=accessories"
+          className="px-6 py-3 border border-black hover:bg-black hover:text-white transition"
+        >
+          Accessories
+        </Link>
       </div>
 
       <Carousel images={imagesRow2} />

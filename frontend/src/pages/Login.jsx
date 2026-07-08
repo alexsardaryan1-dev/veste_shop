@@ -1,123 +1,132 @@
-import { useState, useContext } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import api from '../services/api';
-import { AuthContext } from '../context/AuthContext';
+import { useState, useContext } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import api from "../services/api";
+import { AuthContext } from "../context/AuthContext";
+import { ArrowLeft } from "lucide-react";
 
 const Login = () => {
   const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
-      const res = await api.post('/api/auth/login', { email, password });
+      const res = await api.post("/api/auth/login", { email, password });
       setUser(res.data.user);
-      console.log('Login success:', res.data.user);
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
-      console.log('Login error:', err.response?.data);
+      setError(err.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-white p-6'>
-      <div className='w-full lg:max-w-md lg:mx-auto lg:bg-white lg:border lg:border-gray-300 rounded-xl lg:shadow-sm lg:p-8'>
+    <div className="min-h-screen flex items-center justify-center bg-white p-6 relative">
+      <div className="w-full max-w-md lg:max-w-lg mx-auto lg:bg-white lg:border lg:border-gray-300 lg:shadow-sm lg:p-10 lg:rounded-xl">
+        <Link
+          to="/"
+          className="border border-black p-2 rounded-xl absolute top-5 left-5 flex items-center gap-1 text-xs uppercase tracking-wider text-black hover:text-white hover:bg-black transition lg:text-sm"
+        >
+          <ArrowLeft size={16} />
+          Home
+        </Link>
+
         {/* HEADER */}
-        <div className='text-center mb-8'>
-          <h1 className='text-4xl font-light tracking-[.25em] mb-3 lg:text-4xl'>VESTE</h1>
-          <p className='text-gray-600 text-xs tracking-wider uppercase lg:text-lg'>
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-light tracking-[.25em] mb-3 lg:text-4xl">
+            VESTE
+          </h1>
+          <p className="text-gray-600 text-xs tracking-wider uppercase lg:text-lg">
             Log In to Your Account
           </p>
         </div>
 
         {/* ERROR MESSAGE */}
         {error && (
-          <div className='bg-red-50 border border-red-200 text-red-700 p-3 rounded-xl mb-6 text-xs'>
+          <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-xl mb-6 text-xs">
             {error}
           </div>
         )}
 
         {/* FORM */}
-        <form onSubmit={handleLogin} className='flex flex-col gap-5'>
+        <form onSubmit={handleLogin} className="flex flex-col gap-5">
           {/* EMAIL */}
-          <div className='flex flex-col gap-2'>
+          <div className="flex flex-col gap-2">
             <label
-              htmlFor='email'
-              className='text-xs uppercase tracking-wider font-light lg:text-base'
+              htmlFor="email"
+              className="text-xs uppercase tracking-wider font-light lg:text-base"
             >
               Email
             </label>
             <input
-              id='email'
-              type='email'
+              id="email"
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder='your@email.com'
-              className='border border-gray-300 rounded-xl p-3 text-sm outline-none focus:border-gray-300 transition lg:text-base'
+              placeholder="your@email.com"
+              className="border border-gray-300 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
               required
             />
           </div>
 
           {/* PASSWORD */}
-          <div className='flex flex-col gap-2'>
+          <div className="flex flex-col gap-2">
             <label
-              htmlFor='password'
-              className='text-xs uppercase tracking-wider font-light lg:text-base'
+              htmlFor="password"
+              className="text-xs uppercase tracking-wider font-light lg:text-base"
             >
               Password
             </label>
             <input
-              id='password'
-              type='password'
+              id="password"
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder='••••••••'
-              className='border border-gray-300 p-3 text-sm outline-none focus:border-gray-300 transition rounded-xl lg:text-base'
+              placeholder="••••••••"
+              className="border border-gray-300 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
               required
             />
           </div>
 
           {/* SUBMIT BUTTON */}
           <button
-            type='submit'
+            type="submit"
             disabled={loading}
-            className='bg-black text-white p-3 uppercase tracking-wider text-sm font-light border border-black hover:bg-white hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition lg:text-base transition-colors duration-300 rounded-xl '
+            className="bg-black text-white p-3 uppercase tracking-wider text-sm font-light border border-black hover:bg-white hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 rounded-xl lg:text-base"
           >
-            {loading ? 'Logging in...' : 'Log In'}
+            {loading ? "Logging in..." : "Log In"}
           </button>
         </form>
 
         {/* FORGOT PASSWORD */}
-        <div className='text-center my-3'>
+        <div className="text-center my-3">
           <Link
-            to='/forgot-password'
-            className='text-gray-500 text-xs font-medium hover:underline lg:text-base'
+            to="/forgot-password"
+            className="text-gray-500 text-xs font-medium hover:underline lg:text-base"
           >
             Forgot password?
           </Link>
         </div>
 
         {/* DIVIDER */}
-        <div className='w-full h-px bg-gray-300 my-5' />
+        <div className="w-full h-px bg-gray-300 my-5" />
 
         {/* REGISTER LINK */}
-        <div className='text-center'>
-          <p className='text-xs text-gray-500 lg:text-base'>
-            Don't have an account?{' '}
+        <div className="text-center">
+          <p className="text-xs text-gray-600 lg:text-base">
+            Don't have an account?{" "}
             <Link
-              to='/register'
-              className='text-black font-medium hover:underline'
+              to="/register"
+              className="text-black font-medium hover:underline lg:text-base"
             >
               Register here
             </Link>

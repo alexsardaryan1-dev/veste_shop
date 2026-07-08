@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Search,
   ShoppingBag,
@@ -39,9 +39,12 @@ const Header = () => {
     clearCart,
   } = useContext(CartContext);
   const { wishlistItems } = useContext(WishlistContext);
+  const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const miniCartRef = useRef(null);
 
   const navLinkClass =
@@ -65,20 +68,43 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMiniCartOpen, closeMiniCart]);
 
+  const runSearch = () => {
+    const trimmed = searchQuery.trim();
+    if (!trimmed) return;
+    navigate(`/shop?search=${encodeURIComponent(trimmed)}`);
+    setMobileSearchOpen(false);
+  };
+
+  const handleSearchKeyDown = (e) => {
+    if (e.key === "Enter") {
+      runSearch();
+    }
+  };
+
   return (
     <header className="w-full">
       {/* TOP BAR */}
       <div className="flex items-center justify-between px-4 lg:px-6 py-3 bg-white text-black">
         <div className="hidden md:flex items-center gap-2 border-b border-black pb-1">
-          <Search size={20} />
+          <button type="button" onClick={runSearch} aria-label="Search">
+            <Search size={20} />
+          </button>
           <input
             type="text"
             placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearchKeyDown}
             className="bg-transparent outline-none text-xl placeholder-black/70"
           />
         </div>
 
-        <button type="button" className="md:hidden" aria-label="Search">
+        <button
+          type="button"
+          className="md:hidden"
+          aria-label="Search"
+          onClick={() => setMobileSearchOpen((prev) => !prev)}
+        >
           <Search size={22} />
         </button>
 
@@ -224,6 +250,25 @@ const Header = () => {
           )}
         </div>
       </div>
+
+      {/* MOBILE SEARCH BAR */}
+      {mobileSearchOpen && (
+        <div className="md:hidden px-4 py-3 bg-white border-t border-gray-200 flex items-center gap-2">
+          <Search size={18} />
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearchKeyDown}
+            autoFocus
+            className="flex-1 outline-none text-base"
+          />
+          <button type="button" onClick={runSearch} className="text-sm font-medium">
+            Go
+          </button>
+        </div>
+      )}
 
       {/* SECOND BAR */}
       <div className="flex items-center justify-between px-4 lg:px-6 py-5 bg-black text-white">
