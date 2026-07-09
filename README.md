@@ -113,8 +113,6 @@ Frontend runs on `http://localhost:5173`, backend on `http://localhost:5001`.
 
 ## Project Structure
 
-## Project Structure
-
 ```text
 veste-shop/
 ├── frontend/
