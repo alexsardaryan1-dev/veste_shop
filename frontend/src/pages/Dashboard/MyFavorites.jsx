@@ -38,7 +38,7 @@ const FavoriteCard = ({ item, removeFromWishlist, addToCart }) => {
   };
 
   return (
-    <div className="rounded-xl border border-gray-500 overflow-hidden flex flex-col tracking-wider">
+    <div className="rounded-xl border border-gray-300 overflow-hidden flex flex-col tracking-wider">
       <div className="relative aspect-square bg-gray-100">
         <img
           src={getImage(item)}
@@ -75,7 +75,7 @@ const FavoriteCard = ({ item, removeFromWishlist, addToCart }) => {
                   setSizeError(false);
                 }}
                 className={`w-full border text-xs px-2 py-2 pr-8 appearance-none ${
-                  sizeError ? "border-red-500" : "border-gray-500"
+                  sizeError ? "border-red-500" : "border-black"
                 }`}
               >
                 <option value="">Select Size</option>
@@ -125,7 +125,7 @@ const MyFavorites = () => {
       <h1 className="text-2xl font-normal uppercase">My Favorites</h1>
 
       {wishlistItems.length === 0 ? (
-        <div className="rounded-xl border border-gray-500 p-10 flex flex-col items-center gap-3 text-gray-500 uppercase tracking-wider">
+        <div className="rounded-xl border border-black p-10 flex flex-col items-center gap-3 text-gray-500 uppercase tracking-wider">
           <Heart size={32} className="text-red-500" fill="currentColor" />
           <p>You haven't added any favorites yet.</p>
           <Link

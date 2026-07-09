@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import ProductInfo from './ProductInfo';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import ProductInfo from "./ProductInfo";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -15,7 +15,7 @@ const ProductDetail = () => {
     fetchProduct();
   }, [id]);
 
-  if (!product) return <div className='text-center py-10'>Loading...</div>;
+  if (!product) return <div className="text-center py-10">Loading...</div>;
 
   return <ProductInfo product={product} />;
 };

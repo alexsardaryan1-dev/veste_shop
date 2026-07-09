@@ -40,11 +40,11 @@ export default function CustomerCare() {
         {/* FORM*/}
 
         <div>
-          <h2 className="text-4xl lg:text-4xl font-medium uppercase tracking-wider mb-6">
+          <h2 className="text-3xl lg:text-4xl font-medium uppercase tracking-wider mb-6">
             Customer Care
           </h2>
 
-          <p className="text-gray-500 mb-6 leading-relaxed text-xl lg:text-xl font-light tracking-wider">
+          <p className="text-gray-500 mb-6 leading-relaxed text-lg lg:text-xl font-light tracking-wider">
             Have any questions or concerns? We’re always ready to help! <br />
             Call us at <span className="font-medium">123-456-7890</span> or send
             us an email at <span className="font-medium">info@mysite.com</span>
@@ -160,7 +160,7 @@ export default function CustomerCare() {
 
         {/* FAQ */}
         <div>
-          <h2 className="text-4xl lg:text-4xl font-medium uppercase tracking-wider mb-6">
+          <h2 className="text-3xl lg:text-4xl font-medium uppercase tracking-wider mb-6">
             FAQ
           </h2>
 

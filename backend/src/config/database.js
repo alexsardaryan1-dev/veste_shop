@@ -1,5 +1,5 @@
-import { Pool } from 'pg';
-import dotenv from 'dotenv';
+import { Pool } from "pg";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -11,8 +11,8 @@ const pool = new Pool({
     database: process.env.DB_NAME
 });
 
-pool.on('error', (err) => {
-    console.error('Unexpected error on idle client', err);
+pool.on("error", (err) => {
+    console.error("Unexpected error on idle client", err);
 });
 
 export default pool;

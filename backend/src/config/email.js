@@ -1,10 +1,10 @@
-import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
 
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: "gmail",
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD
@@ -13,9 +13,9 @@ const transporter = nodemailer.createTransport({
 
 transporter.verify((error, success) => {
     if (error) {
-        console.error('Email config error:', error.message);
+        console.error("Email config error:", error.message);
     } else {
-        console.log('Email service ready:', success);
+        console.log("Email service ready:", success);
     }
 });
 

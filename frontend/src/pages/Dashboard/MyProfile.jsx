@@ -67,14 +67,16 @@ export default function MyProfile() {
         {cards.map(({ label, value, icon: Icon, color }) => (
           <div
             key={label}
-            className="rounded-xl border border-gray-500 p-5 flex items-center gap-4"
+            className="rounded-xl border border-gray-300 p-5 flex items-center gap-4"
           >
             <div className={`p-3 rounded-lg ${color}`}>
               <Icon size={20} />
             </div>
             <div>
-              <p className="text-base font-normal text-gray-500 uppercase">{label}</p>
-              <p className="text-base font-normal">{value}</p>
+              <p className="text-base font-normal text-black uppercase">
+                {label}
+              </p>
+              <p className="text-base font-normal text-gray-500">{value}</p>
             </div>
           </div>
         ))}
@@ -83,10 +85,10 @@ export default function MyProfile() {
       {/* Confirmed orders table */}
       <div>
         <h2 className="text-lg font-normal mb-4 uppercase">Confirmed Orders</h2>
-        <div className="overflow-x-auto rounded-xl border border-gray-500">
-          <table className="min-w-full text-base">
+        <div className="overflow-x-auto rounded-xl border border-gray-300">
+          <table className="min-w-full">
             <thead className="bg-gray-50 text-left text-gray-500 uppercase">
-              <tr>
+              <tr className="text-base lg:text-lg border-b ">
                 <th className="px-4 py-3 font-normal">ID</th>
                 <th className="px-4 py-3 font-normal">Date</th>
                 <th className="px-4 py-3 font-normal">Total</th>
@@ -105,7 +107,7 @@ export default function MyProfile() {
                 </tr>
               ) : (
                 orders.map((order) => (
-                  <tr key={order.id}>
+                  <tr key={order.id} className="lg:text-lg text-base">
                     <td className="px-4 py-3">
                       <Link
                         to="/dashboard/orders"
@@ -117,9 +119,11 @@ export default function MyProfile() {
                     <td className="px-4 py-3 font-light">
                       {new Date(order.createdAt).toLocaleDateString()}
                     </td>
-                    <td className="px-4 py-3 font-light">${order.total.toFixed(2)}</td>
+                    <td className="px-4 py-3 font-light">
+                      ${order.total.toFixed(2)}
+                    </td>
                     <td className="px-4 py-3">
-                      <span className="px-2 py-1 rounded-full text-base font-normal bg-green-50 text-green-500">
+                      <span className="px-2 py-1 rounded-full font-normal bg-green-50 text-green-500">
                         {order.status}
                       </span>
                     </td>

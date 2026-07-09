@@ -1,25 +1,25 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <section className='flex flex-col'>
+    <section className="flex flex-col">
       {/* FOR MOBILE */}
 
       {/* ROW 1 */}
-      <div className='flex flex-col lg:hidden'>
+      <div className="flex flex-col lg:hidden">
         <img
-          src='/homePage/hero-img1.avif'
-          alt=''
-          className='w-full h-[300px] object-cover'
+          src="/homePage/hero-img1.avif"
+          alt=""
+          className="w-full h-[300px] object-cover"
         />
 
-        <div className='h-[250px] flex flex-col items-center justify-center gap-3 bg-pink-200 tracking-wider'>
-          <h2 className='text-3xl'>SULTRY & SMART</h2>
-          <p className='text-xl font-light'>HOT SPRING LOOKS</p>
-          <div className='w-[50px] h-[3px] bg-black' />
+        <div className="h-[250px] flex flex-col items-center justify-center gap-3 bg-pink-200 tracking-wider">
+          <h2 className="text-3xl">SULTRY & SMART</h2>
+          <p className="text-xl font-light">HOT SPRING LOOKS</p>
+          <div className="w-[50px] h-[3px] bg-black" />
           <Link
-            to='/shop?category=women'
-            className='text-lg font-light border border-black p-2'
+            to="/shop?category=women"
+            className="text-lg font-light border border-black p-2"
           >
             Shop Women
           </Link>
@@ -28,18 +28,18 @@ const Hero = () => {
         {/* ROW 2 */}
 
         <img
-          src='/homePage/hero-img2.avif'
-          alt=''
-          className='w-full h-[300px] object-cover'
+          src="/homePage/hero-img2.avif"
+          alt=""
+          className="w-full h-[300px] object-cover"
         />
 
-        <div className='h-[250px] flex flex-col items-center justify-center gap-3 bg-blue-200 text-black tracking-wider'>
-          <h2 className='text-3xl'>ELEGANT & SLICK</h2>
-          <p className='text-xl font-light'>GET READY FOR SUMMER</p>
-          <div className='w-[50px] h-[3px] bg-black' />
+        <div className="h-[250px] flex flex-col items-center justify-center gap-3 bg-blue-200 text-black tracking-wider">
+          <h2 className="text-3xl">ELEGANT & SLICK</h2>
+          <p className="text-xl font-light">GET READY FOR SUMMER</p>
+          <div className="w-[50px] h-[3px] bg-black" />
           <Link
-            to='/shop?category=men'
-            className='text-lg font-light border border-black p-2'
+            to="/shop?category=men"
+            className="text-lg font-light border border-black p-2"
           >
             Shop Men
           </Link>
@@ -48,22 +48,22 @@ const Hero = () => {
 
       {/* FOR LARGER SCREENS */}
 
-      <div className='hidden lg:flex lg:flex-col'>
+      <div className="hidden lg:flex lg:flex-col">
         {/* ROW 1 */}
-        <div className='grid grid-cols-2 bg-pink-200'>
+        <div className="grid grid-cols-2 bg-pink-200">
           <img
-            src='/homePage/hero-img1.avif'
-            alt=''
-            className='w-full h-[600px] object-cover'
+            src="/homePage/hero-img1.avif"
+            alt="A women wearing a new jacket from Veste"
+            className="w-full h-[600px] object-cover"
           />
 
-          <div className='flex flex-col items-center justify-center gap-4 tracking-wider'>
-            <h2 className='text-6xl'>SULTRY & SMART</h2>
-            <p className='text-3xl font-light'>HOT SPRING LOOKS</p>
-            <div className='w-[50px] h-[3px] bg-black' />
+          <div className="flex flex-col items-center justify-center gap-4 tracking-wider">
+            <h2 className="text-6xl">SULTRY & SMART</h2>
+            <p className="text-3xl font-light">HOT SPRING LOOKS</p>
+            <div className="w-[50px] h-[3px] bg-black" />
             <Link
-              to='/shop?category=women'
-              className='text-2xl font-light hover:bg-black hover:text-white border border-black p-2 transition duraiton-300'
+              to="/shop?category=women"
+              className="text-2xl font-light hover:bg-black hover:text-white border border-black p-2 transition duraiton-300"
             >
               Shop Women
             </Link>
@@ -71,25 +71,23 @@ const Hero = () => {
         </div>
 
         {/* ROW 2 */}
-        <div className='grid grid-cols-2 bg-blue-200'>
-          <div className='flex flex-col items-center justify-center gap-4 text-black tracking-wider'>
-            <h2 className='text-6xl'>ELEGANT & SLICK</h2>
-            <p className='text-3xl font-light'>
-              GET READY FOR SUMMER
-            </p>
-            <div className='w-[50px] h-[3px] bg-black' />
+        <div className="grid grid-cols-2 bg-blue-200">
+          <div className="flex flex-col items-center justify-center gap-4 text-black tracking-wider">
+            <h2 className="text-6xl">ELEGANT & SLICK</h2>
+            <p className="text-3xl font-light">GET READY FOR SUMMER</p>
+            <div className="w-[50px] h-[3px] bg-black" />
             <Link
-              to='/shop?category=men'
-              className='text-2xl font-light hover:bg-black hover:text-white border border-black p-2 transition duraiton-300'
+              to="/shop?category=men"
+              className="text-2xl font-light hover:bg-black hover:text-white border border-black p-2 transition duraiton-300"
             >
               Shop Men
             </Link>
           </div>
 
           <img
-            src='/homePage/hero-img2.avif'
-            alt=''
-            className='w-full h-[600px] object-cover'
+            src="/homePage/hero-img2.avif"
+            alt="A man wearing a new shirt from Veste"
+            className="w-full h-[600px] object-cover"
           />
         </div>
       </div>

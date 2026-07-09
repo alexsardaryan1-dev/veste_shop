@@ -1,5 +1,5 @@
-import { generateToken } from '../utils/jwt.js';
-import { validateRegister, validateLogin, validatePassword } from '../middleware/validation.js';
+import { generateToken } from "../utils/jwt.js";
+import { validateRegister, validateLogin, validatePassword } from "../middleware/validation.js";
 import {
     findUserByEmail,
     findUserById,
@@ -10,9 +10,9 @@ import {
     updatePassword,
     setResetCode,
     clearResetCode
-} from '../models/user.js';
-import { sendVerificationEmail, sendResetPasswordEmail } from '../../services/emailService.js';
-import pool from '../config/database.js';
+} from "../models/user.js";
+import { sendVerificationEmail, sendResetPasswordEmail } from "../../services/emailService.js";
+import pool from "../config/database.js";
 
 const generateVerificationCode = () => {
     return Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -20,8 +20,8 @@ const generateVerificationCode = () => {
 
 const cookies = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'Strict',
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Strict",
     maxAge: 30 * 24 * 60 * 60 * 1000
 };
 
@@ -38,7 +38,7 @@ export const register = async (req, res) => {
 
         const userExists = await findUserByEmail(email);
         if (userExists.rows.length > 0) {
-            return res.status(409).json({ message: 'User already exists with this email' });
+            return res.status(409).json({ message: "User already exists with this email" });
         }
 
         const hashedPassword = await hashPassword(password);
@@ -48,7 +48,7 @@ export const register = async (req, res) => {
 
         await sendVerificationEmail(email, name, verificationCode);
 
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === "development") {
             console.log(`Verification code for ${email}: ${verificationCode}`);
         }
 
@@ -58,12 +58,12 @@ export const register = async (req, res) => {
                 name: newUser.rows[0].name, 
                 email: newUser.rows[0].email 
             },
-            message: 'User registered. Check your email for verification code.'
+            message: "User registered. Check your email for verification code."
         });
 
     } catch (error) {
-        console.error('Register error:', error.message);
-        res.status(500).json({ message: 'Server error during registration' });
+        console.error("Register error:", error.message);
+        res.status(500).json({ message: "Server error during registration" });
     }
 };
 
@@ -74,41 +74,41 @@ export const verifyCode = async (req, res) => {
         const { email, verificationCode } = req.body;
 
         if (!email || !verificationCode) {
-            return res.status(400).json({ message: 'Email and code required' });
+            return res.status(400).json({ message: "Email and code required" });
         }
 
         const user = await findUserByEmail(email);
         if (user.rows.length === 0) {
-            return res.status(401).json({ message: 'User not found' });
+            return res.status(401).json({ message: "User not found" });
         }
 
         const userData = user.rows[0];
         
         if (userData.verification_code !== verificationCode) {
-            return res.status(401).json({ message: 'Invalid verification code' });
+            return res.status(401).json({ message: "Invalid verification code" });
         }
 
         await pool.query(
-            'UPDATE users SET is_verified = true, verification_code = NULL WHERE id = $1',
+            "UPDATE users SET is_verified = true, verification_code = NULL WHERE id = $1",
             [userData.id]
         );
 
         const token = generateToken(userData.id);
-        res.cookie('token', token, cookies);
+        res.cookie("token", token, cookies);
 
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === "development") {
             console.log(`User verified: ${userData.email}`);
         }
 
         res.json({
             token,
             user: { id: userData.id, name: userData.name, email: userData.email },
-            message: 'Email verified successfully'
+            message: "Email verified successfully"
         });
 
     } catch (error) {
-        console.error('Verify code error:', error.message);
-        res.status(500).json({ message: 'Server error' });
+        console.error("Verify code error:", error.message);
+        res.status(500).json({ message: "Server error" });
     }
 };
 
@@ -125,36 +125,36 @@ export const login = async (req, res) => {
 
         const user = await findUserByEmail(email);
         if (user.rows.length === 0) {
-            return res.status(401).json({ message: 'Invalid email or password' });
+            return res.status(401).json({ message: "Invalid email or password" });
         }
 
         const userData = user.rows[0];
 
         if (!userData.is_verified) {
-            return res.status(403).json({ message: 'Please verify your email first' });
+            return res.status(403).json({ message: "Please verify your email first" });
         }
 
         const isMatch = await comparePassword(password, userData.password);
         if (!isMatch) {
-            return res.status(401).json({ message: 'Invalid email or password' });
+            return res.status(401).json({ message: "Invalid email or password" });
         }
 
         const token = generateToken(userData.id);
-        res.cookie('token', token, cookies);
+        res.cookie("token", token, cookies);
 
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === "development") {
             console.log(`User logged in: ${userData.email}`);
         }
 
         res.json({
             token,
             user: { id: userData.id, name: userData.name, email: userData.email },
-            message: 'Login successful'
+            message: "Login successful"
         });
 
     } catch (error) {
-        console.error('Login error:', error.message);
-        res.status(500).json({ message: 'Server error during login' });
+        console.error("Login error:", error.message);
+        res.status(500).json({ message: "Server error during login" });
     }
 };
 
@@ -165,13 +165,13 @@ export const forgotPassword = async (req, res) => {
         const { email } = req.body;
 
         if (!email) {
-            return res.status(400).json({ message: 'Email required' });
+            return res.status(400).json({ message: "Email required" });
         }
 
         const user = await findUserByEmail(email);
         if (user.rows.length === 0) {
             return res.status(200).json({ 
-                message: 'If an account exists, reset code has been sent to email.' 
+                message: "If an account exists, reset code has been sent to email." 
             });
         }
 
@@ -181,17 +181,17 @@ export const forgotPassword = async (req, res) => {
 
         await sendResetPasswordEmail(email, userData.name, resetCode);
 
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === "development") {
             console.log(`Password reset code for ${email}: ${resetCode}`);
         }
 
         res.json({
-            message: 'If an account exists, reset code has been sent to email.'
+            message: "If an account exists, reset code has been sent to email."
         });
 
     } catch (error) {
-        console.error('Forgot password error:', error.message);
-        res.status(500).json({ message: 'Unable to process request. Please try again.' });
+        console.error("Forgot password error:", error.message);
+        res.status(500).json({ message: "Unable to process request. Please try again." });
     }
 };
 
@@ -202,45 +202,45 @@ export const resetPassword = async (req, res) => {
         const { email, resetCode, newPassword } = req.body;
 
         if (!email || !resetCode || !newPassword) {
-            return res.status(400).json({ message: 'Email, code, and password required' });
+            return res.status(400).json({ message: "Email, code, and password required" });
         }
 
         if (!validatePassword(newPassword)) {
             return res.status(400).json({ 
-                message: 'Password must be at least 6 characters with 1 uppercase letter and 1 number' 
+                message: "Password must be at least 6 characters with 1 uppercase letter and 1 number" 
             });
         }
 
         const user = await findUserByEmail(email);
         if (user.rows.length === 0) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: "User not found" });
         }
 
         const userData = user.rows[0];
 
         if (userData.reset_code !== resetCode) {
-            return res.status(401).json({ message: 'Invalid reset code' });
+            return res.status(401).json({ message: "Invalid reset code" });
         }
 
         if (new Date() > new Date(userData.reset_code_expires)) {
-            return res.status(401).json({ message: 'Reset code expired. Request a new one.' });
+            return res.status(401).json({ message: "Reset code expired. Request a new one." });
         }
 
         const hashedPassword = await hashPassword(newPassword);
         await updatePassword(userData.id, hashedPassword);
         await clearResetCode(userData.id);
 
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === "development") {
             console.log(`Password reset for: ${userData.email}`);
         }
 
         res.json({
-            message: 'Password reset successfully. You can now login.'
+            message: "Password reset successfully. You can now login."
         });
 
     } catch (error) {
-        console.error('Reset password error:', error.message);
-        res.status(500).json({ message: 'Server error' });
+        console.error("Reset password error:", error.message);
+        res.status(500).json({ message: "Server error" });
     }
 };
 
@@ -252,16 +252,16 @@ export const changePassword = async (req, res) => {
         const { currentPassword, newPassword, confirmPassword } = req.body;
 
         if (!currentPassword || !newPassword || !confirmPassword) {
-            return res.status(400).json({ message: 'All fields required' });
+            return res.status(400).json({ message: "All fields required" });
         }
 
         if (newPassword !== confirmPassword) {
-            return res.status(400).json({ message: 'Passwords do not match' });
+            return res.status(400).json({ message: "Passwords do not match" });
         }
 
         if (!validatePassword(newPassword)) {
             return res.status(400).json({ 
-                message: 'Password must be at least 6 characters with 1 uppercase letter and 1 number' 
+                message: "Password must be at least 6 characters with 1 uppercase letter and 1 number" 
             });
         }
 
@@ -270,23 +270,23 @@ export const changePassword = async (req, res) => {
 
         const isMatch = await comparePassword(currentPassword, userData.password);
         if (!isMatch) {
-            return res.status(401).json({ message: 'Current password is incorrect' });
+            return res.status(401).json({ message: "Current password is incorrect" });
         }
 
         const hashedPassword = await hashPassword(newPassword);
         await updatePassword(userId, hashedPassword);
 
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === "development") {
             console.log(`Password changed for: ${userData.email}`);
         }
 
         res.json({
-            message: 'Password changed successfully'
+            message: "Password changed successfully"
         });
 
     } catch (error) {
-        console.error('Change password error:', error.message);
-        res.status(500).json({ message: 'Server error' });
+        console.error("Change password error:", error.message);
+        res.status(500).json({ message: "Server error" });
     }
 };
 
@@ -296,8 +296,8 @@ export const getMe = async (req, res) => {
     try {
         res.json({ user: req.user });
     } catch (error) {
-        console.error('Get profile error:', error.message);
-        res.status(500).json({ message: 'Server error' });
+        console.error("Get profile error:", error.message);
+        res.status(500).json({ message: "Server error" });
     }
 };
 
@@ -305,15 +305,15 @@ export const getMe = async (req, res) => {
 
 export const logout = (req, res) => {
     try {
-        res.clearCookie('token', { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'Strict' });
+        res.clearCookie("token", { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "Strict" });
         
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === "development") {
             console.log(`User logged out`);
         }
 
-        res.json({ message: 'Logged out successfully' });
+        res.json({ message: "Logged out successfully" });
     } catch (error) {
-        console.error('Logout error:', error.message);
-        res.status(500).json({ message: 'Logout failed' });
+        console.error("Logout error:", error.message);
+        res.status(500).json({ message: "Logout failed" });
     }
 };

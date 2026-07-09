@@ -65,15 +65,15 @@ const Shop = () => {
           </span>
           <span className="text-gray-500">{categoryLabel}</span>
         </div>
-        <h1 className="text-2xl lg:text-4xl font-medium tracking-wider">
+        <h1 className="text-2xl lg:text-4xl font-medium tracking-wider uppercase">
           Shop
         </h1>
       </div>
 
-      <div className="border border-gray-500 rounded-md p-4">
+      <div>
         <h2
           aria-labelledby="products-title"
-          className="text-xl text-center font-normal uppercase tracking-wider mb-4"
+          className="text-2xl text-center font-normal uppercase tracking-wider mb-6"
         >
           {categoryLabel}
         </h2>

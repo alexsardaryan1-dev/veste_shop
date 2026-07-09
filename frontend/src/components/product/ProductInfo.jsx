@@ -121,7 +121,7 @@ const ProductInfo = ({ product }) => {
                 key={img.id}
                 onClick={() => setSelectedImage(i)}
                 className={`w-16 h-16 bg-gray-100 border ${
-                  i === selectedImage ? "border-gray-500" : "border-transparent"
+                  i === selectedImage ? "border-black" : "border-transparent"
                 }`}
               >
                 <img
@@ -171,7 +171,7 @@ const ProductInfo = ({ product }) => {
                     setSizeError(false);
                   }}
                   className={`w-full border px-4 py-3 pr-12 appearance-none ${
-                    sizeError ? "border-red-500" : "border-gray-500"
+                    sizeError ? "border-red-500" : "border-black"
                   }`}
                 >
                   <option value="">Select</option>
@@ -201,7 +201,7 @@ const ProductInfo = ({ product }) => {
             <label className="block mb-4 text-lg lg:text-xl font-light tracking-wider">
               Quantity *
             </label>
-            <div className="flex items-center border border-gray-500 w-fit">
+            <div className="flex items-center border border-black w-fit">
               <button
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                 aria-label="Decrease quantity"
@@ -239,7 +239,7 @@ const ProductInfo = ({ product }) => {
             </button>
           </div>
 
-          <div className="mt-4 border-t border-gray-500">
+          <div className="mt-4 border-t border-black">
             <button
               onClick={() => setOpenInfo((prev) => !prev)}
               className="w-full flex justify-between items-center py-4 uppercase text-base lg:text-xl"
@@ -254,7 +254,7 @@ const ProductInfo = ({ product }) => {
             )}
           </div>
 
-          <div className="border-t border-gray-500">
+          <div className="border-t border-black">
             <button
               onClick={() => setOpenReturns((prev) => !prev)}
               className="w-full flex justify-between items-center py-4 uppercase text-base lg:text-xl"

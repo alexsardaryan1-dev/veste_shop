@@ -10,9 +10,7 @@ const Newsletter = () => {
           and be the first to shop new arrivals and exclusive promotions.
         </p>
 
-        <form
-          className="mt-16 w-full max-w-3xl flex flex-col gap-6"
-        >
+        <form className="mt-16 w-full max-w-3xl flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <label
               htmlFor="email"
@@ -27,7 +25,7 @@ const Newsletter = () => {
               required
               aria-required="true"
               autoComplete="email"
-              className="w-full text-lg border border-gray-500 h-12 px-4 outline-none focus:border-black transition duration-300"
+              className="w-full text-lg border border-black h-12 px-4 outline-none focus:border-black transition duration-300"
             />
           </div>
 

@@ -48,7 +48,7 @@ const Cart = () => {
         {cartItems.map((item) => (
           <div
             key={`${item.id}-${item.size || "nosize"}`}
-            className="rounded-xl border border-gray-500 p-4 flex flex-col sm:flex-row sm:items-center gap-4"
+            className="rounded-xl border border-gray-300 p-4 flex flex-col sm:flex-row sm:items-center gap-4"
           >
             <div className="flex items-center gap-4">
               <img
@@ -81,7 +81,7 @@ const Cart = () => {
             </div>
 
             <div className="flex items-center justify-between sm:justify-end gap-4">
-              <div className="flex items-center border border-gray-500 rounded-lg">
+              <div className="flex items-center border border-black rounded-lg">
                 <button
                   onClick={() =>
                     updateQuantity(item.id, item.size, item.quantity - 1)
@@ -122,7 +122,7 @@ const Cart = () => {
       {/* MOBILE: sticky full-width bar */}
       <div
         aria-label="Cart summary"
-        className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex items-center justify-between gap-4 z-40"
+        className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 p-4 flex items-center justify-between gap-4 z-40"
       >
         <div>
           <p className="text-lg text-gray-500 uppercase">Subtotal</p>
@@ -139,9 +139,8 @@ const Cart = () => {
       {/* DESKTOP: sticky summary card */}
       <div className="hidden lg:block w-full">
         <div className="sticky top-24 border border-gray-300 rounded-lg p-6 flex flex-col gap-6 tracking-wider">
-
           <div className="flex justify-between text-xl">
-            <span className="text-gray-500 uppercase">Subtotal</span>
+            <span className="text-black uppercase">Subtotal</span>
 
             <span>${subtotal.toFixed(2)}</span>
           </div>

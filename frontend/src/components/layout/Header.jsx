@@ -145,8 +145,8 @@ const Header = () => {
 
             {isMiniCartOpen && (
               <div className="fixed inset-0 z-50 flex items-start justify-end sm:items-start sm:absolute sm:inset-auto sm:top-full sm:right-0 sm:mt-4 uppercase tracking-wider">
-                <div className="bg-white text-black shadow-lg border border-gray-500 w-full h-full sm:h-auto sm:w-80 flex flex-col">
-                  <div className="flex items-center justify-between p-4 border-b border-gray-500">
+                <div className="bg-white text-black shadow-lg border border-black w-full h-full sm:h-auto sm:w-80 flex flex-col">
+                  <div className="flex items-center justify-between p-4 border-b border-black">
                     <span className="text-base font-light">
                       Cart ({cartCount})
                     </span>
@@ -193,7 +193,7 @@ const Header = () => {
                               </span>
                             )}
                             <div className="flex items-center gap-2 mt-1">
-                              <div className="flex items-center border border-gray-500">
+                              <div className="flex items-center border border-black">
                                 <button
                                   type="button"
                                   aria-label="Decrease quantity"
@@ -246,7 +246,7 @@ const Header = () => {
                   </div>
 
                   {cartItems.length > 0 && (
-                    <div className="p-4 border-t border-gray-500 flex flex-col gap-3">
+                    <div className="p-4 border-t border-black flex flex-col gap-3">
                       <div className="flex justify-between text-base font-light">
                         <span>Subtotal</span>
                         <span>${subtotal.toFixed(2)}</span>
@@ -280,7 +280,7 @@ const Header = () => {
 
       {/* MOBILE SEARCH BAR */}
       {mobileSearchOpen && (
-        <div className="md:hidden px-4 py-3 bg-white border-t border-gray-500 flex items-center gap-2">
+        <div className="md:hidden px-4 py-3 bg-white border-t border-black flex items-center gap-2">
           <Search size={20} />
           <input
             type="text"

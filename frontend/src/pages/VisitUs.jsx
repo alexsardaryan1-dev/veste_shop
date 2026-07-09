@@ -2,7 +2,7 @@ export default function VisitUs() {
   return (
     <section aria-labelledby="visit-title" className="w-full bg-white">
       <div className="text-center py-16">
-        <h1 className="text-4xl lg:text-4xl font-medium uppercase tracking-wider">
+        <h1 className="text-3xl lg:text-4xl font-medium uppercase tracking-wider">
           Visit Us At Our Store
         </h1>
       </div>
@@ -43,7 +43,7 @@ export default function VisitUs() {
 
       {/* ABOUT US */}
       <div className="max-w-4xl mx-auto px-6 py-20 text-center space-y-6 tracking-wider">
-        <h2 className="text-4xl lg:text-4xl font-medium uppercase">About Us</h2>
+        <h2 className="text-3xl lg:text-4xl font-medium uppercase">About Us</h2>
 
         <p className="text-gray-500 leading-7 font-light text-xl lg:text-2xl">
           We are a contemporary fashion brand focused on timeless design, clean

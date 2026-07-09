@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export const useProducts = () => {
     const [products, setProducts] = useState([]);
@@ -7,7 +7,7 @@ export const useProducts = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const res = await fetch('http://localhost:5001/api/products');
+                const res = await fetch("http://localhost:5001/api/products");
                 const data = await res.json();
                 setProducts(data.products);
             } finally {

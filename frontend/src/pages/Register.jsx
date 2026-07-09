@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../services/api";
-import { ArrowLeft, Check, X } from "lucide-react";
+import { ArrowLeft, Check, X, Eye, EyeOff } from "lucide-react";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -10,8 +10,10 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [emailTouched, setEmailTouched] = useState(false);
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -74,10 +76,10 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white p-6 relative">
-      <div className="w-full max-w-md lg:max-w-lg mx-auto lg:bg-white lg:border lg:border-gray-500 lg:shadow-sm lg:p-10 lg:rounded-xl">
+      <div className="w-full max-w-md lg:max-w-lg mx-auto lg:border lg:border-gray-300 lg:p-6 tracking-wider uppercase">
         <Link
           to="/"
-          className="border border-black p-2 rounded-xl absolute top-5 left-5 flex items-center gap-1 text-xs uppercase tracking-wider text-black hover:text-white hover:bg-black transition duration-300 lg:text-sm"
+          className="p-2 absolute top-5 left-5 flex items-center gap-1 text-sm text-black lg:text-base"
         >
           <ArrowLeft size={20} />
           Home
@@ -85,17 +87,15 @@ const Register = () => {
 
         {/* HEADER */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-light tracking-[.25em] mb-3 lg:text-4xl">
-            VESTE
-          </h1>
-          <p className="text-gray-500 text-xs tracking-wider uppercase lg:text-lg">
+          <h1 className="text-3xl font-light mb-3 lg:text-4xl">VESTE</h1>
+          <p className="text-gray-500 text-base lg:text-lg">
             Create Your Account
           </p>
         </div>
 
         {/* ERROR MESSAGE */}
         {error && (
-          <div className="bg-red-50 border border-red-500 text-red-500 p-3 rounded-xl mb-6 text-xs">
+          <div className="font-normal tracking-widest text-center text-red-500 text-base">
             {error}
           </div>
         )}
@@ -104,10 +104,7 @@ const Register = () => {
         <form onSubmit={handleRegister} className="flex flex-col gap-5">
           {/* NAME */}
           <div className="flex flex-col gap-2">
-            <label
-              htmlFor="name"
-              className="text-xs uppercase tracking-wider font-light lg:text-base"
-            >
+            <label htmlFor="name" className="text-sm font-light lg:text-base">
               Full Name
             </label>
             <input
@@ -116,17 +113,14 @@ const Register = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="John Doe"
-              className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition duration-300 rounded-xl lg:text-base"
+              className="border border-gray-300 p-3 text-sm outline-none focus:border-black transition duration-300 lg:text-base"
               required
             />
           </div>
 
           {/* EMAIL */}
           <div className="flex flex-col gap-2">
-            <label
-              htmlFor="email"
-              className="text-xs uppercase tracking-wider font-light lg:text-base"
-            >
+            <label htmlFor="email" className="text-sm font-light lg:text-base">
               Email
             </label>
             <input
@@ -136,15 +130,15 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}
               onBlur={() => setEmailTouched(true)}
               placeholder="your@email.com"
-              className={`border p-3 text-sm outline-none transition duration-300 rounded-xl lg:text-base ${
+              className={`border p-3 text-sm outline-none transition duration-300 lg:text-base ${
                 emailTouched && !isEmailValid
                   ? "border-red-500 focus:border-red-500"
-                  : "border-gray-500 focus:border-black"
+                  : "border-gray-300 focus:border-black"
               }`}
               required
             />
             {emailTouched && !isEmailValid && (
-              <p className="text-xs text-red-500">
+              <p className="text-xs lg:text-sm text-red-500">
                 Enter a valid email, e.g. name@example.com
               </p>
             )}
@@ -154,20 +148,30 @@ const Register = () => {
           <div className="flex flex-col gap-2">
             <label
               htmlFor="password"
-              className="text-xs uppercase tracking-wider font-light lg:text-base"
+              className="text-sm font-light lg:text-base"
             >
               Password
             </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onFocus={() => setPasswordTouched(true)}
-              placeholder="••••••••"
-              className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition duration-300 rounded-xl lg:text-base"
-              required
-            />
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onFocus={() => setPasswordTouched(true)}
+                placeholder="••••••••"
+                className="w-full border border-gray-300 p-3 pr-11 text-sm outline-none focus:border-black transition duration-300 lg:text-base"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 normal-case"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
             {passwordTouched && (
               <ul className="flex flex-col gap-1 text-xs lg:text-sm mt-1">
                 <CheckItem
@@ -195,23 +199,35 @@ const Register = () => {
           <div className="flex flex-col gap-2">
             <label
               htmlFor="confirmPassword"
-              className="text-xs uppercase tracking-wider font-light lg:text-base"
+              className="text-sm font-light lg:text-base"
             >
               Confirm Password
             </label>
-            <input
-              id="confirmPassword"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="••••••••"
-              className={`border rounded-xl p-3 text-sm outline-none transition duration-300 lg:text-base ${
-                confirmPassword !== "" && !doPasswordsMatch
-                  ? "border-red-500 focus:border-red-500"
-                  : "border-gray-500 focus:border-black"
-              }`}
-              required
-            />
+            <div className="relative">
+              <input
+                id="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="••••••••"
+                className={`w-full border p-3 pr-11 text-sm outline-none transition duration-300 lg:text-base ${
+                  confirmPassword !== "" && !doPasswordsMatch
+                    ? "border-red-500 focus:border-red-500"
+                    : "border-gray-300 focus:border-black"
+                }`}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword((prev) => !prev)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 normal-case"
+                aria-label={
+                  showConfirmPassword ? "Hide password" : "Show password"
+                }
+              >
+                {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
             {confirmPassword !== "" && !doPasswordsMatch && (
               <p className="text-xs text-red-500">Passwords do not match</p>
             )}
@@ -221,9 +237,9 @@ const Register = () => {
           <button
             type="submit"
             disabled={loading || !isValidForm}
-            className={`rounded-xl p-3 uppercase tracking-wider text-sm lg:text-base font-light border transition duration-300 ${
+            className={`p-3 text-sm lg:text-base font-light border transition duration-300 uppercase ${
               loading || !isValidForm
-                ? "bg-gray-500 border-gray-500 text-gray-500 cursor-not-allowed"
+                ? "bg-black border-black text-white cursor-not-allowed"
                 : "bg-black border-black text-white hover:bg-white hover:text-black"
             }`}
           >
@@ -232,15 +248,15 @@ const Register = () => {
         </form>
 
         {/* DIVIDER */}
-        <div className="w-full h-px bg-gray-500 my-5" />
+        <div className="w-full h-px bg-gray-300 my-5" />
 
         {/* LOGIN LINK */}
         <div className="text-center">
-          <p className="text-xs text-gray-500 lg:text-base">
+          <p className="text-sm text-gray-500">
             Already have an account?{" "}
             <Link
               to="/login"
-              className="text-black font-light hover:underline lg:text-base"
+              className="text-black font-normal hover:underline"
             >
               Log in here
             </Link>

@@ -67,16 +67,31 @@ const Checkout = () => {
         {cartItems.map((item) => (
           <div
             key={`${item.id}-${item.size || "nosize"}`}
-            className="rounded-xl border border-gray-500 p-4 flex items-center gap-4"
+            className="rounded-xl border border-gray-300 p-4 flex flex-col sm:flex-row sm:items-center gap-4"
           >
-            <img
-              src={getImage(item)}
-              alt={item.name}
-              className="w-20 h-20 object-cover bg-gray-100 rounded-lg shrink-0"
-            />
+            <div className="flex items-center gap-4">
+              <img
+                src={getImage(item)}
+                alt={item.name}
+                className="w-20 h-20 object-cover bg-gray-100 rounded-lg shrink-0"
+              />
 
-            <div className="flex-1 min-w-0">
-              <p className="font-normal truncate lg:text-lg">{item.name}</p>
+              <div className="flex-1 min-w-0 sm:hidden">
+                <p className="font-normal line-clamp-2">{item.name}</p>
+                {item.size && (
+                  <p className="text-xs text-gray-500">Size: {item.size}</p>
+                )}
+                <p className="text-sm text-gray-500">
+                  ${getPrice(item).toFixed(2)} × {item.quantity}
+                </p>
+                <p className="text-sm font-normal">
+                  ${(getPrice(item) * item.quantity).toFixed(2)}
+                </p>
+              </div>
+            </div>
+
+            <div className="hidden sm:block flex-1 min-w-0">
+              <p className="font-normal line-clamp-2 lg:text-lg">{item.name}</p>
               {item.size && (
                 <p className="text-xs text-gray-500 lg:text-base">
                   Size: {item.size}
@@ -87,14 +102,14 @@ const Checkout = () => {
               </p>
             </div>
 
-            <p className="w-24 text-right font-normal lg:text-lg">
+            <p className="hidden sm:block w-24 text-right font-normal lg:text-lg">
               ${(getPrice(item) * item.quantity).toFixed(2)}
             </p>
           </div>
         ))}
       </div>
 
-      <div className="rounded-xl border border-gray-500 p-5 flex flex-col gap-4 max-w-sm ml-auto w-full">
+      <div className="rounded-xl border border-gray-300 p-5 flex flex-col gap-4 max-w-sm ml-auto w-full">
         <div className="flex justify-between text-lg font-normal tracking-wider">
           <span>Total</span>
           <span>${total.toFixed(2)}</span>

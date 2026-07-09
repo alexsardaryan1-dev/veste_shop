@@ -43,12 +43,10 @@ const DashboardLayout = () => {
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50">
-
       {/* SIDEBAR */}
-      <aside className="bg-white border-b lg:border-b-0 lg:border-r border-gray-500 lg:w-64 lg:min-h-screen lg:sticky lg:top-0 lg:flex lg:flex-col">
-
+      <aside className="bg-white border-b lg:border-b-0 lg:border-r lg:border-gray-300 border-black lg:w-64 lg:min-h-screen lg:sticky lg:top-0 lg:flex lg:flex-col">
         {/* MOBILE HEADER */}
-        <div className="lg:hidden p-4 border-b border-gray-500 tracking-wider">
+        <div className="lg:hidden p-4 border-b border-black tracking-wider">
           <div className="flex items-center gap-3 mb-4">
             <button
               onClick={() => navigate("/shop")}
@@ -58,95 +56,74 @@ const DashboardLayout = () => {
               <ArrowLeft size={24} />
             </button>
 
-            <h1 className="text-xl font-medium uppercase">
-              {pageTitle}
-            </h1>
+            <h1 className="text-xl font-medium uppercase">{pageTitle}</h1>
           </div>
 
           <div>
-            <p className="font-normal text-base">
-              {user?.name}
-            </p>
-
-            <p className="text-base font-normal text-gray-500">
-              {user?.email}
-            </p>
+            <p className="font-normal text-base">{user?.name}</p>
+            <p className="text-base font-normal text-gray-500">{user?.email}</p>
           </div>
         </div>
 
-
         {/* DESKTOP HEADER */}
-        <div className="hidden lg:flex flex-col gap-4 p-6 border-b border-gray-500">
+        <div className="hidden lg:flex flex-col gap-4 p-6 border-b border-gray-300 tracking-wider">
           <button
             onClick={() => navigate("/shop")}
-            className="flex items-center gap-2 text-sm text-gray-500 hover:text-black w-fit"
+            className="flex items-center gap-2 uppercase text-lg text-gray-500 hover:text-black w-fit"
           >
             <ArrowLeft size={22} />
-            Back to Shop
+            Shop
           </button>
 
           <div>
-            <p className="font-light text-sm truncate">
+            <p className="font-nomral text-black text-lg truncate">
               {user?.name}
             </p>
-
-            <p className="text-xs text-gray-500 truncate">
+            <p className="text-lg font-nomral text-gray-500 truncate">
               {user?.email}
             </p>
           </div>
         </div>
 
-
         {/* NAVIGATION */}
-        <nav className="flex lg:flex-col gap-2 p-3 lg:p-4 overflow-x-auto lg:overflow-visible lg:flex-1">
-
+        <nav className="flex lg:flex-col gap-2 p-3 lg:p-4 overflow-x-auto lg:overflow-visible lg:flex-1 tracking-wider">
           {navItems.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 rounded-lg text-sm whitespace-nowrap transition duration-300 ${
+                `flex items-center gap-3 px-4 py-3 rounded-lg text-sm lg:text-lg uppercase whitespace-nowrap transition duration-300 ${
                   isActive
                     ? "bg-black text-white"
-                    : "text-gray-500 hover:bg-gray-100"
+                    : "text-black hover:bg-gray-100"
                 }`
               }
             >
-              <Icon size={22} />
+              <Icon size={20} />
 
-              <span className="hidden sm:inline lg:inline">
-                {label}
-              </span>
+              <span className="hidden sm:inline lg:inline">{label}</span>
             </NavLink>
           ))}
-
 
           {/* Desktop spacer only */}
           <div className="hidden lg:block lg:flex-1" />
 
-
           {/* LOGOUT */}
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-red-500 hover:bg-red-50 whitespace-nowrap"
+            className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm lg:text-lg uppercase text-red-500 hover:bg-red-50 whitespace-nowrap"
           >
             <LogOut size={20} />
 
-            <span className="hidden sm:inline lg:inline">
-              Log out
-            </span>
+            <span className="hidden sm:inline lg:inline">Log out</span>
           </button>
-
         </nav>
-
       </aside>
-
 
       {/* MAIN CONTENT */}
       <main className="flex-1 p-4 lg:p-10">
         <Outlet />
       </main>
-
     </div>
   );
 };

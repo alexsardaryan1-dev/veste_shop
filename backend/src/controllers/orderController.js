@@ -1,4 +1,4 @@
-import { getOrdersByUser, getOrderStats, createOrder as createOrderModel } from '../models/Order.js';
+import { getOrdersByUser, getOrderStats, createOrder as createOrderModel } from "../models/Order.js";
 
 export const getMyOrders = async (req, res) => {
     try {
@@ -15,8 +15,8 @@ export const getMyOrders = async (req, res) => {
 
         res.json(orders);
     } catch (error) {
-        console.error('Get my orders error:', error.message);
-        res.status(500).json({ message: 'Server error fetching orders' });
+        console.error("Get my orders error:", error.message);
+        res.status(500).json({ message: "Server error fetching orders" });
     }
 };
 
@@ -31,8 +31,8 @@ export const getMyStats = async (req, res) => {
             totalSpent: Number(stats.totalSpent),
         });
     } catch (error) {
-        console.error('Get my stats error:', error.message);
-        res.status(500).json({ message: 'Server error fetching stats' });
+        console.error("Get my stats error:", error.message);
+        res.status(500).json({ message: "Server error fetching stats" });
     }
 };
 
@@ -41,18 +41,18 @@ export const createOrder = async (req, res) => {
         const { items, total } = req.body;
 
         if (!items || !Array.isArray(items) || items.length === 0) {
-            return res.status(400).json({ message: 'No items provided' });
+            return res.status(400).json({ message: "No items provided" });
         }
 
         if (!total || total <= 0) {
-            return res.status(400).json({ message: 'Invalid total' });
+            return res.status(400).json({ message: "Invalid total" });
         }
 
         const order = await createOrderModel(req.user.id, total, items);
 
-        res.status(201).json({ order, message: 'Order placed successfully' });
+        res.status(201).json({ order, message: "Order placed successfully" });
     } catch (error) {
-        console.error('Create order error:', error.message);
-        res.status(500).json({ message: 'Server error creating order' });
+        console.error("Create order error:", error.message);
+        res.status(500).json({ message: "Server error creating order" });
     }
 };

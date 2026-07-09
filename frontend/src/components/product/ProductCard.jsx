@@ -6,7 +6,7 @@ import { WishlistContext } from "../../context/WishlistContext";
 import { AuthContext } from "../../context/AuthContext";
 
 const ProductCard = ({ product }) => {
-  const { id, name, price, sale_price, images } = product;
+  const { id, name, price, sale_price, images, category } = product;
   const { addToCart } = useContext(CartContext);
   const { toggleWishlist, isInWishlist } = useContext(WishlistContext);
   const { user } = useContext(AuthContext);
@@ -15,6 +15,7 @@ const ProductCard = ({ product }) => {
   const [cartPop, setCartPop] = useState(false);
   const [heartPop, setHeartPop] = useState(false);
 
+  const isAccessory = category === "accessories";
   const inWishlist = isInWishlist(id);
 
   const handleAddToCart = () => {
@@ -22,6 +23,12 @@ const ProductCard = ({ product }) => {
       navigate("/login");
       return;
     }
+
+    if (!isAccessory) {
+      navigate(`/product/${id}`);
+      return;
+    }
+
     addToCart(product);
     setCartPop(true);
     setTimeout(() => setCartPop(false), 300);
@@ -39,7 +46,7 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="flex flex-col border border-gray-500 h-[420px]">
+    <div className="flex flex-col border border-grey-500 h-[420px]">
       <Link
         to={`/product/${id}`}
         className="relative w-full aspect-[3/4] bg-gray-100 overflow-hidden block"
@@ -56,7 +63,9 @@ const ProductCard = ({ product }) => {
           className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full transition duration-300 ${
             heartPop ? "animate-pop" : ""
           } ${
-            inWishlist ? "bg-red-500 text-white" : "bg-white/80 text-red-500 hover:bg-white"
+            inWishlist
+              ? "bg-red-500 text-white"
+              : "bg-white/80 text-red-500 hover:bg-white"
           }`}
         >
           <Heart size={20} fill={inWishlist ? "currentColor" : "none"} />
@@ -88,7 +97,7 @@ const ProductCard = ({ product }) => {
 
           <button
             onClick={handleAddToCart}
-            className={`flex items-center text-2xl justify-center w-8 h-8 bg-gray-400 text-white border border-gray-400 hover:bg-white hover:text-black transition duration-300 rounded-xl ${
+            className={`flex items-center text-2xl justify-center w-8 h-8 bg-gray-400 text-white border border-grey-400 hover:bg-white hover:text-black transition duration-300 rounded-xl ${
               cartPop ? "animate-pop" : ""
             }`}
             aria-label="Add to cart"

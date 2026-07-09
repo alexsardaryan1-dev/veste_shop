@@ -1,15 +1,15 @@
-import pool from '../config/database.js';
+import pool from "../config/database.js";
 
 export const getOrdersByUser = (userId, status) => {
     const query = status
         ? `SELECT o.id, o.total, o.status, o.created_at,
              (
                 SELECT json_agg(json_build_object(
-                    'productId', oi.product_id,
-                    'name', p.name,
-                    'quantity', oi.quantity,
-                    'price', oi.price,
-                    'image', (
+                    "productId", oi.product_id,
+                    "name", p.name,
+                    "quantity", oi.quantity,
+                    "price", oi.price,
+                    "image", (
                         SELECT image_url FROM product_images
                         WHERE product_id = p.id
                         ORDER BY sort_order ASC
@@ -24,11 +24,11 @@ export const getOrdersByUser = (userId, status) => {
         : `SELECT o.id, o.total, o.status, o.created_at,
              (
                 SELECT json_agg(json_build_object(
-                    'productId', oi.product_id,
-                    'name', p.name,
-                    'quantity', oi.quantity,
-                    'price', oi.price,
-                    'image', (
+                    "productId", oi.product_id,
+                    "name", p.name,
+                    "quantity", oi.quantity,
+                    "price", oi.price,
+                    "image", (
                         SELECT image_url FROM product_images
                         WHERE product_id = p.id
                         ORDER BY sort_order ASC
@@ -49,8 +49,8 @@ export const getOrderStats = async (userId) => {
     const result = await pool.query(
         `SELECT
             COUNT(*) AS "totalOrders",
-            COUNT(*) FILTER (WHERE status = 'confirmed') AS "confirmedOrders",
-            COUNT(*) FILTER (WHERE status = 'pending') AS "pendingOrders",
+            COUNT(*) FILTER (WHERE status = "confirmed") AS "confirmedOrders",
+            COUNT(*) FILTER (WHERE status = "pending") AS "pendingOrders",
             COALESCE(SUM(total), 0) AS "totalSpent"
          FROM orders WHERE user_id = $1`,
         [userId]
@@ -61,10 +61,10 @@ export const getOrderStats = async (userId) => {
 export const createOrder = async (userId, total, items) => {
     const client = await pool.connect();
     try {
-        await client.query('BEGIN');
+        await client.query("BEGIN");
 
         const orderResult = await client.query(
-            `INSERT INTO orders (user_id, total, status) VALUES ($1, $2, 'confirmed') RETURNING id, total, status, created_at`,
+            `INSERT INTO orders (user_id, total, status) VALUES ($1, $2, "confirmed") RETURNING id, total, status, created_at`,
             [userId, total]
         );
         const order = orderResult.rows[0];
@@ -76,10 +76,10 @@ export const createOrder = async (userId, total, items) => {
             );
         }
 
-        await client.query('COMMIT');
+        await client.query("COMMIT");
         return order;
     } catch (error) {
-        await client.query('ROLLBACK');
+        await client.query("ROLLBACK");
         throw error;
     } finally {
         client.release();
