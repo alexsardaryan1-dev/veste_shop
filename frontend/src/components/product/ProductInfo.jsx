@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ChevronLeft,
@@ -12,14 +12,15 @@ import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { WishlistContext } from "../../context/WishlistContext";
 import { AuthContext } from "../../context/AuthContext";
+import { useProducts } from "../../hooks/useProducts";
 
 const ProductInfo = ({ product }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [size, setSize] = useState("");
+  const [sizeError, setSizeError] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [openInfo, setOpenInfo] = useState(true);
   const [openReturns, setOpenReturns] = useState(false);
-  const [allProducts, setAllProducts] = useState([]);
 
   const {
     id,
@@ -28,7 +29,6 @@ const ProductInfo = ({ product }) => {
     sale_price,
     images = [],
     variants = [],
-    sku,
     category,
   } = product;
   const sizes = [...new Set(variants.map((v) => v.size))];
@@ -37,18 +37,10 @@ const ProductInfo = ({ product }) => {
   const { addToCart } = useContext(CartContext);
   const { toggleWishlist, isInWishlist } = useContext(WishlistContext);
   const { user } = useContext(AuthContext);
+  const { products: allProducts } = useProducts();
   const navigate = useNavigate();
 
   const inWishlist = isInWishlist(id);
-
-  useEffect(() => {
-    const fetchAllProducts = async () => {
-      const res = await fetch("http://localhost:5001/api/products");
-      const data = await res.json();
-      setAllProducts(data.products);
-    };
-    fetchAllProducts();
-  }, []);
 
   const currentIndex = allProducts.findIndex((p) => p.id === id);
   const prevProduct = currentIndex > 0 ? allProducts[currentIndex - 1] : null;
@@ -62,6 +54,11 @@ const ProductInfo = ({ product }) => {
       navigate("/login");
       return;
     }
+    if (!isAccessory && sizes.length > 0 && !size) {
+      setSizeError(true);
+      return;
+    }
+    setSizeError(false);
     addToCart(product, quantity, isAccessory ? null : size);
   };
 
@@ -139,7 +136,6 @@ const ProductInfo = ({ product }) => {
 
         <div className="flex flex-col gap-4 tracking-wider">
           <h1 className="text-3xl font-medium">{name}</h1>
-          {sku && <p className="text-sm text-gray-500">SKU: {sku}</p>}
 
           <div className="flex flex-col gap-1 mt-2">
             <div className="text-xl font-normal">
@@ -168,8 +164,13 @@ const ProductInfo = ({ product }) => {
               <div className="relative">
                 <select
                   value={size}
-                  onChange={(e) => setSize(e.target.value)}
-                  className="w-full border border-gray-500 px-4 py-3 pr-12 appearance-none"
+                  onChange={(e) => {
+                    setSize(e.target.value);
+                    setSizeError(false);
+                  }}
+                  className={`w-full border px-4 py-3 pr-12 appearance-none ${
+                    sizeError ? "border-red-500" : "border-gray-500"
+                  }`}
                 >
                   <option value="">Select</option>
 
@@ -186,6 +187,9 @@ const ProductInfo = ({ product }) => {
                   className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"
                 />
               </div>
+              {sizeError && (
+                <p className="text-sm text-red-500 mt-1">Please select a size</p>
+              )}
             </div>
           )}
 

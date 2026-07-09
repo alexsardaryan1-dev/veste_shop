@@ -34,7 +34,7 @@ const MyOrders = () => {
 
   return (
     <div className='space-y-6'>
-      <h1 className='text-2xl font-light'>My Orders</h1>
+      <h1 className='text-2xl font-normal uppercase tracking-wider'>My Orders</h1>
 
       {orders.length === 0 ? (
         <div className='rounded-xl border border-gray-500 p-10 flex flex-col items-center gap-3 text-gray-500'>
@@ -42,16 +42,16 @@ const MyOrders = () => {
           <p>You haven't placed any orders yet.</p>
         </div>
       ) : (
-        <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-4 tracking-wider'>
           {orders.map((order) => (
             <div
               key={order.id}
-              className='rounded-xl border border-gray-500 p-5 flex flex-col gap-4'
+              className='rounded-xl border border-gray-500 p-5 flex flex-col gap-1'
             >
               <div className='flex items-center justify-between'>
-                <p className='font-light'>Order #{order.id}</p>
+                <p className='font-normal uppercase text-lg'>Order #{order.id}</p>
                 <span
-                  className={`px-2 py-1 rounded-full text-xs font-light ${
+                  className={`px-2 py-1 rounded-full text-lg font-normal ${
                     statusStyles[order.status] || 'bg-gray-50 text-gray-500'
                   }`}
                 >
@@ -72,8 +72,8 @@ const MyOrders = () => {
                       className='w-14 h-14 object-cover bg-gray-100 rounded-lg shrink-0'
                     />
                     <div className='flex-1 min-w-0'>
-                      <p className='text-sm truncate'>{item.name}</p>
-                      <p className='text-xs text-gray-500'>
+                      <p className='text-sm uppercase truncate'>{item.name}</p>
+                      <p className='text-sm text-gray-500'>
                         Quantity {item.quantity} * ${Number(item.price).toFixed(2)}
                       </p>
                     </div>
@@ -84,7 +84,7 @@ const MyOrders = () => {
                 ))}
               </div>
 
-              <div className='flex justify-between text-sm font-light border-t border-gray-100 pt-3'>
+              <div className='flex justify-between text-base uppercase font-normal border-t border-gray-400 pt-3'>
                 <span>Total</span>
                 <span>${order.total.toFixed(2)}</span>
               </div>

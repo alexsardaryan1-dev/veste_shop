@@ -58,7 +58,7 @@ const DashboardLayout = () => {
               <ArrowLeft size={24} />
             </button>
 
-            <h1 className="text-xl font-medium">
+            <h1 className="text-xl font-medium uppercase">
               {pageTitle}
             </h1>
           </div>
