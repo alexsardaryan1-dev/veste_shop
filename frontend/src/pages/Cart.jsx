@@ -22,7 +22,10 @@ const Cart = () => {
       <div className="max-w-4xl mx-auto px-6 py-16 text-center flex flex-col gap-4 uppercase">
         <ShoppingCart size={32} className="mx-auto text-gray-400" />
         <h1 className="text-2xl">Your cart is empty.</h1>
-        <Link to="/shop" className="text-sm text-black border border-black p-2 bg-white rounded-xl">
+        <Link
+          to="/shop"
+          className="text-sm text-black border border-black p-2 bg-white rounded-xl"
+        >
           Go To Shop
         </Link>
       </div>
@@ -32,10 +35,10 @@ const Cart = () => {
   return (
     <div className="max-w-5xl mx-auto px-6 py-10 pb-28 lg:pb-10 flex flex-col gap-8 tracking-wider">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-normal uppercase">Cart</h1>
+        <h1 className="text-2xl lg:text-3xl font-normal uppercase">Cart</h1>
         <button
           onClick={clearCart}
-          className="text-xs uppercase text-red-600 hover:underline"
+          className="text-xs lg:text-base uppercase text-red-500 hover:underline"
         >
           Clear Cart
         </button>
@@ -55,7 +58,7 @@ const Cart = () => {
               />
 
               <div className="flex-1 min-w-0 sm:hidden uppercase">
-                <p className="font-normal truncate">{item.name}</p>
+                <p className="font-normal truncate text-sm">{item.name}</p>
                 {item.size && (
                   <p className="text-sm text-gray-500">Size: {item.size}</p>
                 )}
@@ -65,38 +68,42 @@ const Cart = () => {
               </div>
             </div>
 
-            <div className="hidden sm:block flex-1 min-w-0">
-              <p className="font-light truncate">{item.name}</p>
+            <div className="hidden sm:block flex-1 min-w-0 uppercase">
+              <p className="font-normal text-lg truncate">{item.name}</p>
               {item.size && (
-                <p className="text-sm text-gray-500">Size: {item.size}</p>
+                <p className="text-lg font-light text-gray-500">
+                  Size: {item.size}
+                </p>
               )}
-              <p className="text-sm text-gray-500">
+              <p className="text-lg font-light text-gray-500">
                 ${getPrice(item).toFixed(2)}
               </p>
             </div>
 
             <div className="flex items-center justify-between sm:justify-end gap-4">
               <div className="flex items-center border border-gray-500 rounded-lg">
-               <button
-                      onClick={() =>
-                        updateQuantity(item.id, item.size, item.quantity - 1)
-                      }
-                      className="p-2"
-                    >
-                      <Minus size={18} />
-                    </button>
-                    <span className="p-2 text-xs">{item.quantity}</span>
-                    <button
-                      onClick={() =>
-                        updateQuantity(item.id, item.size, item.quantity + 1)
-                      }
-                      className="p-2"
-                    >
-                      <Plus size={18} />
-                    </button>
+                <button
+                  onClick={() =>
+                    updateQuantity(item.id, item.size, item.quantity - 1)
+                  }
+                  className="p-2"
+                  aria-label="Decrease quantity"
+                >
+                  <Minus size={18} />
+                </button>
+                <span className="p-2 text-xs">{item.quantity}</span>
+                <button
+                  onClick={() =>
+                    updateQuantity(item.id, item.size, item.quantity + 1)
+                  }
+                  className="p-2"
+                  aria-label="Increase quantity"
+                >
+                  <Plus size={18} />
+                </button>
               </div>
 
-              <p className="text-right font-light hidden sm:block w-20">
+              <p className="text-right font-light lg: text-lg hidden sm:block w-20">
                 ${(getPrice(item) * item.quantity).toFixed(2)}
               </p>
 
@@ -113,7 +120,10 @@ const Cart = () => {
       </div>
 
       {/* MOBILE: sticky full-width bar */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex items-center justify-between gap-4 z-40">
+      <div
+        aria-label="Cart summary"
+        className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex items-center justify-between gap-4 z-40"
+      >
         <div>
           <p className="text-lg text-gray-500 uppercase">Subtotal</p>
           <p className="text-lg font-medium">${subtotal.toFixed(2)}</p>
@@ -127,17 +137,24 @@ const Cart = () => {
       </div>
 
       {/* DESKTOP: sticky summary card */}
-      <div className="hidden lg:flex sticky bottom-6 rounded-xl border border-gray-500 bg-white p-5 flex-col gap-4 max-w-sm ml-auto shadow-lg">
-        <div className="flex justify-between text-lg font-light">
-          <span>Subtotal</span>
-          <span>${subtotal.toFixed(2)}</span>
+      <div className="hidden lg:block w-full">
+        <div className="sticky top-24 border border-gray-300 rounded-lg p-6 flex flex-col gap-6 tracking-wider">
+
+          <div className="flex justify-between text-xl">
+            <span className="text-gray-500 uppercase">Subtotal</span>
+
+            <span>${subtotal.toFixed(2)}</span>
+          </div>
+
+          <div className="border-t border-gray-300 pt-4">
+            <button
+              onClick={() => navigate("/checkout")}
+              className="w-full bg-black border border-black text-white py-3 uppercase text-xl rounded-lg hover:bg-white hover:text-black transition duration-300"
+            >
+              Checkout
+            </button>
+          </div>
         </div>
-        <button
-          onClick={() => navigate("/checkout")}
-          className="bg-black text-white py-3 uppercase text-sm rounded-lg"
-        >
-          Checkout
-        </button>
       </div>
     </div>
   );

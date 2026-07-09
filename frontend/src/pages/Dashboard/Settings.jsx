@@ -49,12 +49,12 @@ const Settings = () => {
       <div className='rounded-xl border border-gray-500 p-6 space-y-3 tracking-wider'>
         <h2 className='text-xl font-normal mb-2 uppercase'>Account Info</h2>
         <div>
-          <p className='text-base uppercasetext-gray-500 font-light uppercase'>Name</p>
-          <p className='text-base font-normal'>{user?.name}</p>
+          <p className='text-base uppercasetext-gray-500 font-normal uppercase'>Name</p>
+          <p className='text-base font-light'>{user?.name}</p>
         </div>
         <div>
-          <p className='text-base uppercasetext-gray-500 font-light uppercase'>Email</p>
-          <p className='text-base font-normal'>{user?.email}</p>
+          <p className='text-base uppercasetext-gray-500 font-normal uppercase'>Email</p>
+          <p className='text-base font-light'>{user?.email}</p>
         </div>
       </div>
 
@@ -63,12 +63,12 @@ const Settings = () => {
         <h2 className='text-xl font-normal mb-4'>Change Password</h2>
 
         {error && (
-          <div className='bg-red-50 border border-red-200 text-red-700 p-3 rounded mb-4 text-base'>
+          <div className='bg-red-50 border border-red-500 text-red-500 p-3 rounded mb-4 text-base'>
             {error}
           </div>
         )}
         {success && (
-          <div className='bg-green-50 border border-green-200 text-green-700 p-3 rounded mb-4 text-base'>
+          <div className='bg-green-50 border border-green-500 text-green-500 p-3 rounded mb-4 text-base'>
             {success}
           </div>
         )}
@@ -82,7 +82,7 @@ const Settings = () => {
               type='password'
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
-              className='border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition rounded'
+              className='border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition  duration-300 rounded'
               required
             />
           </div>
@@ -95,7 +95,7 @@ const Settings = () => {
               type='password'
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className='border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition rounded'
+              className='border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition duration-300 rounded'
               required
             />
           </div>
@@ -108,7 +108,7 @@ const Settings = () => {
               type='password'
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className='border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition rounded'
+              className='border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition duration-300 rounded'
               required
             />
           </div>
@@ -116,7 +116,7 @@ const Settings = () => {
           <button
             type='submit'
             disabled={loading}
-            className='bg-[#313131] text-white p-3 uppercase text-base font-light border border-black hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 rounded'
+            className='bg-[#313131] text-white p-3 uppercase text-base font-light border border-black hover:bg-white hover:text-black transition duration-300 disabled:opacity-50 rounded'
           >
             {loading ? 'Updating...' : 'Update Password'}
           </button>

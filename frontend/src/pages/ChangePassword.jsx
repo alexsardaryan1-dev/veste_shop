@@ -71,14 +71,14 @@ const ChangePassword = () => {
 
         {/* SUCCESS MESSAGE */}
         {success && (
-          <div className='bg-green-50 border border-green-200 text-green-700 p-4 rounded mb-6 text-sm'>
+          <div className='bg-green-50 border border-green-500 text-green-500 p-4 rounded mb-6 text-sm'>
             <p className='font-light'>Password changed successfully!</p>
           </div>
         )}
 
         {/* ERROR MESSAGE */}
         {error && (
-          <div className='bg-red-50 border border-red-200 text-red-700 p-3 rounded mb-6 text-xs'>
+          <div className='bg-red-50 border border-red-500 text-red-500 p-3 rounded mb-6 text-xs'>
             {error}
           </div>
         )}
@@ -97,7 +97,7 @@ const ChangePassword = () => {
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
               placeholder='••••••••'
-              className='border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition'
+              className='border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition duration-300'
               required
             />
           </div>
@@ -113,7 +113,7 @@ const ChangePassword = () => {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder='••••••••'
-              className='border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition'
+              className='border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition duration-300'
               required
             />
             <p className='text-xs text-gray-500'>Min 6 chars, 1 uppercase, 1 number</p>
@@ -130,7 +130,7 @@ const ChangePassword = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder='••••••••'
-              className='border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition'
+              className='border border-[#D0D0D0] p-3 text-sm outline-none focus:border-[#313131] transition duration-300'
               required
             />
           </div>
@@ -139,7 +139,7 @@ const ChangePassword = () => {
           <button
             type='submit'
             disabled={loading}
-            className='bg-[#313131] text-white p-3 uppercase tracking-wider text-sm font-light hover:bg-[#1a1a1a] disabled:opacity-50 transition'
+            className='bg-[#313131] text-white p-3 uppercase tracking-wider text-sm font-light hover:bg-[#1a1a1a] disabled:opacity-50 transition duration-300'
           >
             {loading ? 'Changing...' : 'Change Password'}
           </button>

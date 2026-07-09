@@ -53,7 +53,7 @@ const Footer = () => {
               href="https://www.instagram.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-pink-500 transition"
+              className="hover:text-pink-500 transition duration-300"
             >
               <FaInstagram />
             </a>
@@ -62,7 +62,7 @@ const Footer = () => {
               href="https://www.facebook.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-blue-500 transition"
+              className="hover:text-blue-500 transition duration-300"
             >
               <FaFacebookF />
             </a>
@@ -71,7 +71,7 @@ const Footer = () => {
               href="https://x.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-yellow-300 transition"
+              className="hover:text-yellow-300 transition duration-300"
             >
               <FaXTwitter />
             </a>

@@ -4,9 +4,9 @@ import api from '../../services/api';
 
 const statusStyles = {
   pending: 'bg-yellow-50 text-yellow-600',
-  confirmed: 'bg-green-50 text-green-600',
+  confirmed: 'bg-green-50 text-green-500',
   shipped: 'bg-blue-50 text-blue-600',
-  cancelled: 'bg-red-50 text-red-600',
+  cancelled: 'bg-red-50 text-red-500',
 };
 
 const MyOrders = () => {

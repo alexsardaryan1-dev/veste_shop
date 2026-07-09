@@ -76,21 +76,21 @@ export default function LookbookSection() {
       <div className="flex justify-center gap-2 py-14 text-base lg:text-xl">
         <Link
           to="/shop?category=men"
-          className="px-6 py-3 border border-black hover:bg-black hover:text-white transition"
+          className="px-6 py-3 border border-black hover:bg-black hover:text-white transition duration-300"
         >
           Shop Men
         </Link>
 
         <Link
           to="/shop?category=women"
-          className="px-6 py-3 border border-black hover:bg-black hover:text-white transition"
+          className="px-6 py-3 border border-black hover:bg-black hover:text-white transition duration-300"
         >
           Shop Women
         </Link>
 
         <Link
           to="/shop?category=accessories"
-          className="px-6 py-3 border border-black hover:bg-black hover:text-white transition"
+          className="px-6 py-3 border border-black hover:bg-black hover:text-white transition duration-300"
         >
           Accessories
         </Link>

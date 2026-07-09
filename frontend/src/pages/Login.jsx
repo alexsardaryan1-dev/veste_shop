@@ -34,7 +34,7 @@ const Login = () => {
       <div className="w-full max-w-md lg:max-w-lg mx-auto lg:bg-white lg:border lg:border-gray-500 lg:shadow-sm lg:p-10 lg:rounded-xl">
         <Link
           to="/"
-          className="border border-black p-2 rounded-xl absolute top-5 left-5 flex items-center gap-1 text-xs uppercase tracking-wider text-black hover:text-white hover:bg-black transition lg:text-sm"
+          className="border border-black p-2 rounded-xl absolute top-5 left-5 flex items-center gap-1 text-xs uppercase tracking-wider text-black hover:text-white hover:bg-black transition duration-300 lg:text-sm"
         >
           <ArrowLeft size={20} />
           Home
@@ -52,7 +52,7 @@ const Login = () => {
 
         {/* ERROR MESSAGE */}
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-xl mb-6 text-xs">
+          <div className="bg-red-50 border border-red-500 text-red-500 p-3 rounded-xl mb-6 text-xs">
             {error}
           </div>
         )}
@@ -73,7 +73,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
+              className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition duration-300 rounded-xl lg:text-base"
               required
             />
           </div>
@@ -92,7 +92,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
+              className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition duration-300 rounded-xl lg:text-base"
               required
             />
           </div>
@@ -101,7 +101,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="bg-black text-white p-3 uppercase tracking-wider text-sm font-light border border-black hover:bg-white hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 rounded-xl lg:text-base"
+            className="bg-black text-white p-3 uppercase tracking-wider text-sm font-light border border-black hover:bg-white hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition duration-300 rounded-xl lg:text-base"
           >
             {loading ? "Logging in..." : "Log In"}
           </button>

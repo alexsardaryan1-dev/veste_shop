@@ -23,7 +23,7 @@ const MyCart = () => {
         {cartItems.length > 0 && (
           <button
             onClick={clearCart}
-            className="text-xs uppercase text-red-600 hover:underline"
+            className="text-xs uppercase text-red-500 hover:underline"
           >
             Clear Cart
           </button>

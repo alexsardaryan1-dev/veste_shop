@@ -1,6 +1,6 @@
 export default function VisitUs() {
   return (
-    <section className="w-full bg-white">
+    <section aria-labelledby="visit-title" className="w-full bg-white">
       <div className="text-center py-16">
         <h1 className="text-4xl lg:text-4xl font-medium uppercase tracking-wider">
           Visit Us At Our Store
@@ -19,7 +19,9 @@ export default function VisitUs() {
           </div>
 
           <div>
-            <h2 className="text-2xl lg:text-3xl font-light mb-3">Opening Hours</h2>
+            <h2 className="text-2xl lg:text-3xl font-light mb-3">
+              Opening Hours
+            </h2>
             <p className="font-light text-gray-500 leading-7 text-xl lg:text-xl">
               Mon-Thu: 10:00am - 7:00pm <br />
               Friday: 9:00am - 9:00pm <br />
@@ -31,7 +33,7 @@ export default function VisitUs() {
 
         <div className="w-full h-[400px]">
           <iframe
-            title="store-location"
+            title="Map showing our store location"
             className="w-full h-full border-0"
             loading="lazy"
             src="https://www.openstreetmap.org/export/embed.html?bbox=2.341%2C48.855%2C2.352%2C48.861&layer=mapnik"
@@ -41,9 +43,7 @@ export default function VisitUs() {
 
       {/* ABOUT US */}
       <div className="max-w-4xl mx-auto px-6 py-20 text-center space-y-6 tracking-wider">
-        <h2 className="text-4xl lg:text-4xl font-medium uppercase">
-          About Us
-        </h2>
+        <h2 className="text-4xl lg:text-4xl font-medium uppercase">About Us</h2>
 
         <p className="text-gray-500 leading-7 font-light text-xl lg:text-2xl">
           We are a contemporary fashion brand focused on timeless design, clean

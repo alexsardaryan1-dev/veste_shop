@@ -2,7 +2,6 @@ const Newsletter = () => {
   return (
     <section className="py-20 px-6">
       <div className="max-w-4xl mx-auto flex flex-col items-center tracking-wider">
-
         <h2 className="text-4xl font-light uppercase tracking-wider text-black">
           Get on the list
         </h2>
@@ -11,8 +10,9 @@ const Newsletter = () => {
           and be the first to shop new arrivals and exclusive promotions.
         </p>
 
-        <form className="mt-16 w-full max-w-3xl flex flex-col gap-6">
-
+        <form
+          className="mt-16 w-full max-w-3xl flex flex-col gap-6"
+        >
           <div className="flex flex-col gap-2">
             <label
               htmlFor="email"
@@ -24,18 +24,22 @@ const Newsletter = () => {
             <input
               id="email"
               type="email"
-              className="w-full text-lg border border-gray-500 h-12 px-4 outline-none focus:border-black transition"
+              required
+              aria-required="true"
+              autoComplete="email"
+              className="w-full text-lg border border-gray-500 h-12 px-4 outline-none focus:border-black transition duration-300"
             />
           </div>
 
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-
             <label className="flex items-center gap-4 cursor-pointer">
               <input
                 type="checkbox"
-                className="mt-1 h-4 w-4 accent-black"
+                required
+                aria-required="true"
+                className="mt-1 h-4 w-4 lg:h-6 lg:w-6 accent-black"
               />
-              <span className="text-lg text-gray-500 leading-relaxed tracking-wider">
+              <span className="text-lg lg:text-xl text-gray-500 leading-relaxed tracking-wider">
                 Yes, subscribe me to your newsletter. *
               </span>
             </label>
@@ -46,11 +50,8 @@ const Newsletter = () => {
             >
               Subscribe Now
             </button>
-
           </div>
-
         </form>
-
       </div>
     </section>
   );

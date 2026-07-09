@@ -50,41 +50,108 @@ export default function CustomerCare() {
             us an email at <span className="font-medium">info@mysite.com</span>
           </p>
 
-          <form className="space-y-4">
+          <form className="space-y-4 tracking-wider">
             <div className="grid grid-cols-2 gap-4">
               <input
                 type="text"
                 placeholder="First Name*"
-                className="border text-xl p-3 w-full outline-none"
+                className="
+        border
+        text-xl
+        p-3
+        w-full
+        outline-none
+        transition
+        focus:ring-2
+        focus:ring-black
+        focus:border-black
+      "
               />
+
               <input
                 type="text"
                 placeholder="Last Name*"
-                className="border text-xl p-3 w-full outline-none"
+                className="
+        border
+        text-xl
+        p-3
+        w-full
+        outline-none
+        transition
+        focus:ring-2
+        focus:ring-black
+        focus:border-black
+      "
               />
             </div>
 
             <input
               type="email"
               placeholder="Email*"
-              className="border text-xl p-3 w-full outline-none"
+              className="
+      border
+      text-xl
+      p-3
+      w-full
+      outline-none
+      transition
+      focus:ring-2
+      focus:ring-black
+      focus:border-black
+    "
             />
 
             <input
               type="text"
               placeholder="Subject"
-              className="border text-xl p-3 w-full outline-none"
+              className="
+      border
+      text-xl
+      p-3
+      w-full
+      outline-none
+      transition
+      focus:ring-2
+      focus:ring-black
+      focus:border-black
+    "
             />
 
             <textarea
               placeholder="Message"
               rows="5"
-              className="border text-xl p-3 w-full outline-none"
+              className="
+      border
+      text-xl
+      p-3
+      w-full
+      outline-none
+      transition
+      focus:ring-2
+      focus:ring-black
+      focus:border-black
+    "
             />
 
             <button
               type="submit"
-              className="bg-black text-white px-6 py-3 text-xl border border-black hover:bg-white hover:text-black transition"
+              className="
+      bg-black
+      text-white
+      px-6
+      py-3
+      text-xl
+      border
+      border-black
+      uppercase
+      transition
+      duration-300
+      hover:bg-white
+      hover:text-black
+      focus:outline-none
+      focus:ring-2
+      focus:ring-black
+    "
             >
               Send
             </button>
@@ -109,7 +176,9 @@ export default function CustomerCare() {
                 </button>
 
                 {openIndex === index && (
-                  <p className="text-gray-500 text-base lg:text-xl mt-2 font-light tracking-wider">{item.a}</p>
+                  <p className="text-gray-500 text-base lg:text-xl mt-2 font-light tracking-wider">
+                    {item.a}
+                  </p>
                 )}
               </div>
             ))}

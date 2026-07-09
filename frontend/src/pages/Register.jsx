@@ -65,7 +65,7 @@ const Register = () => {
 
   const CheckItem = ({ passed, label }) => (
     <li
-      className={`flex items-center gap-1.5 ${passed ? "text-green-600" : "text-gray-500"}`}
+      className={`flex items-center gap-1.5 ${passed ? "text-green-500" : "text-gray-500"}`}
     >
       {passed ? <Check size={20} /> : <X size={20} />}
       {label}
@@ -77,7 +77,7 @@ const Register = () => {
       <div className="w-full max-w-md lg:max-w-lg mx-auto lg:bg-white lg:border lg:border-gray-500 lg:shadow-sm lg:p-10 lg:rounded-xl">
         <Link
           to="/"
-          className="border border-black p-2 rounded-xl absolute top-5 left-5 flex items-center gap-1 text-xs uppercase tracking-wider text-black hover:text-white hover:bg-black transition lg:text-sm"
+          className="border border-black p-2 rounded-xl absolute top-5 left-5 flex items-center gap-1 text-xs uppercase tracking-wider text-black hover:text-white hover:bg-black transition duration-300 lg:text-sm"
         >
           <ArrowLeft size={20} />
           Home
@@ -95,7 +95,7 @@ const Register = () => {
 
         {/* ERROR MESSAGE */}
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-xl mb-6 text-xs">
+          <div className="bg-red-50 border border-red-500 text-red-500 p-3 rounded-xl mb-6 text-xs">
             {error}
           </div>
         )}
@@ -116,7 +116,7 @@ const Register = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="John Doe"
-              className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
+              className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition duration-300 rounded-xl lg:text-base"
               required
             />
           </div>
@@ -136,9 +136,9 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}
               onBlur={() => setEmailTouched(true)}
               placeholder="your@email.com"
-              className={`border p-3 text-sm outline-none transition rounded-xl lg:text-base ${
+              className={`border p-3 text-sm outline-none transition duration-300 rounded-xl lg:text-base ${
                 emailTouched && !isEmailValid
-                  ? "border-red-400 focus:border-red-500"
+                  ? "border-red-500 focus:border-red-500"
                   : "border-gray-500 focus:border-black"
               }`}
               required
@@ -165,7 +165,7 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
               onFocus={() => setPasswordTouched(true)}
               placeholder="••••••••"
-              className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition rounded-xl lg:text-base"
+              className="border border-gray-500 p-3 text-sm outline-none focus:border-black transition duration-300 rounded-xl lg:text-base"
               required
             />
             {passwordTouched && (
@@ -205,9 +205,9 @@ const Register = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="••••••••"
-              className={`border rounded-xl p-3 text-sm outline-none transition lg:text-base ${
+              className={`border rounded-xl p-3 text-sm outline-none transition duration-300 lg:text-base ${
                 confirmPassword !== "" && !doPasswordsMatch
-                  ? "border-red-400 focus:border-red-500"
+                  ? "border-red-500 focus:border-red-500"
                   : "border-gray-500 focus:border-black"
               }`}
               required
@@ -221,7 +221,7 @@ const Register = () => {
           <button
             type="submit"
             disabled={loading || !isValidForm}
-            className={`rounded-xl p-3 uppercase tracking-wider text-sm lg:text-base font-light border transition-colors duration-300 ${
+            className={`rounded-xl p-3 uppercase tracking-wider text-sm lg:text-base font-light border transition duration-300 ${
               loading || !isValidForm
                 ? "bg-gray-500 border-gray-500 text-gray-500 cursor-not-allowed"
                 : "bg-black border-black text-white hover:bg-white hover:text-black"

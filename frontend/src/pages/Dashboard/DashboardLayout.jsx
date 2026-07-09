@@ -105,7 +105,7 @@ const DashboardLayout = () => {
               key={to}
               to={to}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 rounded-lg text-sm whitespace-nowrap transition-colors ${
+                `flex items-center gap-3 px-4 py-3 rounded-lg text-sm whitespace-nowrap transition duration-300 ${
                   isActive
                     ? "bg-black text-white"
                     : "text-gray-500 hover:bg-gray-100"
@@ -128,7 +128,7 @@ const DashboardLayout = () => {
           {/* LOGOUT */}
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-red-600 hover:bg-red-50 whitespace-nowrap"
+            className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-red-500 hover:bg-red-50 whitespace-nowrap"
           >
             <LogOut size={20} />
 

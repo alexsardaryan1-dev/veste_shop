@@ -93,6 +93,7 @@ const Header = () => {
           <input
             type="text"
             placeholder="Search"
+            aria-label="Search products"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleSearchKeyDown}
@@ -117,6 +118,7 @@ const Header = () => {
           <Link
             to="/dashboard/favorites"
             className="relative flex items-center justify-center"
+            aria-label="Wishlist"
           >
             <Heart size={20} />
             {wishlistItems.length > 0 && (
@@ -142,10 +144,10 @@ const Header = () => {
             </Link>
 
             {isMiniCartOpen && (
-              <div className="fixed inset-0 z-50 flex items-start justify-end sm:items-start sm:absolute sm:inset-auto sm:top-full sm:right-0 sm:mt-4">
+              <div className="fixed inset-0 z-50 flex items-start justify-end sm:items-start sm:absolute sm:inset-auto sm:top-full sm:right-0 sm:mt-4 uppercase tracking-wider">
                 <div className="bg-white text-black shadow-lg border border-gray-500 w-full h-full sm:h-auto sm:w-80 flex flex-col">
                   <div className="flex items-center justify-between p-4 border-b border-gray-500">
-                    <span className="text-sm font-light">
+                    <span className="text-base font-light">
                       Cart ({cartCount})
                     </span>
                     <button
@@ -153,7 +155,7 @@ const Header = () => {
                       onClick={closeMiniCart}
                       aria-label="Close"
                     >
-                      <X size={20} />
+                      <X size={22} />
                     </button>
                   </div>
 
@@ -161,7 +163,7 @@ const Header = () => {
                     <button
                       type="button"
                       onClick={clearCart}
-                      className="text-xs text-gray-500 hover:text-red-500 underline self-end px-4 pt-2"
+                      className="text-xs text-red-500 hover:underline self-end px-4 pt-2 uppercase"
                     >
                       Clear Cart
                     </button>
@@ -169,7 +171,7 @@ const Header = () => {
 
                   <div className="flex-1 overflow-y-auto flex flex-col divide-y divide-gray-100">
                     {cartItems.length === 0 ? (
-                      <p className="p-4 text-sm text-gray-500">
+                      <p className="p-4 text-xl text-center text-gray-500 uppercase">
                         Your cart is empty.
                       </p>
                     ) : (
@@ -194,6 +196,7 @@ const Header = () => {
                               <div className="flex items-center border border-gray-500">
                                 <button
                                   type="button"
+                                  aria-label="Decrease quantity"
                                   onClick={() =>
                                     updateQuantity(
                                       item.id,
@@ -201,15 +204,16 @@ const Header = () => {
                                       item.quantity - 1,
                                     )
                                   }
-                                  className="px-2 text-xs"
+                                  className="px-2 text-sm"
                                 >
                                   −
                                 </button>
-                                <span className="px-2 text-xs">
+                                <span className="px-2 text-sm">
                                   {item.quantity}
                                 </span>
                                 <button
                                   type="button"
+                                  aria-label="Increase quantity"
                                   onClick={() =>
                                     updateQuantity(
                                       item.id,
@@ -217,18 +221,19 @@ const Header = () => {
                                       item.quantity + 1,
                                     )
                                   }
-                                  className="px-2 text-xs"
+                                  className="px-2 text-sm"
                                 >
                                   +
                                 </button>
                               </div>
-                              <span className="text-xs text-gray-500">
+                              <span className="text-sm text-gray-500">
                                 ${getPrice(item).toFixed(2)}
                               </span>
                             </div>
                           </div>
                           <button
                             type="button"
+                            aria-label={`Remove ${item.name} from cart`}
                             onClick={() => removeFromCart(item.id, item.size)}
                             aria-label="Remove"
                             className="text-gray-500"
@@ -242,14 +247,14 @@ const Header = () => {
 
                   {cartItems.length > 0 && (
                     <div className="p-4 border-t border-gray-500 flex flex-col gap-3">
-                      <div className="flex justify-between text-sm font-light">
+                      <div className="flex justify-between text-base font-light">
                         <span>Subtotal</span>
                         <span>${subtotal.toFixed(2)}</span>
                       </div>
                       <Link
                         to="/cart"
                         onClick={closeMiniCart}
-                        className="bg-black text-white text-center py-2 text-sm uppercase"
+                        className="bg-black text-white text-center py-2 text-base uppercase"
                       >
                         View Cart
                       </Link>
@@ -280,6 +285,7 @@ const Header = () => {
           <input
             type="text"
             placeholder="Search products..."
+            aria-label="Search products"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleSearchKeyDown}
@@ -304,7 +310,7 @@ const Header = () => {
         </h1>
 
         {/* DESKTOP NAV */}
-        <nav className="hidden lg:flex items-center gap-8 text-base uppercase tracking-wider">
+        <nav className="hidden lg:flex items-center gap-8 text-lg uppercase tracking-wider">
           <Link to="/" className={navLinkClass}>
             Home
           </Link>
@@ -344,6 +350,8 @@ const Header = () => {
           type="button"
           onClick={() => setMenuOpen(true)}
           aria-label="Open menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
           className="lg:hidden border border-white p-1.5"
         >
           <Menu size={24} />
@@ -358,17 +366,19 @@ const Header = () => {
         }`}
       />
       <nav
+        aria-label="Main navigation"
         aria-modal="true"
         role="dialog"
         className={`fixed top-0 right-0 h-full w-full max-w-sm bg-white z-50 transform transition-transform duration-300 lg:hidden ${
           menuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="p-6 flex flex-col gap-8 text-[#313131] font-light tracking-wider h-full overflow-y-auto">
+        <div className="p-6 flex flex-col gap-8 text-black font-light tracking-wider h-full overflow-y-auto">
           <button
             type="button"
+            aria-label="Close menu"
             onClick={() => setMenuOpen(false)}
-            className="self-end bg-[#313131] text-white p-3"
+            className="self-end bg-black text-white p-3"
           >
             <X size={20} />
           </button>
@@ -379,7 +389,7 @@ const Header = () => {
               onClick={() => setMenuOpen(false)}
               className="flex items-center gap-2 text-xl font-medium tracking-wider"
             >
-              <User size={20} strokeWidth={2.5}/>
+              <User size={20} strokeWidth={2.5} />
               Log in
             </Link>
           ) : (
@@ -388,7 +398,7 @@ const Header = () => {
               onClick={() => setMenuOpen(false)}
               className="flex items-center gap-2 text-xl font-medium tracking-wider"
             >
-              <User size={20} strokeWidth={2.5}/>
+              <User size={20} strokeWidth={2.5} />
               MY PROFILE
             </Link>
           )}
@@ -409,6 +419,8 @@ const Header = () => {
                   type="button"
                   onClick={() => setShopOpen((prev) => !prev)}
                   aria-label="Toggle shop categories"
+                  aria-expanded={shopOpen}
+                  aria-controls="shop-categories"
                 >
                   <ChevronDown
                     size={20}
@@ -418,7 +430,10 @@ const Header = () => {
               </div>
 
               {shopOpen && (
-                <ul className="mt-3 ml-4 flex flex-col gap-3 text-lg normal-case">
+                <ul
+                  id="shop-categories"
+                  className="mt-3 ml-4 flex flex-col gap-3 text-lg normal-case"
+                >
                   {shopLinks.map(({ to, label }) => (
                     <li key={to}>
                       <Link to={to} onClick={() => setMenuOpen(false)}>

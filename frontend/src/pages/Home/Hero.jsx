@@ -63,7 +63,7 @@ const Hero = () => {
             <div className='w-[50px] h-[3px] bg-black' />
             <Link
               to='/shop?category=women'
-              className='text-2xl font-light hover:bg-black hover:text-white transition-colors border border-black p-2 transition-colors duraiton-300'
+              className='text-2xl font-light hover:bg-black hover:text-white border border-black p-2 transition duraiton-300'
             >
               Shop Women
             </Link>
@@ -80,7 +80,7 @@ const Hero = () => {
             <div className='w-[50px] h-[3px] bg-black' />
             <Link
               to='/shop?category=men'
-              className='text-2xl font-light hover:bg-black hover:text-white transition-colors border border-black p-2 transition-colors duraiton-300'
+              className='text-2xl font-light hover:bg-black hover:text-white border border-black p-2 transition duraiton-300'
             >
               Shop Men
             </Link>

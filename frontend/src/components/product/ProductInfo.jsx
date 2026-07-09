@@ -72,7 +72,7 @@ const ProductInfo = ({ product }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-6">
-      <div className="flex items-center justify-between text-sm lg:text-lg text-gray-500 mb-6">
+      <div className="flex items-center justify-between text-sm lg:text-xl text-gray-500 mb-6">
         <div className="flex items-center gap-2">
           <Link to="/" className="hover:underline">
             Home
@@ -159,7 +159,9 @@ const ProductInfo = ({ product }) => {
 
           {!isAccessory && sizes.length > 0 && (
             <div>
-              <label className="block mb-4 text-lg font-light tracking-wider">Size *</label>
+              <label className="block mb-4 text-lg font-light tracking-wider">
+                Size *
+              </label>
 
               <div className="relative">
                 <select
@@ -188,16 +190,21 @@ const ProductInfo = ({ product }) => {
                 />
               </div>
               {sizeError && (
-                <p className="text-sm text-red-500 mt-1">Please select a size</p>
+                <p className="text-sm text-red-500 mt-1">
+                  Please select a size
+                </p>
               )}
             </div>
           )}
 
           <div>
-            <label className="block mb-4 text-lg font-light tracking-wider">Quantity *</label>
+            <label className="block mb-4 text-lg lg:text-xl font-light tracking-wider">
+              Quantity *
+            </label>
             <div className="flex items-center border border-gray-500 w-fit">
               <button
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                aria-label="Decrease quantity"
                 className="p-2"
               >
                 <Minus size={20} />
@@ -205,6 +212,7 @@ const ProductInfo = ({ product }) => {
               <span className="px-4">{quantity}</span>
               <button
                 onClick={() => setQuantity((q) => q + 1)}
+                aria-label="Increase quantity"
                 className="p-2"
               >
                 <Plus size={20} />
@@ -215,16 +223,16 @@ const ProductInfo = ({ product }) => {
           <div className="flex gap-3 mt-2">
             <button
               onClick={handleAddToCart}
-              className="flex-1 bg-white py-3 uppercase text-base border border-black hover hover:bg-black hover:text-white transition-colors duration-300"
+              className="flex-1 bg-white py-3 uppercase text-base border border-black hover hover:bg-black hover:text-white transition duration-300"
             >
               Add to Cart
             </button>
             <button
               onClick={handleToggleWishlist}
-              className={`border px-4 transition-colors duration-300 ${
+              className={`border px-4 transition duration-300 ${
                 inWishlist
                   ? "bg-red-500 border-red-500 text-white"
-                  : "border-gray-500 text-red-500 hover:bg-red-500 hover:text-white"
+                  : "border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
               }`}
             >
               <Heart size={20} fill={inWishlist ? "currentColor" : "none"} />
@@ -234,13 +242,13 @@ const ProductInfo = ({ product }) => {
           <div className="mt-4 border-t border-gray-500">
             <button
               onClick={() => setOpenInfo((prev) => !prev)}
-              className="w-full flex justify-between items-center py-4 uppercase text-base lg:text-lg"
+              className="w-full flex justify-between items-center py-4 uppercase text-base lg:text-xl"
             >
               Product Info
               <span>{openInfo ? "−" : "+"}</span>
             </button>
             {openInfo && (
-              <p className="pb-4 text-base lg:text-lg text-gray-500">
+              <p className="pb-4 text-base lg:text-xl text-gray-500">
                 {product.description || "No description available."}
               </p>
             )}
@@ -249,13 +257,13 @@ const ProductInfo = ({ product }) => {
           <div className="border-t border-gray-500">
             <button
               onClick={() => setOpenReturns((prev) => !prev)}
-              className="w-full flex justify-between items-center py-4 uppercase text-base lg:text-lg"
+              className="w-full flex justify-between items-center py-4 uppercase text-base lg:text-xl"
             >
               Return and Refund Policy
               <span>{openReturns ? "−" : "+"}</span>
             </button>
             {openReturns && (
-              <p className="pb-4 text-base text-gray-500">
+              <p className="pb-4 text-base lg:text-xl text-gray-500">
                 Standard return policy applies. Contact customer care for
                 details.
               </p>

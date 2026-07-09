@@ -45,7 +45,7 @@ const ProductCard = ({ product }) => {
         className="relative w-full aspect-[3/4] bg-gray-100 overflow-hidden block"
       >
         {sale_price && (
-          <span className="absolute top-3 left-3 bg-green-600 text-white text-base px-2 py-1">
+          <span className="absolute top-3 left-3 bg-green-500 text-white text-base px-2 py-1 uppercase tracking-wider lg:text-lg">
             Sale
           </span>
         )}
@@ -53,7 +53,7 @@ const ProductCard = ({ product }) => {
         <button
           onClick={handleToggleWishlist}
           aria-label="Toggle wishlist"
-          className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-300 ${
+          className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full transition duration-300 ${
             heartPop ? "animate-pop" : ""
           } ${
             inWishlist ? "bg-red-500 text-white" : "bg-white/80 text-red-500 hover:bg-white"
@@ -88,7 +88,7 @@ const ProductCard = ({ product }) => {
 
           <button
             onClick={handleAddToCart}
-            className={`flex items-center text-2xl justify-center w-8 h-8 bg-gray-400 text-white border border-gray-400 hover:bg-white hover:text-black transition-colors duration-300 rounded-xl ${
+            className={`flex items-center text-2xl justify-center w-8 h-8 bg-gray-400 text-white border border-gray-400 hover:bg-white hover:text-black transition duration-300 rounded-xl ${
               cartPop ? "animate-pop" : ""
             }`}
             aria-label="Add to cart"

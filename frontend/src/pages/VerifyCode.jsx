@@ -65,13 +65,13 @@ const VerifyCode = () => {
 
         {/* ERROR MESSAGE */}
         {error && (
-          <div className='bg-red-50 border border-red-200 text-red-700 p-3 rounded mb-6 text-xs'>
+          <div className='bg-red-50 border border-red-500 text-red-500 p-3 rounded mb-6 text-xs'>
             {error}
           </div>
         )}
 
         {/* INFO */}
-        <div className='bg-green-300 border border-green-300 p-4 rounded-xl mb-6 text-sm text-black'>
+        <div className='bg-green-500 border border-green-500 p-4 rounded-xl mb-6 text-sm text-black'>
           <p className='text-sm lg:text-base'>
             Please check your email account for the verification code we just
             sent to your email <strong>{email} </strong>and enter that code in
@@ -95,7 +95,7 @@ const VerifyCode = () => {
               onChange={(e) => setCode(e.target.value.toUpperCase())}
               placeholder='ABC123'
               maxLength='6'
-              className='border border-gray-500 rounded-xl p-3 text-sm outline-none focus:border-black transition text-center text-lg tracking-wider lg:text-base'
+              className='border border-gray-500 rounded-xl p-3 text-sm outline-none focus:border-black transition duration-300 text-center text-lg tracking-wider lg:text-base'
               required
             />
           </div>
@@ -103,7 +103,7 @@ const VerifyCode = () => {
           <button
             type='submit'
             disabled={loading}
-            className='bg-black text-white p-3 rounded-xl uppercase tracking-wider text-sm font-light border border-black disabled:opacity-50 disabled:cursor-not-allowed transition lg:text-base hover:bg-white hover:text-black transition-colors duration-300'
+            className='bg-black text-white p-3 rounded-xl uppercase tracking-wider text-sm font-light border border-black disabled:opacity-50 disabled:cursor-not-allowed lg:text-base hover:bg-white hover:text-black transition duration-300'
           >
             {loading ? 'Verifying...' : 'Verify Email'}
           </button>

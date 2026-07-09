@@ -99,8 +99,8 @@ const FavoriteCard = ({ item, removeFromWishlist, addToCart }) => {
 
         <button
           onClick={handleAddToCart}
-          className={`text-xs py-2 uppercase flex items-center justify-center gap-1 transition-colors duration-300 ${
-            added ? "bg-green-600 text-white" : "bg-black text-white"
+          className={`text-xs py-2 uppercase flex items-center justify-center gap-1 transition duration-300 ${
+            added ? "bg-green-500 text-white" : "bg-black text-white"
           }`}
         >
           {added ? (

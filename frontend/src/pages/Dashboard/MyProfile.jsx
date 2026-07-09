@@ -39,7 +39,7 @@ export default function MyProfile() {
       label: "Confirmed Orders",
       value: stats?.confirmedOrders ?? 0,
       icon: CheckCircle,
-      color: "bg-green-50 text-green-600",
+      color: "bg-green-50 text-green-500",
     },
     {
       label: "Pending Orders",
@@ -109,7 +109,7 @@ export default function MyProfile() {
                     <td className="px-4 py-3">
                       <Link
                         to="/dashboard/orders"
-                        className="text-black underline md:no-underline md:hover:underline font-normal"
+                        className="text-black underline md:no-underline md:hover:underline font-light"
                       >
                         #{order.id}
                       </Link>
@@ -119,7 +119,7 @@ export default function MyProfile() {
                     </td>
                     <td className="px-4 py-3 font-light">${order.total.toFixed(2)}</td>
                     <td className="px-4 py-3">
-                      <span className="px-2 py-1 rounded-full text-base font-normal bg-green-50 text-green-600">
+                      <span className="px-2 py-1 rounded-full text-base font-normal bg-green-50 text-green-500">
                         {order.status}
                       </span>
                     </td>
