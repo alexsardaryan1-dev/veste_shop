@@ -53,10 +53,10 @@ export const register = async (req, res) => {
         }
 
         return res.status(201).json({
-            user: { 
-                id: newUser.rows[0].id, 
-                name: newUser.rows[0].name, 
-                email: newUser.rows[0].email 
+            user: {
+                id: newUser.rows[0].id,
+                name: newUser.rows[0].name,
+                email: newUser.rows[0].email
             },
             message: "User registered. Check your email for verification code."
         });
@@ -83,7 +83,7 @@ export const verifyCode = async (req, res) => {
         }
 
         const userData = user.rows[0];
-        
+
         if (userData.verification_code !== verificationCode) {
             return res.status(401).json({ message: "Invalid verification code" });
         }
@@ -170,8 +170,8 @@ export const forgotPassword = async (req, res) => {
 
         const user = await findUserByEmail(email);
         if (user.rows.length === 0) {
-            return res.status(200).json({ 
-                message: "If an account exists, reset code has been sent to email." 
+            return res.status(200).json({
+                message: "If an account exists, reset code has been sent to email."
             });
         }
 
@@ -195,6 +195,39 @@ export const forgotPassword = async (req, res) => {
     }
 };
 
+// VERIFY RESET CODE
+
+export const verifyResetCode = async (req, res) => {
+    try {
+        const { email, resetCode } = req.body;
+
+        if (!email || !resetCode) {
+            return res.status(400).json({ message: "Email and code required" });
+        }
+
+        const user = await findUserByEmail(email);
+        if (user.rows.length === 0) {
+            return res.status(401).json({ message: "Invalid or expired code" });
+        }
+
+        const userData = user.rows[0];
+
+        if (userData.reset_code !== resetCode) {
+            return res.status(401).json({ message: "Invalid reset code" });
+        }
+
+        if (new Date() > new Date(userData.reset_code_expires)) {
+            return res.status(401).json({ message: "Reset code expired. Request a new one." });
+        }
+
+        res.json({ valid: true, message: "Code verified" });
+
+    } catch (error) {
+        console.error("Verify reset code error:", error.message);
+        res.status(500).json({ message: "Server error" });
+    }
+};
+
 // RESET PASSWORD
 
 export const resetPassword = async (req, res) => {
@@ -206,8 +239,8 @@ export const resetPassword = async (req, res) => {
         }
 
         if (!validatePassword(newPassword)) {
-            return res.status(400).json({ 
-                message: "Password must be at least 6 characters with 1 uppercase letter and 1 number" 
+            return res.status(400).json({
+                message: "Password must be at least 6 characters with 1 uppercase letter and 1 number"
             });
         }
 
@@ -260,8 +293,8 @@ export const changePassword = async (req, res) => {
         }
 
         if (!validatePassword(newPassword)) {
-            return res.status(400).json({ 
-                message: "Password must be at least 6 characters with 1 uppercase letter and 1 number" 
+            return res.status(400).json({
+                message: "Password must be at least 6 characters with 1 uppercase letter and 1 number"
             });
         }
 
@@ -306,7 +339,7 @@ export const getMe = async (req, res) => {
 export const logout = (req, res) => {
     try {
         res.clearCookie("token", { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "Strict" });
-        
+
         if (process.env.NODE_ENV === "development") {
             console.log(`User logged out`);
         }

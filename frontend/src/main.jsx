@@ -7,11 +7,11 @@ import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <CartProvider>
-    <WishlistProvider>
-      <AuthProvider>
+  <AuthProvider>
+    <CartProvider>
+      <WishlistProvider>
         <App />
-      </AuthProvider>
-    </WishlistProvider>
-  </CartProvider>,
+      </WishlistProvider>
+    </CartProvider>
+  </AuthProvider>,
 );

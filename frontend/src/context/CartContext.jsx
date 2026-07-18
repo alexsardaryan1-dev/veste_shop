@@ -1,10 +1,13 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext, useRef } from "react";
+import { AuthContext } from "./AuthContext";
 
 export const CartContext = createContext();
 
-const getInitialCart = () => {
+const getCartKey = (userId) => `cartItems_${userId ?? "guest"}`;
+
+const loadCart = (userId) => {
   try {
-    const stored = localStorage.getItem("cartItems");
+    const stored = localStorage.getItem(getCartKey(userId));
     return stored ? JSON.parse(stored) : [];
   } catch {
     return [];
@@ -12,12 +15,22 @@ const getInitialCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState(getInitialCart);
+  const { user } = useContext(AuthContext);
+  const [cartItems, setCartItems] = useState([]);
   const [isMiniCartOpen, setIsMiniCartOpen] = useState(false);
+  const prevUserId = useRef(undefined);
 
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
+    const currentUserId = user?.id ?? null;
+    if (prevUserId.current !== currentUserId) {
+      setCartItems(loadCart(currentUserId));
+      prevUserId.current = currentUserId;
+    }
+  }, [user]);
+
+  useEffect(() => {
+    localStorage.setItem(getCartKey(user?.id ?? null), JSON.stringify(cartItems));
+  }, [cartItems, user]);
 
   const addToCart = (product, quantity = 1, size = null) => {
     setCartItems((prev) => {

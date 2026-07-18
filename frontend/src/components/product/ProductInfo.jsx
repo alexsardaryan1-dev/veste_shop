@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ChevronLeft,
@@ -21,6 +21,8 @@ const ProductInfo = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [openInfo, setOpenInfo] = useState(true);
   const [openReturns, setOpenReturns] = useState(false);
+  const [sizeDropdownOpen, setSizeDropdownOpen] = useState(false);
+  const sizeDropdownRef = useRef(null);
 
   const {
     id,
@@ -49,6 +51,19 @@ const ProductInfo = ({ product }) => {
       ? allProducts[currentIndex + 1]
       : null;
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        sizeDropdownRef.current &&
+        !sizeDropdownRef.current.contains(e.target)
+      ) {
+        setSizeDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const handleAddToCart = () => {
     if (!user) {
       navigate("/login");
@@ -70,6 +85,12 @@ const ProductInfo = ({ product }) => {
     toggleWishlist(product);
   };
 
+  const handleSelectSize = (s) => {
+    setSize(s);
+    setSizeError(false);
+    setSizeDropdownOpen(false);
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-6">
       <div className="flex items-center justify-between text-sm lg:text-xl text-gray-500 mb-6">
@@ -78,8 +99,11 @@ const ProductInfo = ({ product }) => {
             Home
           </Link>
           <ChevronRight size={20} />
-          <Link to="/shop" className="hover:underline">
-            All Products
+          <Link
+            to={`/shop?category=${category}`}
+            className="hover:underline capitalize"
+          >
+            {category}
           </Link>
           <ChevronRight size={20} />
           <span className="text-gray-500">{name}</span>
@@ -163,31 +187,43 @@ const ProductInfo = ({ product }) => {
                 Size *
               </label>
 
-              <div className="relative">
-                <select
-                  value={size}
-                  onChange={(e) => {
-                    setSize(e.target.value);
-                    setSizeError(false);
-                  }}
-                  className={`w-full border px-4 py-3 pr-12 appearance-none ${
+              <div className="relative" ref={sizeDropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setSizeDropdownOpen((prev) => !prev)}
+                  className={`w-full flex items-center justify-between border px-4 py-3 text-left bg-white ${
                     sizeError ? "border-red-500" : "border-black"
                   }`}
                 >
-                  <option value="">Select</option>
+                  <span className={size ? "text-black" : "text-gray-400"}>
+                    {size || "Select"}
+                  </span>
+                  <ChevronDown
+                    size={20}
+                    strokeWidth={1.5}
+                    className={`transition-transform duration-200 ${
+                      sizeDropdownOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
 
-                  {sizes.map((s) => (
-                    <option key={s} value={s}>
-                      {s}
-                    </option>
-                  ))}
-                </select>
-
-                <ChevronDown
-                  size={20}
-                  strokeWidth={1.5}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"
-                />
+                {sizeDropdownOpen && (
+                  <ul className="absolute left-0 top-full mt-1 w-full bg-white border border-black z-20 max-h-60 overflow-y-auto">
+                    {sizes.map((s) => (
+                      <li key={s}>
+                        <button
+                          type="button"
+                          onClick={() => handleSelectSize(s)}
+                          className={`w-full text-left px-4 py-3 hover:bg-black hover:text-white transition duration-200 ${
+                            s === size ? "bg-black text-white" : "text-black"
+                          }`}
+                        >
+                          {s}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
               {sizeError && (
                 <p className="text-sm text-red-500 mt-1">

@@ -14,7 +14,6 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import VerifyCode from "../pages/VerifyCode";
 import ForgotPassword from "../pages/ForgotPassword";
-import ResetPassword from "../pages/ResetPassword";
 import ChangePassword from "../pages/ChangePassword";
 import DashboardLayout from "../pages/Dashboard/DashboardLayout";
 import MyProfile from "../pages/Dashboard/MyProfile";
@@ -46,7 +45,6 @@ const AppRouter = () => {
         <Route path="/verify-code" element={<VerifyCode />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/change-password" element={<ChangePassword />} />
 
         <Route

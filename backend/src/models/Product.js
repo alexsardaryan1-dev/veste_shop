@@ -9,7 +9,7 @@ export const findAllProducts = () => {
                     SELECT json_agg(image_url ORDER BY sort_order ASC)
                     FROM product_images
                     WHERE product_id = p.id
-                ), "[]"
+                ), '[]'
             ) AS images
         FROM products p
         ORDER BY p.created_at DESC

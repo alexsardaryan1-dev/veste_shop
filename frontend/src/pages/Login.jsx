@@ -22,7 +22,7 @@ const Login = () => {
     try {
       const res = await api.post("/api/auth/login", { email, password });
       setUser(res.data.user);
-      navigate("/dashboard");
+      navigate("/dashboard/profile");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     } finally {

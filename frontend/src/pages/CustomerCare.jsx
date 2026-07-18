@@ -37,8 +37,6 @@ export default function CustomerCare() {
   return (
     <section className="w-full bg-white py-20 px-6">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
-        {/* FORM*/}
-
         <div>
           <h2 className="text-3xl lg:text-4xl font-medium uppercase tracking-wider mb-6">
             Customer Care
@@ -49,113 +47,6 @@ export default function CustomerCare() {
             Call us at <span className="font-medium">123-456-7890</span> or send
             us an email at <span className="font-medium">info@mysite.com</span>
           </p>
-
-          <form className="space-y-4 tracking-wider">
-            <div className="grid grid-cols-2 gap-4">
-              <input
-                type="text"
-                placeholder="First Name*"
-                className="
-        border
-        text-xl
-        p-3
-        w-full
-        outline-none
-        transition
-        focus:ring-2
-        focus:ring-black
-        focus:border-black
-      "
-              />
-
-              <input
-                type="text"
-                placeholder="Last Name*"
-                className="
-        border
-        text-xl
-        p-3
-        w-full
-        outline-none
-        transition
-        focus:ring-2
-        focus:ring-black
-        focus:border-black
-      "
-              />
-            </div>
-
-            <input
-              type="email"
-              placeholder="Email*"
-              className="
-      border
-      text-xl
-      p-3
-      w-full
-      outline-none
-      transition
-      focus:ring-2
-      focus:ring-black
-      focus:border-black
-    "
-            />
-
-            <input
-              type="text"
-              placeholder="Subject"
-              className="
-      border
-      text-xl
-      p-3
-      w-full
-      outline-none
-      transition
-      focus:ring-2
-      focus:ring-black
-      focus:border-black
-    "
-            />
-
-            <textarea
-              placeholder="Message"
-              rows="5"
-              className="
-      border
-      text-xl
-      p-3
-      w-full
-      outline-none
-      transition
-      focus:ring-2
-      focus:ring-black
-      focus:border-black
-    "
-            />
-
-            <button
-              type="submit"
-              className="
-      bg-black
-      text-white
-      px-6
-      py-3
-      text-xl
-      border
-      border-black
-      uppercase
-      transition
-      duration-300
-      hover:bg-white
-      hover:text-black
-      focus:outline-none
-      focus:ring-2
-      focus:ring-black
-    "
-            >
-              Send
-            </button>
-          </form>
         </div>
 
         {/* FAQ */}

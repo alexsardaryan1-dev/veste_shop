@@ -25,3 +25,7 @@
 .animate-pop {
     animation: pop 300ms ease-out;
 }
+
+html, body {
+  overscroll-behavior-x: none;
+}

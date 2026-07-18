@@ -1,13 +1,14 @@
 import express from "express";
-import { 
-    register, 
-    verifyCode, 
-    login, 
+import {
+    register,
+    verifyCode,
+    login,
     forgotPassword,
+    verifyResetCode,
     resetPassword,
     changePassword,
-    getMe, 
-    logout 
+    getMe,
+    logout
 } from "../controllers/authController.js";
 import { protect } from "../middleware/protect.js";
 
@@ -17,6 +18,7 @@ router.post("/register", register);
 router.post("/verify-code", verifyCode);
 router.post("/login", login);
 router.post("/forgot-password", forgotPassword);
+router.post("/verify-reset-code", verifyResetCode);
 router.post("/reset-password", resetPassword);
 router.post("/change-password", protect, changePassword);
 router.get("/me", protect, getMe);
