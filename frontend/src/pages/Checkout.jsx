@@ -1,18 +1,27 @@
 import { useContext, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import api from "../services/api";
 
+const getItemKey = (item) => `${item.id}-${item.size || "nosize"}`;
+
 const Checkout = () => {
-  const { cartItems, clearCart } = useContext(CartContext);
+  const { cartItems, removeFromCart } = useContext(CartContext);
   const navigate = useNavigate();
+  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const selectedKeys = location.state?.selectedKeys;
+
+  const checkoutItems = selectedKeys
+    ? cartItems.filter((item) => selectedKeys.includes(getItemKey(item)))
+    : cartItems;
 
   const getImage = (item) => item.images?.[0]?.image_url || item.images?.[0];
   const getPrice = (item) => Number(item.sale_price || item.price);
 
-  const total = cartItems.reduce(
+  const total = checkoutItems.reduce(
     (sum, item) => sum + getPrice(item) * item.quantity,
     0,
   );
@@ -21,7 +30,7 @@ const Checkout = () => {
     setError("");
     setLoading(true);
     try {
-      const items = cartItems.map((item) => ({
+      const items = checkoutItems.map((item) => ({
         productId: item.id,
         quantity: item.quantity,
         price: getPrice(item),
@@ -29,7 +38,7 @@ const Checkout = () => {
 
       await api.post("/api/orders", { items, total });
 
-      clearCart();
+      checkoutItems.forEach((item) => removeFromCart(item.id, item.size));
       navigate("/dashboard/orders");
     } catch (err) {
       setError(err.response?.data?.message || "Failed to place order");
@@ -39,15 +48,15 @@ const Checkout = () => {
   };
 
   const handleCancel = () => {
-    navigate("/cart");
+    navigate("/dashboard/cart");
   };
 
-  if (cartItems.length === 0) {
+  if (checkoutItems.length === 0) {
     return (
       <div className="max-w-4xl mx-auto px-6 py-16 text-center flex flex-col gap-4">
-        <h1 className="text-2xl">Your cart is empty.</h1>
-        <Link to="/shop" className="underline">
-          Continue shopping
+        <h1 className="text-2xl">No items selected for checkout.</h1>
+        <Link to="/dashboard/cart" className="underline">
+          Back to cart
         </Link>
       </div>
     );
@@ -64,9 +73,9 @@ const Checkout = () => {
       )}
 
       <div className="flex flex-col gap-4">
-        {cartItems.map((item) => (
+        {checkoutItems.map((item) => (
           <div
-            key={`${item.id}-${item.size || "nosize"}`}
+            key={getItemKey(item)}
             className="rounded-xl border border-gray-300 p-4 flex flex-col sm:flex-row sm:items-center gap-4"
           >
             <div className="flex items-center gap-4">

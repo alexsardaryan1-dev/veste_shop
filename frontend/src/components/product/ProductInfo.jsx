@@ -116,7 +116,8 @@ const ProductInfo = ({ product }) => {
             disabled={!prevProduct}
             className={`flex items-center gap-1 ${prevProduct ? "hover:underline" : "opacity-30 cursor-not-allowed"}`}
           >
-            <ChevronLeft size={20} /> Prev
+            <ChevronLeft size={20} />{" "}
+            <span className="hidden sm:inline">Prev</span>
           </button>
           <button
             onClick={() =>
@@ -125,7 +126,8 @@ const ProductInfo = ({ product }) => {
             disabled={!nextProduct}
             className={`flex items-center gap-1 ${nextProduct ? "hover:underline" : "opacity-30 cursor-not-allowed"}`}
           >
-            Next <ChevronRight size={20} />
+            <span className="hidden sm:inline">Next</span>{" "}
+            <ChevronRight size={20} />
           </button>
         </div>
       </div>

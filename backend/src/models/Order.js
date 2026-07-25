@@ -85,3 +85,14 @@ export const createOrder = async (userId, total, items) => {
         client.release();
     }
 };
+
+export const cancelOrder = async (orderId, userId) => {
+    const result = await pool.query(
+        `UPDATE orders
+         SET status = 'cancelled'
+         WHERE id = $1 AND user_id = $2 AND status IN ('pending', 'confirmed')
+         RETURNING id, total, status, created_at`,
+        [orderId, userId]
+    );
+    return result.rows[0];
+};

@@ -12,11 +12,11 @@ export const sendVerificationEmail = async (email, name, code) => {
         };
 
         const info = await transporter.sendMail(mailOptions);
-        
+
         if (process.env.NODE_ENV === "development") {
             console.log(`Email sent to ${email}`);
         }
-        
+
         return { success: true };
 
     } catch (error) {
@@ -35,11 +35,11 @@ export const sendResetPasswordEmail = async (email, name, code) => {
         };
 
         const info = await transporter.sendMail(mailOptions);
-        
+
         if (process.env.NODE_ENV === "development") {
             console.log(`Email sent to ${email}`);
         }
-        
+
         return { success: true };
 
     } catch (error) {

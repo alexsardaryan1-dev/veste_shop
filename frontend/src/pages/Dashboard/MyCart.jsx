@@ -1,20 +1,65 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Minus, Plus, X, ShoppingCart } from "lucide-react";
 import { CartContext } from "../../context/CartContext";
+
+const getItemKey = (item) => `${item.id}-${item.size || "nosize"}`;
 
 const MyCart = () => {
   const { cartItems, removeFromCart, updateQuantity, clearCart } =
     useContext(CartContext);
   const navigate = useNavigate();
 
+  const [selectedKeys, setSelectedKeys] = useState(
+    () => new Set(cartItems.map(getItemKey)),
+  );
+
+  // Keep selection in sync if cart items change (e.g. item removed)
+  useEffect(() => {
+    setSelectedKeys((prev) => {
+      const validKeys = new Set(cartItems.map(getItemKey));
+      const next = new Set([...prev].filter((k) => validKeys.has(k)));
+      // Auto-select any newly added item
+      cartItems.forEach((item) => {
+        const key = getItemKey(item);
+        if (!prev.has(key) && !next.has(key)) next.add(key);
+      });
+      return next;
+    });
+  }, [cartItems]);
+
   const getImage = (item) => item.images?.[0]?.image_url || item.images?.[0];
   const getPrice = (item) => Number(item.sale_price || item.price);
 
-  const subtotal = cartItems.reduce(
+  const toggleSelect = (key) => {
+    setSelectedKeys((prev) => {
+      const next = new Set(prev);
+      next.has(key) ? next.delete(key) : next.add(key);
+      return next;
+    });
+  };
+
+  const allSelected =
+    cartItems.length > 0 && selectedKeys.size === cartItems.length;
+
+  const toggleSelectAll = () => {
+    setSelectedKeys(
+      allSelected ? new Set() : new Set(cartItems.map(getItemKey)),
+    );
+  };
+
+  const selectedItems = cartItems.filter((item) =>
+    selectedKeys.has(getItemKey(item)),
+  );
+
+  const subtotal = selectedItems.reduce(
     (sum, item) => sum + getPrice(item) * item.quantity,
     0,
   );
+
+  const handleCheckout = () => {
+    navigate("/checkout", { state: { selectedKeys: [...selectedKeys] } });
+  };
 
   return (
     <div className="space-y-6 pb-28 lg:pb-6 tracking-wider">
@@ -43,93 +88,121 @@ const MyCart = () => {
         </div>
       ) : (
         <>
-          <div className="flex flex-col gap-4">
-            {cartItems.map((item) => (
-              <div
-                key={`${item.id}-${item.size || "nosize"}`}
-                className="rounded-xl border border-grey-300 p-4 flex flex-col sm:flex-row sm:items-center gap-4"
-              >
-                <div className="flex items-center gap-4">
-                  <img
-                    src={getImage(item)}
-                    alt={item.name}
-                    className="w-20 h-20 object-cover bg-gray-100 rounded-lg shrink-0"
-                  />
+          <label className="flex items-center gap-2 text-sm lg:text-base uppercase text-gray-500 w-fit cursor-pointer">
+            <input
+              type="checkbox"
+              checked={allSelected}
+              onChange={toggleSelectAll}
+              className="w-4 h-4 accent-black"
+            />
+            Select all
+          </label>
 
-                  <div className="flex-1 min-w-0 sm:hidden uppercase text-base">
-                    <p className="truncate">{item.name}</p>
-                    {item.size && (
-                      <p className="text-gray-500">Size: {item.size}</p>
-                    )}
-                    <p className="text-gray-500">
-                      ${getPrice(item).toFixed(2)}
-                    </p>
-                    {item.quantity > 1 && (
+          <div className="flex flex-col gap-4">
+            {cartItems.map((item) => {
+              const key = getItemKey(item);
+              const isSelected = selectedKeys.has(key);
+
+              return (
+                <div
+                  key={key}
+                  className={`rounded-xl border p-4 flex flex-col sm:flex-row sm:items-center gap-4 transition duration-200 ${
+                    isSelected ? "border-black" : "border-gray-200 opacity-60"
+                  }`}
+                >
+                  <div className="flex items-center gap-4">
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={() => toggleSelect(key)}
+                      className="w-4 h-4 accent-black shrink-0"
+                      aria-label={`Select ${item.name}`}
+                    />
+
+                    <img
+                      src={getImage(item)}
+                      alt={item.name}
+                      className="w-20 h-20 object-cover bg-gray-100 rounded-lg shrink-0"
+                    />
+
+                    <div className="flex-1 min-w-0 sm:hidden uppercase text-base">
+                      <p className="truncate">{item.name}</p>
+                      {item.size && (
+                        <p className="text-gray-500">Size: {item.size}</p>
+                      )}
                       <p className="text-gray-500">
-                        Total: ${(getPrice(item) * item.quantity).toFixed(2)}
+                        ${getPrice(item).toFixed(2)}
+                      </p>
+                      {item.quantity > 1 && (
+                        <p className="text-gray-500">
+                          Total: ${(getPrice(item) * item.quantity).toFixed(2)}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="hidden sm:block flex-1 min-w-0 text-base uppercase">
+                    <p className="font-normal truncate">{item.name}</p>
+                    {item.size && (
+                      <p className="text-gray-500 font-light">
+                        Size: {item.size}
                       </p>
                     )}
-                  </div>
-                </div>
-
-                <div className="hidden sm:block flex-1 min-w-0 text-base uppercase">
-                  <p className="font-normal truncate">{item.name}</p>
-                  {item.size && (
                     <p className="text-gray-500 font-light">
-                      Size: {item.size}
+                      ${getPrice(item).toFixed(2)}
                     </p>
-                  )}
-                  <p className="text-gray-500 font-light">
-                    ${getPrice(item).toFixed(2)}
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between sm:justify-end gap-4">
-                  <div className="flex items-center border border-black text-black rounded-lg text-xs">
-                    <button
-                      onClick={() =>
-                        updateQuantity(item.id, item.size, item.quantity - 1)
-                      }
-                      className="p-2"
-                    >
-                      <Minus size={18} />
-                    </button>
-                    <span className="p-2">{item.quantity}</span>
-                    <button
-                      onClick={() =>
-                        updateQuantity(item.id, item.size, item.quantity + 1)
-                      }
-                      className="p-2"
-                    >
-                      <Plus size={18} />
-                    </button>
                   </div>
 
-                  <p className="text-right text-lg font-light hidden sm:block w-20">
-                    ${(getPrice(item) * item.quantity).toFixed(2)}
-                  </p>
+                  <div className="flex items-center justify-between sm:justify-end gap-4">
+                    <div className="flex items-center border border-black text-black rounded-lg text-xs">
+                      <button
+                        onClick={() =>
+                          updateQuantity(item.id, item.size, item.quantity - 1)
+                        }
+                        className="p-2"
+                      >
+                        <Minus size={18} />
+                      </button>
+                      <span className="p-2">{item.quantity}</span>
+                      <button
+                        onClick={() =>
+                          updateQuantity(item.id, item.size, item.quantity + 1)
+                        }
+                        className="p-2"
+                      >
+                        <Plus size={18} />
+                      </button>
+                    </div>
 
-                  <button
-                    onClick={() => removeFromCart(item.id, item.size)}
-                    aria-label="Remove item"
-                    className="p-2 text-gray-500 hover:text-red-500 transition duration-300"
-                  >
-                    <X size={20} />
-                  </button>
+                    <p className="text-right text-lg font-light hidden sm:block w-20">
+                      ${(getPrice(item) * item.quantity).toFixed(2)}
+                    </p>
+
+                    <button
+                      onClick={() => removeFromCart(item.id, item.size)}
+                      aria-label="Remove item"
+                      className="p-2 text-gray-500 hover:text-red-500 transition duration-300"
+                    >
+                      <X size={20} />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* MOBILE: sticky full-width bar */}
           <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 p-4 flex items-center justify-between gap-4 z-40">
             <div>
-              <p className="text-lg text-gray-500 uppercase">Subtotal</p>
+              <p className="text-lg text-gray-500 uppercase">
+                Subtotal ({selectedItems.length})
+              </p>
               <p className="text-lg font-medium">${subtotal.toFixed(2)}</p>
             </div>
             <button
-              onClick={() => navigate("/checkout")}
-              className="bg-black text-white py-3 px-6 uppercase text-base rounded-lg"
+              onClick={handleCheckout}
+              disabled={selectedItems.length === 0}
+              className="bg-black text-white py-3 px-6 uppercase text-base rounded-lg disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Checkout
             </button>
@@ -138,12 +211,15 @@ const MyCart = () => {
           {/* DESKTOP: sticky summary card */}
           <div className="hidden lg:flex sticky bottom-6 rounded-xl border border-gray-300 bg-white p-5 flex-col gap-4 max-w-sm ml-auto shadow-lg">
             <div className="flex justify-between text-lg font-normal uppercase">
-              <span className="text-gray-500">Subtotal</span>
+              <span className="text-gray-500">
+                Subtotal ({selectedItems.length})
+              </span>
               <span>${subtotal.toFixed(2)}</span>
             </div>
             <button
-              onClick={() => navigate("/checkout")}
-              className="bg-black text-white py-3 uppercase text-sm rounded-lg"
+              onClick={handleCheckout}
+              disabled={selectedItems.length === 0}
+              className="bg-black text-white py-3 uppercase text-sm rounded-lg disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Checkout
             </button>

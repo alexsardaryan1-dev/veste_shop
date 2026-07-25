@@ -47,6 +47,7 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const miniCartRef = useRef(null);
+  const headerRef = useRef(null);
 
   const navLinkClass =
     "relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-full after:bg-white after:origin-left after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100";
@@ -57,6 +58,23 @@ const Header = () => {
     (sum, item) => sum + getPrice(item) * item.quantity,
     0,
   );
+
+  // Measure actual header height and expose it as a CSS variable
+  // so page content offset and mini-cart positioning always stay in sync.
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (headerRef.current) {
+        document.documentElement.style.setProperty(
+          "--header-height",
+          `${headerRef.current.offsetHeight}px`,
+        );
+      }
+    };
+
+    updateHeaderHeight();
+    window.addEventListener("resize", updateHeaderHeight);
+    return () => window.removeEventListener("resize", updateHeaderHeight);
+  }, [mobileSearchOpen]);
 
   useEffect(() => {
     if (!isMiniCartOpen) return;
@@ -83,7 +101,10 @@ const Header = () => {
   };
 
   return (
-    <header className="w-full">
+    <header
+      ref={headerRef}
+      className="w-full fixed top-0 left-0 right-0 z-[100]"
+    >
       {/* TOP BAR */}
       <div className="flex items-center justify-between px-4 lg:px-6 py-3 bg-white text-black">
         <div className="hidden md:flex items-center gap-2 border-b border-black pb-1">
@@ -130,7 +151,7 @@ const Header = () => {
 
           <div className="relative" ref={miniCartRef}>
             <Link
-              to="/cart"
+              to="/dashboard/cart"
               className="relative flex items-center justify-center"
               aria-label="Open cart"
             >
@@ -144,7 +165,10 @@ const Header = () => {
             </Link>
 
             {isMiniCartOpen && (
-              <div className="fixed inset-0 z-50 flex items-start justify-end sm:items-start sm:absolute sm:inset-auto sm:top-full sm:right-0 sm:mt-4 uppercase tracking-wider">
+              <div
+                className="fixed left-0 right-0 bottom-0 z-50 flex items-start justify-end sm:items-start sm:absolute sm:inset-auto sm:top-full sm:right-0 sm:bottom-auto sm:left-auto sm:mt-0 uppercase tracking-wider"
+                style={{ top: "var(--header-height, 0px)" }}
+              >
                 <div className="bg-white text-black shadow-lg border border-black w-full h-full sm:h-auto sm:w-80 flex flex-col">
                   <div className="flex items-center justify-between p-4 border-b border-black">
                     <span className="text-base font-light">
@@ -235,7 +259,6 @@ const Header = () => {
                             type="button"
                             aria-label={`Remove ${item.name} from cart`}
                             onClick={() => removeFromCart(item.id, item.size)}
-                            aria-label="Remove"
                             className="text-gray-500"
                           >
                             <X size={20} />
@@ -252,7 +275,7 @@ const Header = () => {
                         <span>${subtotal.toFixed(2)}</span>
                       </div>
                       <Link
-                        to="/cart"
+                        to="/dashboard/cart"
                         onClick={closeMiniCart}
                         className="bg-black text-white text-center py-2 text-base uppercase"
                       >
@@ -266,12 +289,12 @@ const Header = () => {
           </div>
 
           {!user ? (
-            <Link to="/login" className="hidden sm:flex items-center gap-2">
+            <Link to="/login" className="flex items-center gap-2">
               <User size={20} />
-              <span>Login</span>
+              <span className="hidden sm:inline">Login</span>
             </Link>
           ) : (
-            <Link to="/dashboard" className="hidden sm:flex items-center gap-2">
+            <Link to="/dashboard" className="flex items-center gap-2">
               <User size={20} />
             </Link>
           )}

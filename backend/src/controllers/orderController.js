@@ -1,4 +1,4 @@
-import { getOrdersByUser, getOrderStats, createOrder as createOrderModel } from "../models/Order.js";
+import { getOrdersByUser, getOrderStats, createOrder as createOrderModel, cancelOrder as cancelOrderModel } from "../models/Order.js";
 
 export const getMyOrders = async (req, res) => {
     try {
@@ -54,5 +54,24 @@ export const createOrder = async (req, res) => {
     } catch (error) {
         console.error("Create order error:", error.message);
         res.status(500).json({ message: "Server error creating order" });
+    }
+};
+
+export const cancelOrder = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const cancelled = await cancelOrderModel(id, req.user.id);
+
+        if (!cancelled) {
+            return res.status(400).json({
+                message: "Order cannot be cancelled (not found, not yours, or no longer pending)",
+            });
+        }
+
+        res.json({ order: cancelled, message: "Order cancelled successfully" });
+    } catch (error) {
+        console.error("Cancel order error:", error.message);
+        res.status(500).json({ message: "Server error cancelling order" });
     }
 };

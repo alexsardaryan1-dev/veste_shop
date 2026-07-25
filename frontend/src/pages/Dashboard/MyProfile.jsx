@@ -93,6 +93,7 @@ export default function MyProfile() {
                 <th className="px-4 py-3 font-normal">Date</th>
                 <th className="px-4 py-3 font-normal">Total</th>
                 <th className="px-4 py-3 font-normal">Status</th>
+                <th className="px-4 py-3 font-normal">Details</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -127,6 +128,14 @@ export default function MyProfile() {
                         {order.status}
                       </span>
                     </td>
+                    <td className="px-4 py-3">
+                      <Link
+                        to={`/dashboard/orders`}
+                        className="uppercase text-black underline md:no-underline md:hover:underline font-light"
+                      >
+                        View Orders
+                      </Link>
+                    </td>{" "}
                   </tr>
                 ))
               )}

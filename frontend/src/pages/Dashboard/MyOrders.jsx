@@ -13,6 +13,7 @@ const MyOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [cancellingId, setCancellingId] = useState(null);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -25,9 +26,24 @@ const MyOrders = () => {
         setLoading(false);
       }
     };
-
     fetchOrders();
   }, []);
+
+  const handleCancelOrder = async (orderId) => {
+    setCancellingId(orderId);
+    try {
+      await api.patch(`/api/orders/${orderId}/cancel`);
+      setOrders((prev) =>
+        prev.map((order) =>
+          order.id === orderId ? { ...order, status: "cancelled" } : order,
+        ),
+      );
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to cancel order");
+    } finally {
+      setCancellingId(null);
+    }
+  };
 
   if (loading) return <p className="text-gray-500">Loading orders...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
@@ -37,11 +53,10 @@ const MyOrders = () => {
       <h1 className="text-2xl font-normal uppercase tracking-wider">
         My Orders
       </h1>
-
       {orders.length === 0 ? (
         <div className="rounded-xl border border-black p-10 flex flex-col items-center gap-3 text-gray-500">
           <Package size={32} />
-          <p>You haven"t placed any orders yet.</p>
+          <p>You haven't placed any orders yet.</p>
         </div>
       ) : (
         <div className="flex flex-col gap-4 tracking-wider">
@@ -62,11 +77,9 @@ const MyOrders = () => {
                   {order.status}
                 </span>
               </div>
-
               <p className="text-sm lg:text-base text-gray-500">
                 {new Date(order.createdAt).toLocaleDateString()}
               </p>
-
               <div className="flex flex-col divide-y divide-gray-100">
                 {order.items.map((item, i) => (
                   <div key={i} className="flex items-center gap-3 py-3">
@@ -90,11 +103,20 @@ const MyOrders = () => {
                   </div>
                 ))}
               </div>
-
               <div className="flex justify-between text-base uppercase font-normal border-t border-grey pt-3">
                 <span>Total</span>
                 <span>${order.total.toFixed(2)}</span>
               </div>
+
+              {(order.status === "pending" || order.status === "confirmed") && (
+                <button
+                  onClick={() => handleCancelOrder(order.id)}
+                  disabled={cancellingId === order.id}
+                  className="mt-3 self-end text-sm uppercase text-red-500 hover:underline disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {cancellingId === order.id ? "Cancelling..." : "Cancel Order"}
+                </button>
+              )}
             </div>
           ))}
         </div>

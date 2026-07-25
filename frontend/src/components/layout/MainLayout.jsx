@@ -10,7 +10,7 @@ const MainLayout = () => {
 
       <Header />
 
-      <main className="flex-1">
+      <main className="flex-1 pt-[var(--header-height)]">
         <div className="max-w-screen-xl mx-auto px-4 lg:px-12">
           <Outlet />
         </div>

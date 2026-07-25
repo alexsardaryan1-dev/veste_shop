@@ -23,7 +23,6 @@ import MyCart from "../pages/Dashboard/MyCart";
 import Settings from "../pages/Dashboard/Settings";
 import ProtectedRoute from "../components/ProtectedRoute";
 import ProductDetail from "../components/product/ProductDetail";
-import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
 
 const AppRouter = () => {
@@ -34,7 +33,6 @@ const AppRouter = () => {
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/lookbook" element={<Lookbook />} />
           <Route path="/visit-us" element={<VisitUs />} />
