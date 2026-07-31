@@ -1,19 +1,22 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Heart } from "lucide-react";
+import { Heart, Check } from "lucide-react";
 import { CartContext } from "../../context/CartContext";
 import { WishlistContext } from "../../context/WishlistContext";
 import { AuthContext } from "../../context/AuthContext";
 
 const ProductCard = ({ product }) => {
   const { id, name, price, sale_price, images, category } = product;
+  
   const { addToCart } = useContext(CartContext);
   const { toggleWishlist, isInWishlist } = useContext(WishlistContext);
   const { user } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const [cartPop, setCartPop] = useState(false);
   const [heartPop, setHeartPop] = useState(false);
+  const [added, setAdded] = useState(false);
 
   const isAccessory = category === "accessories";
   const inWishlist = isInWishlist(id);
@@ -32,6 +35,8 @@ const ProductCard = ({ product }) => {
     addToCart(product);
     setCartPop(true);
     setTimeout(() => setCartPop(false), 300);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1200);
   };
 
   const handleToggleWishlist = (e) => {
@@ -97,12 +102,16 @@ const ProductCard = ({ product }) => {
 
           <button
             onClick={handleAddToCart}
-            className={`flex items-center text-2xl justify-center w-8 h-8 bg-gray-400 text-white border border-grey-400 hover:bg-white hover:text-black transition duration-300 rounded-xl ${
+            className={`flex items-center text-2xl justify-center w-8 h-8 border transition duration-300 rounded-xl ${
               cartPop ? "animate-pop" : ""
+            } ${
+              added
+                ? "bg-green-500 border-green-500 text-white"
+                : "bg-gray-400 border-grey-400 text-white hover:bg-white hover:text-black"
             }`}
             aria-label="Add to cart"
           >
-            +
+            {added ? <Check size={18} /> : "+"}
           </button>
         </div>
       </div>

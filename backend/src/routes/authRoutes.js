@@ -1,4 +1,11 @@
 import express from "express";
+// we need EXPRESS as it provides routing.
+// Express has some the methods: 
+// - router.get()
+// - router.post()
+// - router.put()
+// - router.delete()
+
 import {
     register,
     verifyCode,
@@ -13,6 +20,7 @@ import {
 import { protect } from "../middleware/protect.js";
 
 const router = express.Router();
+// express.Router() is for creating and organizing routes (URLs) in  Express backend.
 
 router.post("/register", register);
 router.post("/verify-code", verifyCode);

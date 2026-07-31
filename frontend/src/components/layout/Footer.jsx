@@ -18,12 +18,6 @@ const Footer = () => {
 
           <ul className="space-y-2 text-base lg:text-lg font-light">
             <li className="hover:text-white cursor-pointer">
-              <Link to="/customer-care">Shipping Policy &gt;</Link>
-            </li>
-            <li className="hover:text-white cursor-pointer">
-              <Link to="/customer-care">Returns Policy &gt;</Link>
-            </li>
-            <li className="hover:text-white cursor-pointer">
               <Link to="/customer-care">Contact Us &gt;</Link>
             </li>
             <li className="hover:text-white cursor-pointer">

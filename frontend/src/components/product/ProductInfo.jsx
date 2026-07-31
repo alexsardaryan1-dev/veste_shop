@@ -7,6 +7,7 @@ import {
   Minus,
   Plus,
   Heart,
+  Check,
 } from "lucide-react";
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
@@ -23,6 +24,7 @@ const ProductInfo = ({ product }) => {
   const [openReturns, setOpenReturns] = useState(false);
   const [sizeDropdownOpen, setSizeDropdownOpen] = useState(false);
   const sizeDropdownRef = useRef(null);
+  const [added, setAdded] = useState(false);
 
   const {
     id,
@@ -75,8 +77,9 @@ const ProductInfo = ({ product }) => {
     }
     setSizeError(false);
     addToCart(product, quantity, isAccessory ? null : size);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
   };
-
   const handleToggleWishlist = () => {
     if (!user) {
       navigate("/login");
@@ -261,9 +264,19 @@ const ProductInfo = ({ product }) => {
           <div className="flex gap-3 mt-2">
             <button
               onClick={handleAddToCart}
-              className="flex-1 bg-white py-3 uppercase text-base border border-black hover hover:bg-black hover:text-white transition duration-300"
+              className={`flex-1 py-3 uppercase text-base border flex items-center justify-center gap-2 transition duration-300 ${
+                added
+                  ? "bg-green-500 border-green-500 text-white"
+                  : "bg-white border-black hover:bg-black hover:text-white"
+              }`}
             >
-              Add to Cart
+              {added ? (
+                <>
+                  <Check size={18} /> Added
+                </>
+              ) : (
+                "Add to Cart"
+              )}
             </button>
             <button
               onClick={handleToggleWishlist}

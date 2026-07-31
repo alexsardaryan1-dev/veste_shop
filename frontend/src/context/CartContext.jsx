@@ -17,7 +17,6 @@ const loadCart = (userId) => {
 export const CartProvider = ({ children }) => {
   const { user } = useContext(AuthContext);
   const [cartItems, setCartItems] = useState([]);
-  const [isMiniCartOpen, setIsMiniCartOpen] = useState(false);
   const prevUserId = useRef(undefined);
 
   useEffect(() => {
@@ -29,7 +28,10 @@ export const CartProvider = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
-    localStorage.setItem(getCartKey(user?.id ?? null), JSON.stringify(cartItems));
+    localStorage.setItem(
+      getCartKey(user?.id ?? null),
+      JSON.stringify(cartItems),
+    );
   }, [cartItems, user]);
 
   const addToCart = (product, quantity = 1, size = null) => {
@@ -46,7 +48,6 @@ export const CartProvider = ({ children }) => {
       }
       return [...prev, { ...product, quantity, size }];
     });
-    setIsMiniCartOpen(true);
   };
 
   const removeFromCart = (id, size = null) => {
@@ -66,8 +67,6 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => setCartItems([]);
 
-  const closeMiniCart = () => setIsMiniCartOpen(false);
-
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -79,9 +78,6 @@ export const CartProvider = ({ children }) => {
         updateQuantity,
         clearCart,
         cartCount,
-        isMiniCartOpen,
-        setIsMiniCartOpen,
-        closeMiniCart,
       }}
     >
       {children}

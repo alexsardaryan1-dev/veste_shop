@@ -1,5 +1,12 @@
+// This file is needed to protect private routes by checking the user's JWT token.
+// Flow: Request -> Middleware -> Verify token -> Find user -> Continue to controller
+
 import jwt from "jsonwebtoken";
 import { findUserById } from "../models/user.js";
+
+
+// Middleware receives req, res, next from Express.
+// If authentication succeeds, next() allows the request to continue.
 
 export const protect = async (req, res, next) => {
     try {
@@ -10,6 +17,7 @@ export const protect = async (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        
         const user = await findUserById(decoded.id);
 
         if (user.rows.length === 0) {
@@ -17,6 +25,7 @@ export const protect = async (req, res, next) => {
         }
 
         req.user = user.rows[0];
+        
         next();
 
     } catch (error) {

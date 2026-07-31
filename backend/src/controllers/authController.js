@@ -1,5 +1,13 @@
+// authentication controller handles everything related to users: register, email verification, login, forgot password, reset password, change password, get current user, logout.
+
+// so the controller's job is to receive data from the frontend (req.body), validate it, call models/services, send a response.
+
 import { generateToken } from "../utils/jwt.js";
+
+// JWT is used here to create a token after login.
+
 import { validateRegister, validateLogin, validatePassword } from "../middleware/validation.js";
+
 import {
     findUserByEmail,
     findUserById,
@@ -25,25 +33,35 @@ const cookies = {
     maxAge: 30 * 24 * 60 * 60 * 1000
 };
 
-// REGISTER
+// this code controls the JWT cookie. 
+// httpOnly:true - browser JS can't access the cookie. Protection from XSS attacks.
+// secure: process.env.NODE_ENV === "production" - cookie only works with HTTPS. Development "localhost" allowed. 
+// sameSite - cookie won't be sent from other websites. Protection from CSRF attacks.
+// maxAge - the user stays logged in for 30 days.
+
+
+// REGISTER:
 
 export const register = async (req, res) => {
     try {
+
         const { name, email, password } = req.body;
+        // it's destructuring, the same as const name = req.body.name and so on;
 
         const validation = validateRegister(name, email, password);
+        
         if (!validation.valid) {
             return res.status(400).json({ message: validation.message });
         }
 
         const userExists = await findUserByEmail(email);
+
         if (userExists.rows.length > 0) {
-            return res.status(409).json({ message: "User already exists with this email" });
+            return res.status(409).json({ message: "User is already registered" });
         }
 
         const hashedPassword = await hashPassword(password);
         const verificationCode = generateVerificationCode();
-
         const newUser = await createUser(name, email, hashedPassword, verificationCode);
 
         await sendVerificationEmail(email, name, verificationCode);
@@ -52,13 +70,17 @@ export const register = async (req, res) => {
             console.log(`Verification code for ${email}: ${verificationCode}`);
         }
 
+        // development means the application is running in a mode for the developer while building and testing. 
+        // Development Environment is when you are coding on your computer.
+        // Production Environment is when your application is live for real users. 
+
         return res.status(201).json({
             user: {
                 id: newUser.rows[0].id,
                 name: newUser.rows[0].name,
                 email: newUser.rows[0].email
             },
-            message: "User registered. Check your email for verification code."
+            message: "Registered. Check your email for verification code."
         });
 
     } catch (error) {
@@ -67,7 +89,7 @@ export const register = async (req, res) => {
     }
 };
 
-// VERIFY CODE
+// VERIFY CODE:
 
 export const verifyCode = async (req, res) => {
     try {
@@ -78,6 +100,7 @@ export const verifyCode = async (req, res) => {
         }
 
         const user = await findUserByEmail(email);
+        
         if (user.rows.length === 0) {
             return res.status(401).json({ message: "User not found" });
         }
@@ -94,6 +117,7 @@ export const verifyCode = async (req, res) => {
         );
 
         const token = generateToken(userData.id);
+        
         res.cookie("token", token, cookies);
 
         if (process.env.NODE_ENV === "development") {
@@ -112,7 +136,7 @@ export const verifyCode = async (req, res) => {
     }
 };
 
-// LOGIN
+// LOGIN:
 
 export const login = async (req, res) => {
     try {

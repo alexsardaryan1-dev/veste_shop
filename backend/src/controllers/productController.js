@@ -1,4 +1,7 @@
-import { findAllProducts, findProductById } from "../models/Product.js";
+import {
+    findAllProducts,
+    findProductById
+} from "../models/Product.js";
 
 export const getProducts = async (req, res) => {
     try {

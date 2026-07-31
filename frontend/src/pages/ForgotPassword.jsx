@@ -121,7 +121,7 @@ const ForgotPassword = () => {
 
         {!emailSent && !resetDone && (
           <form onSubmit={handleForgot} className="flex flex-col gap-5">
-            <p className="text-base text-orange-500 -mt-2 mb-2">
+            <p className="text-base text-green-700 -mt-2 mb-2">
               Enter your email to get a reset code
             </p>
 
@@ -135,7 +135,7 @@ const ForgotPassword = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="border border-black lg:border-gray-300 p-3 text-base outline-none focus:border-black transition duration-300"
+                className="border border-gray-300 p-3 text-base outline-none focus:border-black transition duration-300"
                 required
               />
             </div>

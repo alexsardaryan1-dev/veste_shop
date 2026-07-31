@@ -1,9 +1,17 @@
+// This file is needed to handle all database operations related to users.
+// The Architecture: controller -> model -> database.
+// The controller shouldn't write SQL directly. Instead, it calls functiosn from this model.
+
 import pool from "../config/database.js";
+// pool is the object that allows to execute SQL queries. 
 import bcrypt from "bcrypt";
+// bcrypt hashes the password.
 
 export const findUserByEmail = async (email) => {
     return pool.query("SELECT * FROM users WHERE email = $1", [email]);
 };
+
+// $1 is a PostgreSQL placeholder. 
 
 export const findUserById = async (id) => {
     return pool.query("SELECT id, name, email, is_verified FROM users WHERE id = $1", [id]);

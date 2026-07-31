@@ -30,37 +30,26 @@ const navLinks = [
 
 const Header = () => {
   const { user } = useContext(AuthContext);
-  const {
-    cartItems,
-    cartCount,
-    isMiniCartOpen,
-    closeMiniCart,
-    removeFromCart,
-    updateQuantity,
-    clearCart,
-  } = useContext(CartContext);
+  // user exists when someone is logged in.
+  const { cartCount } = useContext(CartContext);
+  // Used to show the number near the cart icon.
   const { wishlistItems } = useContext(WishlistContext);
+  // Get wishlist products from global WishlistContext.
   const navigate = useNavigate();
+  // Example: after search, redirect user to /shop.
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
-  const miniCartRef = useRef(null);
   const headerRef = useRef(null);
+  // useRef gives direct access to the header DOM element.
+  // We use it to measure header height.
 
   const navLinkClass =
     "relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-full after:bg-white after:origin-left after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100";
+  // This helps me to create an underline animation on hover.
 
-  const getImage = (item) => item.images?.[0]?.image_url || item.images?.[0];
-  const getPrice = (item) => Number(item.sale_price || item.price);
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + getPrice(item) * item.quantity,
-    0,
-  );
-
-  // Measure actual header height and expose it as a CSS variable
-  // so page content offset and mini-cart positioning always stay in sync.
   useEffect(() => {
     const updateHeaderHeight = () => {
       if (headerRef.current) {
@@ -70,28 +59,28 @@ const Header = () => {
         );
       }
     };
+    // We use useEffect when useEffect when we want React to do something after the component appears or after some data changes. React's main job: State -> JSX -> UI. But sometimes our component needs to intearct with the outside world: browser APIs, APIs/backend, timers, event listeners, localStorage, DOM elements, subscriptions. For them we use useEffect.
+    // For example,
+    // useEffect(() => {
+    //      console.log(user);
+    // }, [user]);
+    // When user changes, run this code.
 
     updateHeaderHeight();
     window.addEventListener("resize", updateHeaderHeight);
     return () => window.removeEventListener("resize", updateHeaderHeight);
   }, [mobileSearchOpen]);
-
-  useEffect(() => {
-    if (!isMiniCartOpen) return;
-    const handleClickOutside = (e) => {
-      if (miniCartRef.current && !miniCartRef.current.contains(e.target)) {
-        closeMiniCart();
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isMiniCartOpen, closeMiniCart]);
+  // When the header appears or mobile search opens/closes, recalculate the header height.
 
   const runSearch = () => {
     const trimmed = searchQuery.trim();
+    // Removes extra spaces.
     if (!trimmed) return;
+    // Does nothing if search is empty.
     navigate(`/shop?search=${encodeURIComponent(trimmed)}`);
+    // Navigates user to shop page with search query.
     setMobileSearchOpen(false);
+    // Close mobile search after searching.
   };
 
   const handleSearchKeyDown = (e) => {
@@ -99,6 +88,7 @@ const Header = () => {
       runSearch();
     }
   };
+  // Allows pressing ENTER to search.
 
   return (
     <header
@@ -149,144 +139,19 @@ const Header = () => {
             )}
           </Link>
 
-          <div className="relative" ref={miniCartRef}>
-            <Link
-              to="/dashboard/cart"
-              className="relative flex items-center justify-center"
-              aria-label="Open cart"
-            >
-              <ShoppingBag size={20} />
+          <Link
+            to="/dashboard/cart"
+            className="relative flex items-center justify-center"
+            aria-label="Open cart"
+          >
+            <ShoppingBag size={20} />
 
-              {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-light text-white">
-                  {cartCount}
-                </span>
-              )}
-            </Link>
-
-            {isMiniCartOpen && (
-              <div
-                className="fixed left-0 right-0 bottom-0 z-50 flex items-start justify-end sm:items-start sm:absolute sm:inset-auto sm:top-full sm:right-0 sm:bottom-auto sm:left-auto sm:mt-0 uppercase tracking-wider"
-                style={{ top: "var(--header-height, 0px)" }}
-              >
-                <div className="bg-white text-black shadow-lg border border-black w-full h-full sm:h-auto sm:w-80 flex flex-col">
-                  <div className="flex items-center justify-between p-4 border-b border-black">
-                    <span className="text-base font-light">
-                      Cart ({cartCount})
-                    </span>
-                    <button
-                      type="button"
-                      onClick={closeMiniCart}
-                      aria-label="Close"
-                    >
-                      <X size={22} />
-                    </button>
-                  </div>
-
-                  {cartItems.length > 0 && (
-                    <button
-                      type="button"
-                      onClick={clearCart}
-                      className="text-xs text-red-500 hover:underline self-end px-4 pt-2 uppercase"
-                    >
-                      Clear Cart
-                    </button>
-                  )}
-
-                  <div className="flex-1 overflow-y-auto flex flex-col divide-y divide-gray-100">
-                    {cartItems.length === 0 ? (
-                      <p className="p-4 text-xl text-center text-gray-500 uppercase">
-                        Your cart is empty.
-                      </p>
-                    ) : (
-                      cartItems.map((item) => (
-                        <div
-                          key={`${item.id}-${item.size || "nosize"}`}
-                          className="flex items-center gap-3 p-3"
-                        >
-                          <img
-                            src={getImage(item)}
-                            alt={item.name}
-                            className="w-14 h-14 object-cover bg-gray-100 shrink-0"
-                          />
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm truncate">{item.name}</p>
-                            {item.size && (
-                              <span className="text-xs text-gray-500">
-                                Size: {item.size}
-                              </span>
-                            )}
-                            <div className="flex items-center gap-2 mt-1">
-                              <div className="flex items-center border border-black">
-                                <button
-                                  type="button"
-                                  aria-label="Decrease quantity"
-                                  onClick={() =>
-                                    updateQuantity(
-                                      item.id,
-                                      item.size,
-                                      item.quantity - 1,
-                                    )
-                                  }
-                                  className="px-2 text-sm"
-                                >
-                                  −
-                                </button>
-                                <span className="px-2 text-sm">
-                                  {item.quantity}
-                                </span>
-                                <button
-                                  type="button"
-                                  aria-label="Increase quantity"
-                                  onClick={() =>
-                                    updateQuantity(
-                                      item.id,
-                                      item.size,
-                                      item.quantity + 1,
-                                    )
-                                  }
-                                  className="px-2 text-sm"
-                                >
-                                  +
-                                </button>
-                              </div>
-                              <span className="text-sm text-gray-500">
-                                ${getPrice(item).toFixed(2)}
-                              </span>
-                            </div>
-                          </div>
-                          <button
-                            type="button"
-                            aria-label={`Remove ${item.name} from cart`}
-                            onClick={() => removeFromCart(item.id, item.size)}
-                            className="text-gray-500"
-                          >
-                            <X size={20} />
-                          </button>
-                        </div>
-                      ))
-                    )}
-                  </div>
-
-                  {cartItems.length > 0 && (
-                    <div className="p-4 border-t border-black flex flex-col gap-3">
-                      <div className="flex justify-between text-base font-light">
-                        <span>Subtotal</span>
-                        <span>${subtotal.toFixed(2)}</span>
-                      </div>
-                      <Link
-                        to="/dashboard/cart"
-                        onClick={closeMiniCart}
-                        className="bg-black text-white text-center py-2 text-base uppercase"
-                      >
-                        View Cart
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              </div>
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-light text-white">
+                {cartCount}
+              </span>
             )}
-          </div>
+          </Link>
 
           {!user ? (
             <Link to="/login" className="flex items-center gap-2">
@@ -294,7 +159,7 @@ const Header = () => {
               <span className="hidden sm:inline">Login</span>
             </Link>
           ) : (
-            <Link to="/dashboard" className="flex items-center gap-2">
+            <Link to="/dashboard/profile" className="flex items-center gap-2">
               <User size={20} />
             </Link>
           )}
@@ -405,26 +270,6 @@ const Header = () => {
           >
             <X size={20} />
           </button>
-
-          {!user ? (
-            <Link
-              to="/login"
-              onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-2 text-xl font-medium tracking-wider"
-            >
-              <User size={20} strokeWidth={2.5} />
-              Log in
-            </Link>
-          ) : (
-            <Link
-              to="/dashboard"
-              onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-2 text-xl font-medium tracking-wider"
-            >
-              <User size={20} strokeWidth={2.5} />
-              MY PROFILE
-            </Link>
-          )}
 
           <ul className="flex flex-col gap-4 text-lg uppercase">
             <li>

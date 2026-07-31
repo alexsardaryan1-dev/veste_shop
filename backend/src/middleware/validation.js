@@ -1,5 +1,10 @@
 export const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Regex checks if email has:
+    // - characters before @
+    // - @ symbol
+    // - domain name
+    // - extension (.com, .net, etc.)
     return emailRegex.test(email);
 };
 
@@ -32,6 +37,7 @@ export const validatePassword = (password) => {
 };
 
 export const validateRegister = (name, email, password) => {
+    
     if (!name || !email || !password) {
         return { valid: false, message: "Please fill in all required fields" };
     }
@@ -41,6 +47,7 @@ export const validateRegister = (name, email, password) => {
     }
 
     const passwordCheck = validatePassword(password);
+    
     if (!passwordCheck.valid) {
         return passwordCheck;
     }

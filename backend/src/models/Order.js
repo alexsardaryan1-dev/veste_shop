@@ -1,3 +1,7 @@
+// This file handles all database operations related to orders.
+// The controller calls these functions instead of writing SQL directly.
+// Architecture: Controller -> Model -> Database
+
 import pool from "../config/database.js";
 
 export const getOrdersByUser = (userId, status) => {
@@ -45,6 +49,12 @@ export const getOrdersByUser = (userId, status) => {
     return pool.query(query, params);
 };
 
+// It's for getting all orders belonging to a specific user.
+// Status is optional:
+// - If status exists, return only orders with that status.
+// - If no status, return all user orders.
+
+
 export const getOrderStats = async (userId) => {
     const result = await pool.query(
         `SELECT
@@ -59,14 +69,23 @@ export const getOrderStats = async (userId) => {
 };
 
 export const createOrder = async (userId, total, items) => {
+
     const client = await pool.connect();
+    // Get a dedicated database connection.
+    // Needed because we will execute multiple queries together.
+
     try {
         await client.query("BEGIN");
+        // Start database transaction.
+        //
+        // Everything after BEGIN must succeed,
+        // otherwise we rollback everything.
 
         const orderResult = await client.query(
             `INSERT INTO orders (user_id, total, status) VALUES ($1, $2, 'confirmed') RETURNING id, total, status, created_at`,
             [userId, total]
         );
+
         const order = orderResult.rows[0];
 
         for (const item of items) {
@@ -80,11 +99,15 @@ export const createOrder = async (userId, total, items) => {
         return order;
     } catch (error) {
         await client.query("ROLLBACK");
+        // If something fails:
+        // remove all changes made in this transaction.
         throw error;
     } finally {
         client.release();
+        // Return connection back to the pool.
     }
 };
+
 
 export const cancelOrder = async (orderId, userId) => {
     const result = await pool.query(

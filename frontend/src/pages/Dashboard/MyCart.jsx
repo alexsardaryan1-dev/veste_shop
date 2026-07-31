@@ -14,12 +14,10 @@ const MyCart = () => {
     () => new Set(cartItems.map(getItemKey)),
   );
 
-  // Keep selection in sync if cart items change (e.g. item removed)
   useEffect(() => {
     setSelectedKeys((prev) => {
       const validKeys = new Set(cartItems.map(getItemKey));
       const next = new Set([...prev].filter((k) => validKeys.has(k)));
-      // Auto-select any newly added item
       cartItems.forEach((item) => {
         const key = getItemKey(item);
         if (!prev.has(key) && !next.has(key)) next.add(key);
@@ -219,7 +217,7 @@ const MyCart = () => {
             <button
               onClick={handleCheckout}
               disabled={selectedItems.length === 0}
-              className="bg-black text-white py-3 uppercase text-sm rounded-lg disabled:opacity-40 disabled:cursor-not-allowed"
+              className="bg-black text-white py-3 uppercase text-base rounded-lg disabled:opacity-40 disabled:cursor-not-allowed hover hover:bg-white hover:text-black transition duration-300 border border-black"
             >
               Checkout
             </button>

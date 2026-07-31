@@ -1,3 +1,6 @@
+// This is the Product Model which talks to PostgreSQL. 
+
+
 import pool from "../config/database.js";
 
 export const findAllProducts = () => {
@@ -15,6 +18,9 @@ export const findAllProducts = () => {
         ORDER BY p.created_at DESC
     `);
 };
+
+// COALESCE is needed if the first value is NULL, use the second value instead. 
+// json_agg means collect all rows into one JSON array.
 
 export const findProductById = async (id) => {
     const productResult = await pool.query(
