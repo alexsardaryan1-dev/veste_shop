@@ -117,8 +117,8 @@ const ProductInfo = ({ product }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-sm lg:text-xl text-gray-500 mb-6">
-        <div className="flex items-center gap-2">
+      <div className="flex items-start justify-between gap-3 text-sm lg:text-xl text-gray-500 mb-6">
+        <div className="flex items-center gap-2 min-w-0 flex-1 overflow-hidden">
           <Link to="/" className="hover:underline">
             Home
           </Link>
@@ -130,7 +130,7 @@ const ProductInfo = ({ product }) => {
             {category}
           </Link>
           <ChevronRight size={20} />
-          <span className="text-gray-500">{name}</span>
+          <span className="text-gray-500 truncate">{name}</span>
         </div>
         <div className="flex items-center gap-4">
           <button

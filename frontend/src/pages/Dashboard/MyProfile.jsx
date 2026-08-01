@@ -1,13 +1,23 @@
 import { useEffect, useState } from "react";
-import { Package, CheckCircle, Clock, Wallet } from "lucide-react";
+import {
+  Package,
+  CheckCircle,
+  Clock,
+  Wallet,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import api from "../../services/api";
 import { Link } from "react-router-dom";
+
+const PAGE_SIZE = 5;
 
 export default function MyProfile() {
   const [stats, setStats] = useState(null);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -55,6 +65,16 @@ export default function MyProfile() {
     },
   ];
 
+  const totalPages = Math.max(1, Math.ceil(orders.length / PAGE_SIZE));
+  const paginatedOrders = orders.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  );
+
+  const goToPage = (page) => {
+    setCurrentPage(Math.min(Math.max(page, 1), totalPages));
+  };
+
   if (loading) return <p className="text-gray-500">Loading profile...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
@@ -97,17 +117,17 @@ export default function MyProfile() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {orders.length === 0 ? (
+              {paginatedOrders.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={4}
+                    colSpan={5}
                     className="px-4 py-6 text-center text-gray-500"
                   >
                     No confirmed orders yet.
                   </td>
                 </tr>
               ) : (
-                orders.map((order) => (
+                paginatedOrders.map((order) => (
                   <tr key={order.id} className="lg:text-lg text-base">
                     <td className="px-4 py-3">
                       <Link
@@ -135,13 +155,56 @@ export default function MyProfile() {
                       >
                         View Orders
                       </Link>
-                    </td>{" "}
+                    </td>
                   </tr>
                 ))
               )}
             </tbody>
           </table>
         </div>
+
+        {orders.length > PAGE_SIZE && (
+          <div className="flex items-center justify-between mt-4 text-sm lg:text-base normal-case">
+            <p className="text-gray-500">
+              Page {currentPage} of {totalPages}
+            </p>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => goToPage(currentPage - 1)}
+                disabled={currentPage === 1}
+                aria-label="Previous page"
+                className="p-2 border border-gray-300 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-100 transition duration-200"
+              >
+                <ChevronLeft size={18} />
+              </button>
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <button
+                    key={page}
+                    onClick={() => goToPage(page)}
+                    className={`w-9 h-9 rounded-lg border text-sm transition duration-200 ${
+                      currentPage === page
+                        ? "bg-black text-white border-black"
+                        : "border-gray-300 hover:bg-gray-100"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ),
+              )}
+
+              <button
+                onClick={() => goToPage(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                aria-label="Next page"
+                className="p-2 border border-gray-300 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-100 transition duration-200"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
