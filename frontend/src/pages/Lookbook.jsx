@@ -49,8 +49,8 @@ const Carousel = ({ images }) => {
     <div className="w-full overflow-hidden">
       <div ref={trackRef} className="flex w-max">
         {[...images, ...images].map((img, i) => (
-          <div key={i} className="min-w-[280px] h-[380px] flex-shrink-0">
-            <img src={img} className="w-full h-full object-cover" />
+          <div key={i} className="min-w-[220px] sm:min-w-[280px] lg:min-w-[350px] h-[300px] sm:h-[380px] lg:h-[450px] flex-shrink-0">
+            <img src={img} alt="Veste fashion lookbook" className="w-full h-full object-cover" />
           </div>
         ))}
       </div>
@@ -61,7 +61,7 @@ const Carousel = ({ images }) => {
 export default function LookbookSection() {
   return (
     <section className="w-full overflow-hidden bg-white">
-      <div className="text-center pt-16 pb-10 space-y-4">
+      <div className="text-center pt-10 sm:pt-16 pb-8 sm:pb-10 space-y-3 sm:space-y-4">
         <p className="text-xl lg:text-lg tracking-[0.3em] text-gray-500">
           LOOKBOOK
         </p>
@@ -73,7 +73,7 @@ export default function LookbookSection() {
 
       <Carousel images={imagesRow1} />
 
-      <div className="flex justify-center gap-2 py-14 text-base lg:text-xl">
+      <div className="flex flex-wrap justify-center gap-3 py-10 sm:py-14 text-sm sm:text-base lg:text-xl px-4">
         <Link
           to="/shop?category=men"
           className="px-6 py-3 border border-black hover:bg-black hover:text-white transition duration-300"

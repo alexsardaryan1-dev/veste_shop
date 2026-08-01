@@ -60,9 +60,9 @@ const MyCart = () => {
   };
 
   return (
-    <div className="space-y-6 pb-28 lg:pb-6 tracking-wider">
+    <div className="space-y-6 pb-24 sm:pb-28 lg:pb-6 tracking-wider">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-normal uppercase">My Cart</h1>
+        <h1 className="text-xl sm:text-2xl font-normal uppercase">My Cart</h1>
         {cartItems.length > 0 && (
           <button
             onClick={clearCart}
@@ -104,7 +104,7 @@ const MyCart = () => {
               return (
                 <div
                   key={key}
-                  className={`rounded-xl border p-4 flex flex-col sm:flex-row sm:items-center gap-4 transition duration-200 ${
+                  className={`rounded-xl border p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center gap-4 transition duration-200 ${
                     isSelected ? "border-black" : "border-gray-200 opacity-60"
                   }`}
                 >
@@ -120,7 +120,7 @@ const MyCart = () => {
                     <img
                       src={getImage(item)}
                       alt={item.name}
-                      className="w-20 h-20 object-cover bg-gray-100 rounded-lg shrink-0"
+                      className="w-16 h-16 sm:w-20 sm:h-20 object-cover bg-gray-100 rounded-lg shrink-0"
                     />
 
                     <div className="flex-1 min-w-0 sm:hidden uppercase text-base">
@@ -189,10 +189,10 @@ const MyCart = () => {
             })}
           </div>
 
-          {/* MOBILE: sticky full-width bar */}
+          {/* MOBILE */}
           <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 p-4 flex items-center justify-between gap-4 z-40">
             <div>
-              <p className="text-lg text-gray-500 uppercase">
+              <p className="text-sm sm:text-lg text-gray-500 uppercase">
                 Subtotal ({selectedItems.length})
               </p>
               <p className="text-lg font-medium">${subtotal.toFixed(2)}</p>
@@ -200,13 +200,13 @@ const MyCart = () => {
             <button
               onClick={handleCheckout}
               disabled={selectedItems.length === 0}
-              className="bg-black text-white py-3 px-6 uppercase text-base rounded-lg disabled:opacity-40 disabled:cursor-not-allowed"
+              className="bg-black text-white py-3 px-4 sm:px-6 uppercase text-sm sm:text-base rounded-lg disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Checkout
             </button>
           </div>
 
-          {/* DESKTOP: sticky summary card */}
+          {/* DESKTOP*/}
           <div className="hidden lg:flex sticky bottom-6 rounded-xl border border-gray-300 bg-white p-5 flex-col gap-4 max-w-sm ml-auto shadow-lg">
             <div className="flex justify-between text-lg font-normal uppercase">
               <span className="text-gray-500">

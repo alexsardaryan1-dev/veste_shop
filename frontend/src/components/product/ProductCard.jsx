@@ -7,7 +7,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 const ProductCard = ({ product }) => {
   const { id, name, price, sale_price, images, category } = product;
-  
+
   const { addToCart } = useContext(CartContext);
   const { toggleWishlist, isInWishlist } = useContext(WishlistContext);
   const { user } = useContext(AuthContext);
@@ -51,13 +51,13 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="flex flex-col border border-grey-500 h-[420px]">
+    <div className="flex flex-col border border-grey-500 h-auto min-h-[420px]">
       <Link
         to={`/product/${id}`}
         className="relative w-full aspect-[3/4] bg-gray-100 overflow-hidden block"
       >
         {sale_price && (
-          <span className="absolute top-3 left-3 bg-green-500 text-white text-base px-2 py-1 uppercase tracking-wider lg:text-lg">
+          <span className="absolute top-3 left-3 bg-green-500 text-white text-sm sm:text-base px-2 py-1 uppercase tracking-wider lg:text-lg tracking-wider">
             Sale
           </span>
         )}
@@ -83,8 +83,8 @@ const ProductCard = ({ product }) => {
         />
       </Link>
 
-      <div className="flex flex-col flex-1 p-4 justify-between">
-        <h3 className="text-lg font-medium uppercase tracking-wider">{name}</h3>
+      <div className="flex flex-col flex-1 p-3 sm:p-4 justify-between">
+        <h3 className="text-base sm:text-lg font-medium uppercase tracking-wider">{name}</h3>
 
         <div className="flex justify-between items-center text-lg">
           <div>

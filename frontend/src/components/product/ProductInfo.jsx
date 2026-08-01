@@ -24,6 +24,15 @@ const ProductInfo = ({ product }) => {
   const [openReturns, setOpenReturns] = useState(false);
   const [sizeDropdownOpen, setSizeDropdownOpen] = useState(false);
   const sizeDropdownRef = useRef(null);
+  // useRef is a React Hook that lets you keep a reference to something without causing a re-render. The most common use is to get access to a DOM element.
+  // Syntax:
+  // const myRef = useRef(initialValue);
+  // It returns an object like this:
+  // {
+  //   current: initialValue
+  // }
+  // You access the value through .current.
+
   const [added, setAdded] = useState(false);
 
   const {
@@ -36,12 +45,24 @@ const ProductInfo = ({ product }) => {
     category,
   } = product;
   const sizes = [...new Set(variants.map((v) => v.size))];
+  // This creates an array of unique sizes from the product's variants.
+  // A Set is a JavaScript collection that only stores unique values. So it removes the duplicated ones.
+  // A Set is not an array, so you can't use methods like .map() directly on it.
+  // The spread operator (...) converts it back into an array.
   const isAccessory = category === "accessories";
+  // This checks if the product belongs to the accessories category. So it uses the strict equality operator (===)
+  // My code uses isAccessory to skip the size selection for accessories.
+  // This means:
+  // If it's not an accessory,
+  // and the product has sizes,
+  // and the user didn't choose one,
+  // then show an error.
 
   const { addToCart } = useContext(CartContext);
   const { toggleWishlist, isInWishlist } = useContext(WishlistContext);
   const { user } = useContext(AuthContext);
   const { products: allProducts } = useProducts();
+  
   const navigate = useNavigate();
 
   const inWishlist = isInWishlist(id);
@@ -95,8 +116,8 @@ const ProductInfo = ({ product }) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-6">
-      <div className="flex items-center justify-between text-sm lg:text-xl text-gray-500 mb-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-sm lg:text-xl text-gray-500 mb-6">
         <div className="flex items-center gap-2">
           <Link to="/" className="hover:underline">
             Home
@@ -135,7 +156,7 @@ const ProductInfo = ({ product }) => {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
         <div>
           <div className="bg-gray-100 aspect-square overflow-hidden">
             <img
@@ -164,7 +185,7 @@ const ProductInfo = ({ product }) => {
         </div>
 
         <div className="flex flex-col gap-4 tracking-wider">
-          <h1 className="text-3xl font-medium">{name}</h1>
+          <h1 className="text-2xl sm:text-3xl font-medium">{name}</h1>
 
           <div className="flex flex-col gap-1 mt-2">
             <div className="text-xl font-normal">
@@ -261,7 +282,7 @@ const ProductInfo = ({ product }) => {
             </div>
           </div>
 
-          <div className="flex gap-3 mt-2">
+          <div className="flex gap-2 sm:gap-3 mt-2">
             <button
               onClick={handleAddToCart}
               className={`flex-1 py-3 uppercase text-base border flex items-center justify-center gap-2 transition duration-300 ${
@@ -293,13 +314,13 @@ const ProductInfo = ({ product }) => {
           <div className="mt-4 border-t border-black">
             <button
               onClick={() => setOpenInfo((prev) => !prev)}
-              className="w-full flex justify-between items-center py-4 uppercase text-base lg:text-xl"
+              className="w-full flex justify-between items-center py-4 uppercase text-base sm:text-lg lg:text-xl"
             >
               Product Info
               <span>{openInfo ? "−" : "+"}</span>
             </button>
             {openInfo && (
-              <p className="pb-4 text-base lg:text-xl text-gray-500">
+              <p className="pb-4 text-base sm:text-lg lg:text-xl text-gray-500">
                 {product.description || "No description available."}
               </p>
             )}
@@ -308,13 +329,13 @@ const ProductInfo = ({ product }) => {
           <div className="border-t border-black">
             <button
               onClick={() => setOpenReturns((prev) => !prev)}
-              className="w-full flex justify-between items-center py-4 uppercase text-base lg:text-xl"
+              className="w-full flex justify-between items-center py-4 uppercase text-base sm:text-lg lg:text-xl"
             >
               Return and Refund Policy
               <span>{openReturns ? "−" : "+"}</span>
             </button>
             {openReturns && (
-              <p className="pb-4 text-base lg:text-xl text-gray-500">
+              <p className="pb-4 text-base sm:text-lg lg:text-xl text-gray-500">
                 Standard return policy applies. Contact customer care for
                 details.
               </p>

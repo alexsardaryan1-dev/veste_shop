@@ -51,11 +51,11 @@ const Shop = () => {
   };
 
   return (
-    <div className="py-6 flex flex-col gap-6">
+    <div className="px-4 sm:px-6 lg:px-12 py-6 flex flex-col gap-6">
       <div className="flex flex-col gap-2">
         <div
           aria-label="Breadcrumb"
-          className="text-base lg:text-lg text-gray-500"
+          className="text-sm lg:text-lg text-gray-500"
         >
           <Link to="/" className="hover:underline">
             Home
@@ -65,7 +65,7 @@ const Shop = () => {
           </span>
           <span className="text-gray-500">{categoryLabel}</span>
         </div>
-        <h1 className="text-2xl lg:text-4xl font-medium tracking-wider uppercase">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-medium tracking-wider uppercase">
           Shop
         </h1>
       </div>
@@ -73,7 +73,7 @@ const Shop = () => {
       <div>
         <h2
           aria-labelledby="products-title"
-          className="text-2xl text-center font-normal uppercase tracking-wider mb-6"
+          className="text-xl sm:text-2xl text-center font-normal uppercase tracking-wider mb-6 break-words"
         >
           {categoryLabel}
         </h2>
@@ -97,7 +97,7 @@ const Shop = () => {
             aria-hidden="true"
             className="animate-spin text-gray-500"
           />
-          <span className="text-base lg:text-xl uppercase text-gray-500">
+          <span className="text-sm sm:text-base lg:text-xl uppercase text-gray-500 text-center">
             Loading more products...
           </span>
         </div>
@@ -106,7 +106,7 @@ const Shop = () => {
       {!loadingMore && hasMore && (
         <button
           onClick={handleLoadMore}
-          className="border border-black text-base lg:text-base px-5 py-2 self-center hover:bg-black hover:text-white transition duration-300 uppercase"
+          className="border border-black text-sm sm:text-base px-6 py-3 self-center hover:bg-black hover:text-white transition duration-300 uppercase"
         >
           Load More
         </button>

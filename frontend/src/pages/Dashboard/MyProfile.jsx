@@ -63,17 +63,17 @@ export default function MyProfile() {
       <h1 className="text-2xl font-normal uppercase">My Profile</h1>
 
       {/* Summary cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {cards.map(({ label, value, icon: Icon, color }) => (
           <div
             key={label}
-            className="rounded-xl border border-gray-300 p-5 flex items-center gap-4"
+            className="rounded-xl border border-gray-300 p-4 sm:p-5 flex items-center gap-3 sm:gap-4"
           >
             <div className={`p-3 rounded-lg ${color}`}>
               <Icon size={20} />
             </div>
             <div>
-              <p className="text-base font-normal text-black uppercase">
+              <p className="text-sm sm:text-base font-normal text-black uppercase">
                 {label}
               </p>
               <p className="text-base font-normal text-gray-500">{value}</p>
@@ -89,11 +89,11 @@ export default function MyProfile() {
           <table className="min-w-full">
             <thead className="bg-gray-50 text-left text-gray-500 uppercase">
               <tr className="text-base lg:text-lg border-b ">
-                <th className="px-4 py-3 font-normal">ID</th>
-                <th className="px-4 py-3 font-normal">Date</th>
-                <th className="px-4 py-3 font-normal">Total</th>
-                <th className="px-4 py-3 font-normal">Status</th>
-                <th className="px-4 py-3 font-normal">Details</th>
+                <th className="px-3 sm:px-4 py-3 font-normal">ID</th>
+                <th className="px-3 sm:px-4 py-3 font-normal">Date</th>
+                <th className="px-3 sm:px-4 py-3 font-normal">Total</th>
+                <th className="px-3 sm:px-4 py-3 font-normal">Status</th>
+                <th className="px-3 sm:px-4 py-3 font-normal">Details</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -124,7 +124,7 @@ export default function MyProfile() {
                       ${order.total.toFixed(2)}
                     </td>
                     <td className="px-4 py-3">
-                      <span className="px-2 py-1 rounded-full font-normal bg-green-50 text-green-500">
+                      <span className="px-2 py-1 text-sm sm:text-base rounded-full font-normal bg-green-50 text-green-500">
                         {order.status}
                       </span>
                     </td>

@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="bg-black text-white py-8 mt-8">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
         <div>
           <h2 className="text-3xl font-light tracking-wider lg:text-4xl cursor-pointer">
             <Link to="/">VESTE</Link>
           </h2>
         </div>
 
-        <div className="border-l border-white pl-6 tracking-wider">
-          <h3 className="text-base lg:text-lg font-medium uppercase mb-8">
+        <div className="border-t pt-6 md:border-t-0 md:border-l md:pl-6 md:pt-0 tracking-wider">
+          <h3 className="text-base lg:text-lg font-medium uppercase mb-6 lg:mb-8">
             Customer Care
           </h3>
 
@@ -26,8 +26,8 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div className="border-l border-white pl-6 tracking-wider">
-          <h3 className="text-base lg:text-lg font-medium uppercase mb-8">
+        <div className="border-t pt-6 md:border-t-0 md:border-l md:pl-6 md:pt-0 tracking-wider">
+          <h3 className="text-base lg:text-lg font-medium uppercase mb-6 lg:mb-8">
             Visit Our Store
           </h3>
 
@@ -37,8 +37,8 @@ const Footer = () => {
           </p>
         </div>
 
-        <div className="border-l border-white pl-6 tracking-wider">
-          <h3 className="text-base lg:text-lg font-medium uppercase mb-8">
+        <div className="border-t pt-6 md:border-t-0 md:border-l md:pl-6 md:pt-0 tracking-wider">
+          <h3 className="text-base lg:text-lg font-medium uppercase mb-6 lg:mb-8">
             Stay Connected
           </h3>
 

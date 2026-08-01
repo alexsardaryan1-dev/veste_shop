@@ -10,12 +10,12 @@ const Hero = () => {
         <img
           src="/homePage/hero-img1.avif"
           alt=""
-          className="w-full h-[300px] object-cover"
+          className="w-full h-[250px] sm:h-[300px] object-cover"
         />
 
-        <div className="h-[250px] flex flex-col items-center justify-center gap-3 bg-pink-200 tracking-wider">
-          <h2 className="text-3xl">SULTRY & SMART</h2>
-          <p className="text-xl font-light">HOT SPRING LOOKS</p>
+        <div className="min-h-[250px] py-8 flex flex-col items-center justify-center gap-3 bg-pink-200 tracking-wider">
+          <h2 className="text-2xl sm:text-3xl">SULTRY & SMART</h2>
+          <p className="text-lg sm:text-xl font-light">HOT SPRING LOOKS</p>
           <div className="w-[50px] h-[3px] bg-black" />
           <Link
             to="/shop?category=women"
@@ -30,12 +30,12 @@ const Hero = () => {
         <img
           src="/homePage/hero-img2.avif"
           alt=""
-          className="w-full h-[300px] object-cover"
+          className="w-full h-[250px] sm:h-[300px] object-cover"
         />
 
-        <div className="h-[250px] flex flex-col items-center justify-center gap-3 bg-blue-200 text-black tracking-wider">
-          <h2 className="text-3xl">ELEGANT & SLICK</h2>
-          <p className="text-xl font-light">GET READY FOR SUMMER</p>
+        <div className="min-h-[250px] py-8 flex flex-col items-center justify-center gap-3 bg-blue-200 text-black tracking-wider">
+          <h2 className="text-2xl sm:text-3xl">ELEGANT & SLICK</h2>
+          <p className="text-lg sm:text-xl font-light">GET READY FOR SUMMER</p>
           <div className="w-[50px] h-[3px] bg-black" />
           <Link
             to="/shop?category=men"
@@ -54,11 +54,11 @@ const Hero = () => {
           <img
             src="/homePage/hero-img1.avif"
             alt="A women wearing a new jacket from Veste"
-            className="w-full h-[600px] object-cover"
+            className="w-full h-[500px] xl:h-[600px] object-cover"
           />
 
           <div className="flex flex-col items-center justify-center gap-4 tracking-wider">
-            <h2 className="text-6xl">SULTRY & SMART</h2>
+            <h2 className="text-4xl xl:text-6xl">SULTRY & SMART</h2>
             <p className="text-3xl font-light">HOT SPRING LOOKS</p>
             <div className="w-[50px] h-[3px] bg-black" />
             <Link
@@ -73,7 +73,7 @@ const Hero = () => {
         {/* ROW 2 */}
         <div className="grid grid-cols-2 bg-blue-200">
           <div className="flex flex-col items-center justify-center gap-4 text-black tracking-wider">
-            <h2 className="text-6xl">ELEGANT & SLICK</h2>
+            <h2 className="text-4xl xl:text-6xl">ELEGANT & SLICK</h2>
             <p className="text-3xl font-light">GET READY FOR SUMMER</p>
             <div className="w-[50px] h-[3px] bg-black" />
             <Link
@@ -87,7 +87,7 @@ const Hero = () => {
           <img
             src="/homePage/hero-img2.avif"
             alt="A man wearing a new shirt from Veste"
-            className="w-full h-[600px] object-cover"
+            className="w-full h-[500px] xl:h-[600px] object-cover"
           />
         </div>
       </div>

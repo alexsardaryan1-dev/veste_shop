@@ -4,6 +4,7 @@ import { AuthContext } from "./AuthContext";
 export const CartContext = createContext();
 
 const getCartKey = (userId) => `cartItems_${userId ?? "guest"}`;
+// This creates a unique name for saving the cart. Example, logged-in user (userId = 5), returns cartItems_5. Guest user (userId = null), returns cartItems_guest. Why? Because different users should have different carts. 
 
 const loadCart = (userId) => {
   try {

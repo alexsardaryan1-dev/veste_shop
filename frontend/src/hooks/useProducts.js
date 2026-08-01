@@ -1,3 +1,6 @@
+// It is a reusable function that gets products from your backend API and gives the product data to any component that needs it.
+// Instead of writing the same fetch() code in Shop.jsx, ProductDetails.jsx, etc., we write it once here.
+
 import { useEffect, useState } from "react";
 
 export const useProducts = () => {

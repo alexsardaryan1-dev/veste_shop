@@ -35,14 +35,14 @@ export default function CustomerCare() {
   };
 
   return (
-    <section className="w-full bg-white py-20 px-6">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
+    <section className="w-full bg-white py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 lg:gap-16">
         <div>
-          <h2 className="text-3xl lg:text-4xl font-medium uppercase tracking-wider mb-6">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium uppercase tracking-wider mb-4 sm:mb-6">
             Customer Care
           </h2>
 
-          <p className="text-gray-500 mb-6 leading-relaxed text-lg lg:text-xl font-light tracking-wider">
+          <p className="text-gray-500 mb-6 leading-relaxed text-base sm:text-lg lg:text-xl font-light tracking-wider">
             Have any questions or concerns? We’re always ready to help! <br />
             Call us at <span className="font-medium">123-456-7890</span> or send
             us an email at <span className="font-medium">info@mysite.com</span>
@@ -51,7 +51,7 @@ export default function CustomerCare() {
 
         {/* FAQ */}
         <div>
-          <h2 className="text-3xl lg:text-4xl font-medium uppercase tracking-wider mb-6">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium uppercase tracking-wider mb-4 sm:mb-6">
             FAQ
           </h2>
 
@@ -60,14 +60,14 @@ export default function CustomerCare() {
               <div key={index} className="border-b pb-4">
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full text-left flex justify-between items-center py-3 text-xl lg:text-xl font-light tracking-wider"
+                  className="w-full text-left flex justify-between items-center gap-4 py-3 text-base sm:text-lg lg:text-xl font-light tracking-wider"
                 >
                   {item.q}
                   <span>{openIndex === index ? "-" : "+"}</span>
                 </button>
 
                 {openIndex === index && (
-                  <p className="text-gray-500 text-base lg:text-xl mt-2 font-light tracking-wider">
+                  <p className="text-gray-500 text-sm sm:text-base lg:text-xl mt-2 font-light tracking-wider">
                     {item.a}
                   </p>
                 )}

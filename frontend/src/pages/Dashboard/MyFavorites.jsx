@@ -84,10 +84,10 @@ const FavoriteCard = ({ item, removeFromWishlist, addToCart }) => {
         </button>
       </div>
 
-      <div className="p-2 flex flex-col flex-1 gap-1.5 uppercase">
+      <div className="p-2 sm:p-3 flex flex-col flex-1 gap-1.5 uppercase">
         <Link
           to={`/product/${item.id}`}
-          className="text-base font-normal truncate"
+          className="text-sm sm:text-base font-normal truncate"
         >
           {item.name}
         </Link>
@@ -176,8 +176,8 @@ const MyFavorites = () => {
   const hasActiveFilter = activeFilter !== "all";
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-normal uppercase">My Favorites</h1>
+    <div className="space-y-4 sm:space-y-6">
+      <h1 className="text-xl sm:text-2xl font-normal uppercase">My Favorites</h1>
 
       {wishlistItems.length > 0 && (
         <div className="flex flex-wrap items-center gap-2">
@@ -222,7 +222,7 @@ const MyFavorites = () => {
           <p>No favorites in this category.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 items-stretch">
           {filteredItems.map((item) => (
             <FavoriteCard
               key={item.id}

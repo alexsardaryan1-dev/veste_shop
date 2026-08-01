@@ -46,12 +46,12 @@ const Settings = () => {
   };
 
   return (
-    <div className="space-y-8 max-w-lg">
+    <div className="space-y-8 w-full max-w-lg">
       <h1 className="text-2xl font-normal uppercase">Settings</h1>
 
       {/* ACCOUNT INFO */}
-      <div className="rounded-xl border border-gray-300 p-6 space-y-3 tracking-wider">
-        <h2 className="text-xl font-normal mb-2 uppercase">Account Info</h2>
+      <div className="rounded-xl border border-gray-300 p-4 sm:p-6 space-y-3 tracking-wider">
+        <h2 className="text-lg sm:text-xl font-normal mb-2 uppercase">Account Info</h2>
         <div>
           <p className="text-base uppercasetext-gray-500 font-normal uppercase">
             Name
@@ -67,11 +67,11 @@ const Settings = () => {
       </div>
 
       {/* CHANGE PASSWORD */}
-      <div className="rounded-xl border border-gray-300 p-6 uppercase tracking-wider">
+      <div className="rounded-xl border border-gray-300 p-4 sm:p-6 uppercase tracking-wider">
         <h2 className="text-xl font-normal mb-4">Change Password</h2>
 
         {error && (
-          <div className="bg-red-50 border border-red-500 text-red-500 p-3 rounded mb-4 text-base">
+          <div className="bg-red-50 border border-red-500 text-red-500 p-3 rounded mb-4 text-sm sm:text-base">
             {error}
           </div>
         )}

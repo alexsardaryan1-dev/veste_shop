@@ -44,10 +44,10 @@ const DashboardLayout = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row lg:items-start min-h-screen bg-gray-50">
+    <div className="flex flex-col lg:flex-row lg:items-stretch min-h-screen bg-gray-50">
       {/* SIDEBAR */}
-      <aside className="bg-white border-b lg:border-b-0 lg:border-r border-gray-300 lg:w-64 lg:h-screen lg:sticky lg:top-0 flex flex-col">
-        {/* HEADER (shared mobile + desktop) */}
+      <aside className="bg-white border-b lg:border-b-0 lg:border-r border-gray-300 lg:w-64 lg:min-h-screen lg:sticky lg:top-0 flex flex-col">
+        {/* HEADER */}
         <div className="p-4 lg:p-6 border-b border-gray-300 tracking-wider flex flex-col gap-4 shrink-0">
           <button
             onClick={() => navigate("/shop")}
@@ -77,7 +77,7 @@ const DashboardLayout = () => {
         </div>
 
         {/* NAVIGATION */}
-        <nav className="flex lg:flex-col gap-1 p-2 lg:p-4 overflow-x-auto lg:overflow-y-auto lg:flex-1 tracking-wider">
+        <nav className="flex lg:flex-col gap-1 p-2 sm:p-3 lg:p-4 overflow-x-auto lg:overflow-y-auto lg:flex-1 tracking-wider">
           {navItems.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
@@ -91,7 +91,7 @@ const DashboardLayout = () => {
               }
             >
               <Icon size={18} />
-              <span className="hidden sm:inline">{label}</span>
+              <span className="inline sm:inline">{label}</span>
             </NavLink>
           ))}
         </nav>
@@ -102,11 +102,11 @@ const DashboardLayout = () => {
           className="hidden lg:flex items-center gap-3 px-4 py-3 mx-2 mb-4 rounded-lg text-xs lg:text-base uppercase text-red-500 hover:bg-red-50 transition duration-200 whitespace-nowrap shrink-0"
         >
           <LogOut size={18} />
-          <span className="hidden sm:inline">Log out</span>
+          <span className="inline sm:inline">Log out</span>
         </button>
       </aside>
 
-      {/* MOBILE LOGOUT (inline with nav row) */}
+      {/* MOBILE LOGOUT */}
       <button
         onClick={handleLogout}
         className="lg:hidden flex items-center justify-center gap-2 px-4 py-3 text-xs uppercase text-red-500 border-t border-gray-300 bg-white"
@@ -116,7 +116,7 @@ const DashboardLayout = () => {
       </button>
 
       {/* MAIN CONTENT */}
-      <main className="flex-1 p-4 lg:p-10 min-w-0">
+      <main className="flex-1 p-4 sm:p-6 lg:p-10 min-w-0">
         <Outlet />
       </main>
     </div>

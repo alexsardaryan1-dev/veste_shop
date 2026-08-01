@@ -96,8 +96,8 @@ const Header = () => {
       className="w-full fixed top-0 left-0 right-0 z-[100]"
     >
       {/* TOP BAR */}
-      <div className="flex items-center justify-between px-4 lg:px-6 py-3 bg-white text-black">
-        <div className="hidden md:flex items-center gap-2 border-b border-black pb-1">
+      <div className="flex items-center justify-between px-4 sm:px-6 py-3 bg-white text-black">
+        <div className="hidden lg:flex items-center gap-2 border-b border-black pb-1">
           <button type="button" onClick={runSearch} aria-label="Search">
             <Search size={20} />
           </button>
@@ -121,11 +121,11 @@ const Header = () => {
           <Search size={20} />
         </button>
 
-        <span className="text-xl tracking-wider font-light uppercase">
+        <span className="text-sm sm:text-xl tracking-wider font-light uppercase">
           Free Shipping
         </span>
 
-        <div className="flex items-center gap-4 lg:gap-6 text-base lg:text-xl">
+        <div className="flex items-center gap-3 sm:gap-4 lg:gap-6 text-base lg:text-xl">
           <Link
             to="/dashboard/favorites"
             className="relative flex items-center justify-center"
@@ -192,7 +192,7 @@ const Header = () => {
       )}
 
       {/* SECOND BAR */}
-      <div className="flex items-center justify-between px-4 lg:px-6 py-5 bg-black text-white">
+      <div className="flex items-center justify-between px-4 sm:px-6 py-5 bg-black text-white">
         <h1 className="text-2xl lg:text-3xl tracking-[0.3em] font-light">
           <Link to="/">VESTE</Link>
         </h1>

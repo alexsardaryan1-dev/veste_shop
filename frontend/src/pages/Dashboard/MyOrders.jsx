@@ -49,8 +49,8 @@ const MyOrders = () => {
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-normal uppercase tracking-wider">
+    <div className="space-y-4 sm:space-y-6">
+      <h1 className="text-xl sm:text-2xl font-normal uppercase tracking-wider">
         My Orders
       </h1>
       {orders.length === 0 ? (
@@ -63,14 +63,14 @@ const MyOrders = () => {
           {orders.map((order) => (
             <div
               key={order.id}
-              className="rounded-xl border border-gray-300 p-5 flex flex-col gap-1"
+              className="rounded-xl border border-gray-300 p-4 sm:p-5 flex flex-col gap-1"
             >
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <p className="font-normal uppercase text-lg">
                   Order #{order.id}
                 </p>
                 <span
-                  className={`px-2 py-1 rounded-full text-lg font-normal ${
+                  className={`inline-flex w-fit px-2 py-1 rounded-full text-xs sm:text-sm lg:text-base font-normal uppercase ${
                     statusStyles[order.status] || "bg-gray-50 text-gray-500"
                   }`}
                 >
@@ -82,7 +82,10 @@ const MyOrders = () => {
               </p>
               <div className="flex flex-col divide-y divide-gray-100">
                 {order.items.map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 py-3">
+                  <div
+                    key={i}
+                    className="flex items-center gap-2 sm:gap-3 py-3"
+                  >
                     <img
                       src={item.image}
                       alt={item.name}

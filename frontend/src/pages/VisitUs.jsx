@@ -1,18 +1,18 @@
 export default function VisitUs() {
   return (
     <section aria-labelledby="visit-title" className="w-full bg-white">
-      <div className="text-center py-16">
-        <h1 className="text-3xl lg:text-4xl font-medium uppercase tracking-wider">
+      <div className="text-center py-10 sm:py-16 px-4">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-medium uppercase tracking-wider">
           Visit Us At Our Store
         </h1>
       </div>
 
       {/* MAP + INFO */}
-      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center tracking-wider">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-8 lg:gap-12 items-center tracking-wider">
         <div className="space-y-10">
           <div>
-            <h2 className="text-2xl font-light mb-3 lg:text-3xl">Address</h2>
-            <p className="text-gray-500 leading-7 font-light text-xl lg:text-xl">
+            <h2 className="font-light text-gray-500 leading-7 text-base sm:text-lg lg:text-xl">Address</h2>
+            <p className="text-gray-500 leading-7 font-light text-base sm:text-lg lg:text-xl">
               500 Terry Francine Street <br />
               San Francisco, CA 94158
             </p>
@@ -31,7 +31,7 @@ export default function VisitUs() {
           </div>
         </div>
 
-        <div className="w-full h-[400px]">
+        <div className="w-full h-[300px] sm:h-[400px]">
           <iframe
             title="Map showing our store location"
             className="w-full h-full border-0"
@@ -42,10 +42,10 @@ export default function VisitUs() {
       </div>
 
       {/* ABOUT US */}
-      <div className="max-w-4xl mx-auto px-6 py-20 text-center space-y-6 tracking-wider">
-        <h2 className="text-3xl lg:text-4xl font-medium uppercase">About Us</h2>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-20 text-center space-y-6 tracking-wider">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium uppercase">About Us</h2>
 
-        <p className="text-gray-500 leading-7 font-light text-xl lg:text-2xl">
+        <p className="text-gray-500 leading-7 font-light text-base sm:text-lg lg:text-2xl">
           We are a contemporary fashion brand focused on timeless design, clean
           aesthetics, and everyday versatility. Our collections are built around
           simplicity and quality — pieces that are easy to wear, easy to

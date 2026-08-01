@@ -4,6 +4,7 @@ import ProductInfo from "./ProductInfo";
 
 const ProductDetail = () => {
   const { id } = useParams();
+  // useParams gets paramaetrs from the URL. Suppose the URL /product/7, then const { id } = useParams() becomes id = "7". 
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
@@ -15,7 +16,7 @@ const ProductDetail = () => {
     fetchProduct();
   }, [id]);
 
-  if (!product) return <div className="text-center py-10">Loading...</div>;
+  if (!product) return <div className="text-center py-10 text-base sm:text-lg">Loading...</div>;
 
   return <ProductInfo product={product} />;
 };
