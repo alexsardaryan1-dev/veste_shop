@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Heart, X, Check, ChevronDown } from "lucide-react";
 import { WishlistContext } from "../../context/WishlistContext";
 import { CartContext } from "../../context/CartContext";
+import api from "../../services/api";
 
 const categoryFilters = [
   { value: "all", label: "All" },
@@ -26,9 +27,8 @@ const FavoriteCard = ({ item, removeFromWishlist, addToCart }) => {
     if (isAccessory || item.variants) return;
 
     const fetchVariants = async () => {
-      const res = await fetch(`http://localhost:5001/api/products/${item.id}`);
-      const data = await res.json();
-      setVariants(data.product?.variants || []);
+      const res = await api.get(`/api/products/${item.id}`);
+      setVariants(res.data.product?.variants || []);
     };
     fetchVariants();
   }, [item.id, isAccessory, item.variants]);
@@ -177,7 +177,9 @@ const MyFavorites = () => {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      <h1 className="text-xl sm:text-2xl font-normal uppercase">My Favorites</h1>
+      <h1 className="text-xl sm:text-2xl font-normal uppercase">
+        My Favorites
+      </h1>
 
       {wishlistItems.length > 0 && (
         <div className="flex flex-wrap items-center gap-2">

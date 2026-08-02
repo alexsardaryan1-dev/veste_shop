@@ -28,11 +28,16 @@ const app = express();
 // express is a function that comes from the Express library. It gives tools to create a backend server.
 // when we write app = express(), we are executing the Express function. Express creates an application object and returns it. This object is stored in app. So app is my backend application. The app object has methods that control my server.
 
+// Allowed origins come from CLIENT_URLS in .env (comma-separated for multiple
+// environments, e.g. local dev + deployed frontend). Falls back to the local
+// Vite dev ports so nothing breaks if the env var isn't set yet.
+
+const allowedOrigins = process.env.CLIENT_URLS
+    ? process.env.CLIENT_URLS.split(",").map((url) => url.trim())
+    : ["http://localhost:5173", "http://localhost:5174"];
+
 app.use(cors({
-    origin: [
-        "http://localhost:5173",
-        "http://localhost:5174",
-    ],
+    origin: allowedOrigins,
     credentials: true,
 }));
 

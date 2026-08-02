@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../../components/product/ProductCard";
+import api from "../../services/api";
 
 const NewArrivals = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await fetch("http://localhost:5001/api/products");
-      const data = await res.json();
-      setProducts(data.products.slice(0, 6));
+      const res = await api.get("/api/products");
+      setProducts(res.data.products.slice(0, 6));
     };
 
     fetchProducts();

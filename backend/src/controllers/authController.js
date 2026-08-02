@@ -26,10 +26,17 @@ const generateVerificationCode = () => {
     return Math.random().toString(36).substring(2, 8).toUpperCase();
 };
 
+const isProduction = process.env.NODE_ENV === "production";
+
+
+
 const cookies = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "Strict",
+    secure: isProduction,
+    // "None" is required for cross-origin cookies (frontend and backend on
+    // different domains once deployed) and only works when secure: true.
+    // "Strict" only works locally, where both run on http://localhost.
+    sameSite: isProduction ? "None" : "Strict",
     maxAge: 30 * 24 * 60 * 60 * 1000
 };
 
@@ -49,7 +56,7 @@ export const register = async (req, res) => {
         // it's destructuring, the same as const name = req.body.name and so on;
 
         const validation = validateRegister(name, email, password);
-        
+
         if (!validation.valid) {
             return res.status(400).json({ message: validation.message });
         }
@@ -100,7 +107,7 @@ export const verifyCode = async (req, res) => {
         }
 
         const user = await findUserByEmail(email);
-        
+
         if (user.rows.length === 0) {
             return res.status(401).json({ message: "User not found" });
         }
@@ -117,7 +124,7 @@ export const verifyCode = async (req, res) => {
         );
 
         const token = generateToken(userData.id);
-        
+
         res.cookie("token", token, cookies);
 
         if (process.env.NODE_ENV === "development") {
@@ -362,7 +369,7 @@ export const getMe = async (req, res) => {
 
 export const logout = (req, res) => {
     try {
-        res.clearCookie("token", { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "Strict" });
+        res.clearCookie("token", cookies);
 
         if (process.env.NODE_ENV === "development") {
             console.log(`User logged out`);

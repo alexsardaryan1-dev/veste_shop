@@ -2,6 +2,7 @@
 // Instead of writing the same fetch() code in Shop.jsx, ProductDetails.jsx, etc., we write it once here.
 
 import { useEffect, useState } from "react";
+import api from "../services/api";
 
 export const useProducts = () => {
     const [products, setProducts] = useState([]);
@@ -10,9 +11,8 @@ export const useProducts = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const res = await fetch("http://localhost:5001/api/products");
-                const data = await res.json();
-                setProducts(data.products);
+                const res = await api.get("/api/products");
+                setProducts(res.data.products);
             } finally {
                 setLoading(false);
             }
